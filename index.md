@@ -1,5 +1,7 @@
-<span class="seethrough">
+<span style="display:block" class="seethrough">
+  
   # About
   
   The about section
+
 </span>
