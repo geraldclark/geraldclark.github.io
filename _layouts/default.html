@@ -11,9 +11,40 @@
     <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
+    
+    <style type="text/css">
+          body {
+              font-family: Helvetica,Arial,sans-serif;
+              background-color: rgba(0, 0, 0, 0);
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              right: 0;
+              left: 0;
+              margin: 0;
+          }
+          #background {
+            top: 0;
+            left: 0;
+            min-height: 100%;
+            min-width: 100%;
+            width: auto;
+            height: auto;
+            display: block;
+            position: fixed;
+            z-index: -999;
+            opacity: 0.8;
+          }
+          .content {
+              padding-top: 60px;
+          }
+}
+
+        </style>
   </head>
   <body>
     <div class="wrapper">
+      <img src="images/Pittsburgh-RedFlats.jpg" id="background">
       <header>
         <h1><a href="{{ "/" | absolute_url }}">{{ site.title | default: site.github.repository_name }}</a></h1>
         
