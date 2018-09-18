@@ -38,7 +38,7 @@
           .content {
               padding-top: 60px;
           }
-          div{
+          .seethrough{
             -moz-border-radius:15px;
             -webkit-border-radius:15px;
             border-radius:15px;
@@ -46,7 +46,7 @@
             border: solid 1px #000; /* fallback for browsers that don't understand rgba */
             background-color: rgba(255,255,255,0.8); /* slighly transparent white */
             border-color: rgba(0,0,0,0.3); /*Very transparent black*/
-            padding: 5px;
+            padding-left: 10px;
           }
 }
 
@@ -64,7 +64,7 @@
 
         <p>{{ site.description | default: site.github.project_tagline }}</p>
         
-        <div>
+        <div class="seethrough">
          <a href="{{ site.github.owner_url }}" target="_blank"><i class="fab fa-github-square"></i></a> 
         <a href="https://www.linkedin.com/in/geraldclark/" target="_blank"><i class="fab fa-linkedin"></i></a> 
         <a href="https://twitter.com/geraldclark" target="_blank"><i class="fab fa-twitter-square"></i></a> 
