@@ -1,6 +1,5 @@
-<div class="seethrough" markdown="1">
-
+<span class="seethrough">
   # About
   
   The about section
-</div>
+</span>
