@@ -1,7 +1,4 @@
-<span style="display:block" class="seethrough">
-  
-  # About
-  
-  The about section
+# About
 
-</span>
+The about section
+
