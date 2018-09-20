@@ -43,8 +43,14 @@
             border: solid 0px #000; /* fallback for browsers that don't understand rgba */
             background-color: rgba(255,255,255,0.8); /* slighly transparent white */
             border-color: rgba(0,0,0,0.3); /*Very transparent black*/
-            padding: 10px;
+          }
+          .about {
+              padding: 20px;
+          }
+          .icons {
             font-size: 20px;
+            padding: 10px;
+            padding-top: 12px;
           }
 }
 
@@ -59,7 +65,7 @@
           <img src="{{site.logo | relative_url}}" alt="Logo" />
         {% endif %}
         
-        <div class="seethrough">
+        <div class="seethrough icons">
          <a href="{{ site.github.owner_url }}" target="_blank"><i class="fab fa-github-square"></i></a> 
         <a href="https://www.linkedin.com/in/geraldclark/" target="_blank"><i class="fab fa-linkedin"></i></a> 
         <a href="https://twitter.com/geraldclark" target="_blank"><i class="fab fa-twitter-square"></i></a> 
@@ -72,7 +78,7 @@
       </header>
       <section>
 
-      <div class="seethrough">
+      <div class="seethrough about">
       {{ content }}
       </div>
 
