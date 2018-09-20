@@ -16,10 +16,10 @@ Design of application systems to present information, automate tasks, and guide 
 ## Documentation
 Documentation of code samples, technical overviews, and architecture.
 
-# What I've Done
+# What I've Built
 Coming soon.
 
-# Knowledge
+# What I Did It WIth
 Skillsets I've picked up along the way
 
 ## Development Languages
