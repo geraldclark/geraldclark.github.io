@@ -1,4 +1,5 @@
 # What I Do
+The basics.
 
 ## Management
 Organization of team duties, release schedules, and development roadmap.
@@ -14,6 +15,7 @@ Design of application systems to present information and automate tasks.
 
 ## Documentation
 Documentation of code samples, technical overviews, and architecture.
+
 
 # Knowledge
 Skillsets I've picked up along the way
