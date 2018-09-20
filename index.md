@@ -7,15 +7,17 @@ Organization of team duties, release schedules, and development roadmap.
 ## Code Development
 Development of plugins, portal applications, Knowlegebases, and any customization inbetween.
 
-## Database
+## Databases
 Database management, reporting, data migration, and integrations.
 
 ## Architecture
-Design of application systems to present information and automate tasks.
+Design of application systems to present information, automate tasks, and guide workflow.
 
 ## Documentation
 Documentation of code samples, technical overviews, and architecture.
 
+# What I've Done
+Coming soon.
 
 # Knowledge
 Skillsets I've picked up along the way
