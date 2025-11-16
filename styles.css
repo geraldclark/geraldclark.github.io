@@ -83,6 +83,8 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     transition: background-color 0.3s ease, color 0.3s ease;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .dashboard-container,
@@ -1832,6 +1834,7 @@ body {
 @media (max-width: 768px) {
     .dashboard {
         padding: 24px 16px;
+        padding-top: 140px; /* More space for status bar on mobile */
     }
 
     .hero-name {
@@ -1861,15 +1864,145 @@ body {
     }
 
     .status-bar {
-        flex-direction: column;
-        gap: 8px;
-        align-items: flex-start;
+        flex-wrap: wrap;
+        min-height: auto;
+        padding-bottom: 0;
+    }
+
+    .status-left {
+        padding: 8px 12px;
+        width: 100%;
+        order: 1;
+    }
+
+    .status-nav-tabs {
+        order: 2;
+        width: 100%;
+        padding: 0 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    .status-nav-tabs::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .status-nav-tabs::-webkit-scrollbar-thumb {
+        background: var(--navy-500);
+        border-radius: 2px;
+    }
+
+    .status-right {
+        padding: 8px 12px;
+        order: 3;
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .nav-link {
+        font-size: 11px;
+        padding: 6px 8px 8px 10px;
+        min-width: fit-content;
+    }
+
+    .nav-path {
+        white-space: nowrap;
+    }
+
+    .nav-file-icon {
+        font-size: 12px;
+    }
+
+    /* Hide View Log button on mobile */
+    .view-logs-btn {
+        display: none !important;
+    }
+
+    /* Hide logs panel on mobile */
+    .logs-panel-overlay {
+        display: none !important;
+    }
+
+    /* Prevent text selection issues on mobile */
+    .nav-link,
+    .card-control-btn {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+
+    /* Terminal adjustments */
+    .terminal-body {
+        padding: 20px 16px;
+    }
+
+    .terminal-title {
+        font-size: 11px;
+        margin-left: 8px;
+    }
+
+    /* Section headers */
+    .section-title {
+        font-size: 20px;
+    }
+
+    /* Content cards */
+    .content-card {
+        padding: 20px;
+    }
+
+    /* Project cards */
+    .project-card {
+        height: auto;
+        min-height: auto;
+    }
+
+    .project-footer {
+        position: relative;
+        padding-right: 0;
+        bottom: auto;
+    }
+
+    /* Better touch targets on mobile */
+    .card-control-btn,
+    .theme-toggle,
+    .nav-close-btn {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    /* Improve scrolling on mobile */
+    .status-nav-tabs {
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Fix modal on mobile */
+    .modal-content {
+        width: 95%;
+        max-width: 95%;
+        margin: 20px;
+    }
+
+    /* Fix footer stats on mobile */
+    .footer-stats {
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
     }
 }
 
 @media (max-width: 480px) {
+    .dashboard {
+        padding: 16px 12px;
+        padding-top: 140px;
+    }
+
     .hero-name {
         font-size: 28px;
+    }
+
+    .hero-title {
+        font-size: 16px;
     }
 
     .stat-value {
@@ -1878,6 +2011,72 @@ body {
 
     .contact-grid {
         grid-template-columns: 1fr;
+    }
+
+    .status-left {
+        padding: 6px 8px;
+        gap: 8px;
+    }
+
+    .status-text {
+        font-size: 10px;
+    }
+
+    .status-time {
+        font-size: 10px;
+    }
+
+    .nav-link {
+        font-size: 10px;
+        padding: 4px 6px 6px 8px;
+    }
+
+    .nav-path {
+        display: none; /* Hide text on very small screens, show only icons */
+    }
+
+    .nav-link .nav-file-icon {
+        margin-right: 0;
+    }
+
+    .section-title {
+        font-size: 18px;
+    }
+
+    .content-card {
+        padding: 16px;
+    }
+
+    .stat-card,
+    .project-card {
+        padding: 16px;
+    }
+
+    .terminal-body {
+        padding: 16px 12px;
+    }
+
+    .code-editor {
+        font-size: 12px;
+    }
+
+    .line-number {
+        width: 40px;
+        padding: 0 8px;
+        font-size: 11px;
+    }
+
+    /* Even better touch targets on very small screens */
+    .card-control-btn,
+    .theme-toggle,
+    .nav-close-btn {
+        min-width: 48px;
+        min-height: 48px;
+    }
+
+    /* Hide close buttons on nav tabs for very small screens */
+    .nav-close-btn {
+        display: none;
     }
 }
 
@@ -2559,19 +2758,12 @@ body {
     border-color: var(--blue-200);
 }
 
-/* Responsive */
+/* Responsive - Logs Panel disabled on mobile */
 @media (max-width: 768px) {
-    .logs-panel {
-        width: 85%;
-    }
-
-    .logs-sidebar {
-        width: 100%;
-        max-width: 280px;
-    }
-
-    .logs-detail-metrics {
-        grid-template-columns: 1fr;
+    /* Logs panel completely hidden on mobile */
+    .logs-panel-overlay {
+        display: none !important;
+        visibility: hidden !important;
     }
 }
 

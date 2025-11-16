@@ -1356,14 +1356,20 @@ const app = (function() {
                     </div>
                 `;
                 
-                // Add click handler for View Logs button
+                // Add click handler for View Logs button (only on desktop)
                 const viewLogsBtn = projectCard.querySelector('.view-logs-btn');
-                viewLogsBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    if (window.openLogsPanel) {
-                        window.openLogsPanel(project.id);
-                    }
-                });
+                if (viewLogsBtn) {
+                    viewLogsBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        // Check if mobile before opening
+                        if (window.innerWidth <= 768) {
+                            return;
+                        }
+                        if (window.openLogsPanel) {
+                            window.openLogsPanel(project.id);
+                        }
+                    });
+                }
                 
                 projectsGrid.appendChild(projectCard);
             });
@@ -1661,6 +1667,11 @@ const app = (function() {
     // LOGS PANEL
     // ============================================
     const logs = {
+        // Check if device is mobile
+        isMobile() {
+            return window.innerWidth <= 768;
+        },
+
         init() {
             const logsOverlay = document.getElementById('logs-panel-overlay');
             const logsCloseBtn = document.getElementById('logs-panel-close');
@@ -1674,6 +1685,11 @@ const app = (function() {
             
             // Open logs panel
             function openLogsPanel(projectId = null) {
+                // Don't open on mobile devices
+                if (logs.isMobile()) {
+                    return;
+                }
+                
                 if (!portfolioData || !portfolioData.projects) return;
                 
                 allProjects = [...portfolioData.projects];
