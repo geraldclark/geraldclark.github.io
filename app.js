@@ -290,8 +290,8 @@ const app = (function() {
             const themeIcon = document.getElementById('theme-icon');
             const html = document.documentElement;
             
-            // Get saved theme or default to dark
-            const savedTheme = localStorage.getItem('theme') || 'dark';
+            // Get saved theme or default to light
+            const savedTheme = localStorage.getItem('theme') || 'light';
             html.setAttribute('data-theme', savedTheme);
             this.updateIcon(savedTheme, themeIcon);
             
