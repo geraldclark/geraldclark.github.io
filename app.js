@@ -2067,6 +2067,9 @@ const app = (function() {
         tooltipEl: null,
         
         show(element) {
+            // Check if element exists and has required properties
+            if (!element || !element.getAttribute) return;
+            
             const text = element.getAttribute('data-tooltip');
             if (!text) return;
             
@@ -2075,13 +2078,16 @@ const app = (function() {
             
             // Create tooltip element
             this.tooltipEl = document.createElement('div');
-            this.tooltipEl.className = element.classList.contains('project-status') 
+            // Check if element has classList before using it
+            const isProjectStatus = element.classList && element.classList.contains('project-status');
+            this.tooltipEl.className = isProjectStatus 
                 ? 'project-status-tooltip' 
                 : 'logs-detail-status-tooltip';
             this.tooltipEl.textContent = text;
             document.body.appendChild(this.tooltipEl);
             
             // Get element position
+            if (!element.getBoundingClientRect) return;
             const rect = element.getBoundingClientRect();
             const tooltipRect = this.tooltipEl.getBoundingClientRect();
             
@@ -2094,7 +2100,9 @@ const app = (function() {
             
             // Show tooltip
             requestAnimationFrame(() => {
-                this.tooltipEl.classList.add('show');
+                if (this.tooltipEl) {
+                    this.tooltipEl.classList.add('show');
+                }
             });
         },
         
@@ -2113,22 +2121,28 @@ const app = (function() {
         init() {
             // Use event delegation for dynamically created elements
             document.addEventListener('mouseenter', (e) => {
-                // Check if target exists and has classList
-                if (e.target && e.target.classList) {
-                    if (e.target.classList.contains('project-status') || 
-                        e.target.classList.contains('logs-detail-status')) {
-                        this.show(e.target);
-                    }
+                if (!e.target) return;
+                
+                // Find the element with the class, even if event target is a child
+                const projectStatus = e.target.closest && e.target.closest('.project-status');
+                const logsDetailStatus = e.target.closest && e.target.closest('.logs-detail-status');
+                
+                if (projectStatus) {
+                    this.show(projectStatus);
+                } else if (logsDetailStatus) {
+                    this.show(logsDetailStatus);
                 }
             }, true);
             
             document.addEventListener('mouseleave', (e) => {
-                // Check if target exists and has classList
-                if (e.target && e.target.classList) {
-                    if (e.target.classList.contains('project-status') || 
-                        e.target.classList.contains('logs-detail-status')) {
-                        this.hide();
-                    }
+                if (!e.target) return;
+                
+                // Find the element with the class, even if event target is a child
+                const projectStatus = e.target.closest && e.target.closest('.project-status');
+                const logsDetailStatus = e.target.closest && e.target.closest('.logs-detail-status');
+                
+                if (projectStatus || logsDetailStatus) {
+                    this.hide();
                 }
             }, true);
         }
