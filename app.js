@@ -2113,16 +2113,22 @@ const app = (function() {
         init() {
             // Use event delegation for dynamically created elements
             document.addEventListener('mouseenter', (e) => {
-                if (e.target.classList.contains('project-status') || 
-                    e.target.classList.contains('logs-detail-status')) {
-                    this.show(e.target);
+                // Check if target exists and has classList
+                if (e.target && e.target.classList) {
+                    if (e.target.classList.contains('project-status') || 
+                        e.target.classList.contains('logs-detail-status')) {
+                        this.show(e.target);
+                    }
                 }
             }, true);
             
             document.addEventListener('mouseleave', (e) => {
-                if (e.target.classList.contains('project-status') || 
-                    e.target.classList.contains('logs-detail-status')) {
-                    this.hide();
+                // Check if target exists and has classList
+                if (e.target && e.target.classList) {
+                    if (e.target.classList.contains('project-status') || 
+                        e.target.classList.contains('logs-detail-status')) {
+                        this.hide();
+                    }
                 }
             }, true);
         }
