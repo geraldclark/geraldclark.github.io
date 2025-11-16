@@ -1137,16 +1137,40 @@ const app = (function() {
         // Load portfolio data and generate content
         async load() {
             try {
-                const response = await fetch('portfolio.json?v=' + new Date().getTime());
+                // Try to load portfolio.json with cache busting
+                const url = './portfolio.json?v=' + new Date().getTime();
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                    },
+                    cache: 'no-cache'
+                });
+                
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                portfolioData = await response.json();
+                
+                const data = await response.json();
+                if (!data || !data.projects) {
+                    throw new Error('Invalid portfolio data structure');
+                }
+                
+                portfolioData = data;
                 console.log('Portfolio data loaded:', portfolioData);
                 this.generateContent();
             } catch (error) {
                 console.error('Error loading portfolio.json:', error);
-                // Fallback: show error message or use default data
+                console.error('URL attempted:', './portfolio.json');
+                // Show user-friendly error
+                const dashboard = document.querySelector('.dashboard');
+                if (dashboard && !document.querySelector('.portfolio-error')) {
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'portfolio-error';
+                    errorDiv.style.cssText = 'padding: 20px; margin: 20px; background: var(--card-bg); border: 1px solid var(--accent-red); border-radius: 8px; color: var(--accent-red);';
+                    errorDiv.innerHTML = '<strong>Error loading portfolio data.</strong> Please refresh the page or check the console for details.';
+                    dashboard.insertBefore(errorDiv, dashboard.firstChild);
+                }
             }
         },
 
@@ -1690,8 +1714,22 @@ const app = (function() {
                     return;
                 }
                 
-                if (!portfolioData || !portfolioData.projects) return;
+                // Check if portfolio data is available
+                if (!portfolioData || !portfolioData.projects) {
+                    console.warn('Portfolio data not loaded yet. Please wait...');
+                    // Try to reload if data is missing
+                    if (app && app.portfolio && app.portfolio.load) {
+                        app.portfolio.load().then(() => {
+                            // Retry opening after data loads
+                            if (portfolioData && portfolioData.projects) {
+                                openLogsPanel(projectId);
+                            }
+                        });
+                    }
+                    return;
+                }
                 
+                // Ensure we have a fresh copy of projects
                 allProjects = [...portfolioData.projects];
                 filteredProjects = [...allProjects];
                 
@@ -1876,6 +1914,18 @@ const app = (function() {
             
             // Search functionality - searches through all text fields in project data
             function handleSearch(query) {
+                // Ensure we have projects data - refresh from portfolioData if needed
+                if (allProjects.length === 0 && portfolioData && portfolioData.projects) {
+                    allProjects = [...portfolioData.projects];
+                    filteredProjects = [...allProjects];
+                }
+                
+                // If still no projects, show message
+                if (allProjects.length === 0) {
+                    logsProjectList.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-muted); font-family: \'JetBrains Mono\', monospace; font-size: 13px;">Loading projects...</div>';
+                    return;
+                }
+                
                 const searchTerm = query.toLowerCase().trim();
                 
                 if (searchTerm === '') {
