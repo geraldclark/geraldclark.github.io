@@ -1,0 +1,17 @@
+# robots.txt for gerald-clark.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://gerald-clark.com/sitemap.xml
+
+# Allow all search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
