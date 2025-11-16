@@ -1,0 +1,1625 @@
+{
+  "about": {
+    "name": "Gerald Clark",
+    "roles": [
+      "CTO",
+      "Co-Founder",
+      "Consultant",
+      "Architect",
+      "Developer",
+      "Trainer",
+      "Support"
+    ],
+    "location": "Pittsburgh, PA",
+    "skills": [
+      "Design",
+      "Development",
+      "Deployment"
+    ],
+    "passion": "Building scalable solutions"
+  },
+  "projects": [
+    {
+      "id": "plugin-advanced-formulas",
+      "name": "Upsert\u00ae Advanced Formulas",
+      "status": "online",
+      "description": "Extends SugarCRM formula capabilities with performance-optimized extensions and custom functions for complex calculations, conditional aggregations, and data relationships beyond standard SugarLogic. Advanced Formulas includes both performance-optimized extensions of core SugarCRM functions and custom functions that provide entirely new capabilities. These enhanced formulas execute faster and with reduced resource consumption, making them ideal for complex calculations across large datasets. The plugin enables advanced boolean logic, data validation, permission checks, and specialized operations that extend the boundaries of what's possible with SugarCRM formulas.",
+      "image": "img/plugins/calculated-fields/logo.png",
+      "metrics": [
+        {
+          "label": "Functions",
+          "value": "20+"
+        },
+        {
+          "label": "Performance",
+          "value": "Optimized"
+        }
+      ],
+      "logo": "img/plugins/calculated-fields/logo.png",
+      "featuredImage": "img/plugins/calculated-fields/CalculatedFields.png",
+      "company": "Upsert, LLC",
+      "shortDescription": "Extends SugarCRM formulas with performance-optimized functions and custom capabilities beyond standard SugarLogic.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "SugarLogic"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/advanced-formulas"
+        }
+      ]
+    },
+    {
+      "id": "plugin-bpm-essentials",
+      "name": "Upsert\u00ae BPM Essentials",
+      "status": "online",
+      "description": "Enhances SugarBPM with custom process actions including dynamic field updates, read-only field updates, comment log entries, and preferred-agent routing. Includes administrative dashlets for process management such as Record Process Management, Related SugarBPM Assets, and Triggered Processes. The plugin empowers administrators with additional features frequently requested in Sugar implementations, putting more no-code solutions in the hands of Sugar administrators. It supports updating any read-only field in SugarBPM, allows adding Comment Log entries to target records, and leverages Sugar's Shifts and Shift Exceptions modules for intelligent record routing.",
+      "image": "img/plugins/bpm-essentials/logo.png",
+      "metrics": [
+        {
+          "label": "Custom Actions",
+          "value": "10+"
+        },
+        {
+          "label": "Dashlets",
+          "value": "3"
+        }
+      ],
+      "logo": "img/plugins/bpm-essentials/logo.png",
+      "featuredImage": "img/plugins/bpm-essentials/bpm-custom-actions.png",
+      "company": "Upsert, LLC",
+      "shortDescription": "Enhances SugarBPM with custom process actions, dynamic field updates, and administrative dashlets.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "SugarBPM"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/bpm-essentials"
+        }
+      ]
+    },
+    {
+      "id": "plugin-calculated-fields",
+      "name": "Upsert\u00ae Calculated Fields",
+      "status": "online",
+      "description": "Ensures SugarLogic and calculated fields reflect current data in near real-time without impacting system performance. The plugin monitors for changes that affect calculations and processes those changes quietly on the backend. It can continuously recalculate SugarLogic fields to reflect the latest values for formulas like \"daysUntil\" and \"hoursUntil\". The solution applies advanced backend processing techniques to update values while preserving the efficiency and speed of your CRM system. You can selectively identify records within a module that should be recalculated, enabling features previously not possible with SugarLogic calculations.",
+      "image": "img/plugins/calculated-fields/logo.png",
+      "metrics": [
+        {
+          "label": "Real-time",
+          "value": "Yes"
+        },
+        {
+          "label": "Performance",
+          "value": "Optimized"
+        }
+      ],
+      "logo": "img/plugins/calculated-fields/logo.png",
+      "featuredImage": "img/plugins/calculated-fields/CalculatedFields.png",
+      "company": "Upsert, LLC",
+      "shortDescription": "Ensures calculated fields reflect current data in near real-time without impacting system performance.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "SugarLogic",
+        "Queue System"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/calculated-fields"
+        }
+      ]
+    },
+    {
+      "id": "plugin-calendar",
+      "name": "Upsert\u00ae Calendar",
+      "status": "online",
+      "description": "Comprehensive SugarCRM calendar and shift-schedule solution that works with Sugar's native calls, meetings, and tasks, plus your custom event modules. Features true collaborative capabilities with shared calendar views that let you select the users, teams, and/or roles that you want to see. Users can log all-day events like PTO and training, quickly compare availability for colleagues across all activity types, and schedule team meetings on the fly. The calendar integrates with Sugar's native Shifts and Shift Exceptions modules to make scheduling events more intuitive. Users can set their current availability status, which appears throughout Sugar where direct user relationships are present.",
+      "image": "img/plugins/calendar/logo.png",
+      "metrics": [
+        {
+          "label": "Activity Types",
+          "value": "Unlimited"
+        },
+        {
+          "label": "Views",
+          "value": "3"
+        }
+      ],
+      "logo": "img/plugins/calendar/logo.png",
+      "featuredImage": "img/plugins/calendar/recording.gif",
+      "company": "Upsert, LLC",
+      "shortDescription": "Comprehensive calendar and shift-schedule solution supporting native activities and custom event modules.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "FullCalendar"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/calendar"
+        }
+      ]
+    },
+    {
+      "id": "plugin-call-center",
+      "name": "Upsert\u00ae Call Center",
+      "status": "online",
+      "description": "Universal SugarCRM call center integration supporting any telephony application that supports browser screen pop including Avaya, Asterisk, 3CX, and more. Features automatic call logging, phone number insights, and 360-degree customer views. Before making a call, you'll see phone-number derived insights like line type, location, and time zone. The plugin automatically creates SugarCRM call records, relates them to appropriate people and accounts, and logs call duration. It includes Call Sheets for organizing and executing call lists for any call campaign including hot leads, customer upsell opportunities, and customer service followups.",
+      "image": "img/plugins/call-center/logo.png",
+      "metrics": [
+        {
+          "label": "Integrations",
+          "value": "Universal"
+        },
+        {
+          "label": "Auto-logging",
+          "value": "Yes"
+        }
+      ],
+      "logo": "img/plugins/call-center/logo.png",
+      "featuredImage": "img/plugins/call-center/phone-number-info.png",
+      "company": "Upsert, LLC",
+      "shortDescription": "Universal call center integration supporting any telephony application with browser screen pop.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Telephony API"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/call-center"
+        }
+      ]
+    },
+    {
+      "id": "plugin-call-center-dialpad",
+      "name": "Upsert\u00ae Call Center for Dialpad",
+      "status": "online",
+      "description": "SugarCRM integration with Dialpad embedding call controls directly into the Sugar UI with no Dialpad desktop app required. When you install the plugin, you'll have access to your Dialpad call history, text, fax, and voicemail from within SugarCRM. You can view and change your Dialpad status from Sugar, and for calls that you record, the URL for the recording is saved on the Sugar call record automatically. The plugin automatically shows your call status, creates the SugarCRM call record, relates it to the appropriate person and account, and logs your call duration. It provides phone-number derived insights and flags invalid numbers before dialing.",
+      "image": "img/plugins/call-center-dialpad/logo.png",
+      "metrics": [
+        {
+          "label": "Features",
+          "value": "Full Suite"
+        },
+        {
+          "label": "Auto-logging",
+          "value": "Yes"
+        }
+      ],
+      "logo": "img/plugins/call-center-dialpad/logo.png",
+      "featuredImage": "img/plugins/call-center-dialpad/dialpad_inbound_call_matching.png",
+      "company": "Upsert, LLC",
+      "shortDescription": "SugarCRM integration with Dialpad embedding call controls directly into the Sugar UI.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Dialpad API"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/call-center-dialpad"
+        }
+      ]
+    },
+    {
+      "id": "plugin-call-center-msteams",
+      "name": "Upsert\u00ae Call Center for Microsoft Teams",
+      "status": "online",
+      "description": "SugarCRM integration with Microsoft Teams Phone syncing call data directly from Microsoft Teams. Before making a call, you'll see phone-number derived insights like line type, location, and time zone. The plugin automatically creates the SugarCRM call record, relates it to the appropriate person and account, and logs your call duration when you hang up. It will even relate the call to entities in custom modules. When you schedule, make, or receive a call, you'll instantly have a 360-degree view of the customer's history and past interactions through Sugar's familiar and powerful UI.",
+      "image": "img/plugins/call-center-microsoft-teams-phone/logo.png",
+      "metrics": [
+        {
+          "label": "Sync",
+          "value": "Real-time"
+        },
+        {
+          "label": "Auto-logging",
+          "value": "Yes"
+        }
+      ],
+      "logo": "img/plugins/call-center-microsoft-teams-phone/logo.png",
+      "featuredImage": "img/plugins/call-center-microsoft-teams-phone/MSTeams_Inbound_Caller_Matches.png",
+      "company": "Upsert, LLC",
+      "shortDescription": "SugarCRM integration with Microsoft Teams Phone syncing call data directly from Teams.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Microsoft Teams API"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/call-center-microsoft-teams-phone"
+        }
+      ]
+    },
+    {
+      "id": "plugin-call-center-ringcentral",
+      "name": "Upsert\u00ae Call Center for RingCentral",
+      "status": "online",
+      "description": "SugarCRM integration with RingCentral embedding call controls directly into the Sugar UI without requiring the RingCentral desktop app. When you install the plugin, you'll have access to your RingCentral call history, text, fax, and voicemail from within SugarCRM. You can view and change your RingCentral status from Sugar, and for calls that you record, the URL for the recording is saved on the Sugar call record automatically. The plugin automatically shows your call status, creates the SugarCRM call record, relates it to the appropriate person and account, and logs your call duration. It includes Call Sheets for organizing and executing call lists for any call campaign.",
+      "image": "img/plugins/call-center-ringcentral/logo.png",
+      "metrics": [
+        {
+          "label": "Features",
+          "value": "Full Suite"
+        },
+        {
+          "label": "Auto-logging",
+          "value": "Yes"
+        }
+      ],
+      "logo": "img/plugins/call-center-ringcentral/logo.png",
+      "featuredImage": "img/plugins/call-center-ringcentral/RingCentral_Inbound_Caller_Matches.png",
+      "company": "Upsert, LLC",
+      "shortDescription": "SugarCRM integration with RingCentral embedding call controls directly into the Sugar UI.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "RingCentral API"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/call-center-ringcentral"
+        }
+      ]
+    },
+    {
+      "id": "plugin-deduplicate",
+      "name": "Upsert\u00ae Deduplicate",
+      "status": "online",
+      "description": "Advanced duplicate detection and auto-merge solution for SugarCRM. Features flexible matching rules, domain matching, fuzzy matching with Soundex algorithm, and synchronized record prioritization. Create unlimited match conditions for all of your stock and custom modules - as restrictive or permissive as you want them. The plugin detects duplicates when you save a record based on custom rules that you defined. You can review your merge history overall, or for a single record. Users can show potential duplicates in a Record View dashlet so they can dismiss or react to merge suggestions on the fly. Synchronizing records from other applications means those records will be treated with priority to keep Sugar's data aligned with critical, integrated business systems.",
+      "image": "img/plugins/deduplicate/logo.png",
+      "metrics": [
+        {
+          "label": "Match Rules",
+          "value": "Unlimited"
+        },
+        {
+          "label": "Auto-merge",
+          "value": "Yes"
+        }
+      ],
+      "logo": "img/plugins/deduplicate/logo.png",
+      "featuredImage": "img/plugins/deduplicate/screenshot.png",
+      "company": "Upsert, LLC",
+      "shortDescription": "Advanced duplicate detection and auto-merge solution with flexible matching rules and fuzzy matching.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Database"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/deduplicate"
+        }
+      ]
+    },
+    {
+      "id": "plugin-focused-views",
+      "name": "Upsert\u00ae Focused Views",
+      "status": "online",
+      "description": "Allows administrators to specify exact subpanels and dashlets for different record view tabs. Provides filtered views for teams, roles, and users to reduce clutter and improve productivity. When clicking a tab, the subpanel list and intelligence pane will display the insights you deem most meaningful for that user, team, or role. You can align unique sets of dashboards and subpanels with a single tab for different teams, roles, and users. Create a Marketing tab that shows only related Leads and Campaigns, an Accounting tab that shows Quotes and Contracts, or a Sales tab that focuses on sales-related data like Active Subscriptions and related opportunities.",
+      "image": "img/plugins/focused-views/logo.png",
+      "metrics": [
+        {
+          "label": "Configuration",
+          "value": "Unlimited"
+        },
+        {
+          "label": "Tabs",
+          "value": "Custom"
+        }
+      ],
+      "logo": "img/plugins/focused-views/logo.png",
+      "featuredImage": "img/plugins/focused-views/recording.gif",
+      "company": "Upsert, LLC",
+      "shortDescription": "Allows administrators to specify exact subpanels and dashlets for different record view tabs.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/focused-views"
+        }
+      ]
+    },
+    {
+      "id": "plugin-ip-restriction",
+      "name": "Upsert\u00ae IP Restriction Manager",
+      "status": "online",
+      "description": "Open-source security solution allowing administrators to limit IP addresses and platforms for Sugar access. Can be configured by user, role, or team. The plugin is completely free and open source, offering additional support packages for those with advanced configurations or needs. Even if a hacker is able to steal a user's credentials, with the IP restriction manager, you can block users from accessing your system based on their location - even if they have the correct credentials. This provides an additional layer of security for your SugarCRM instance.",
+      "image": "img/plugins/ip-restriction/logo.png",
+      "metrics": [
+        {
+          "label": "License",
+          "value": "Open Source"
+        },
+        {
+          "label": "Security",
+          "value": "Enhanced"
+        }
+      ],
+      "logo": "img/plugins/ip-restriction-manager/logo.png",
+      "featuredImage": "img/plugins/ip-restriction-manager/recording.gif",
+      "company": "Upsert, LLC",
+      "shortDescription": "Open-source security solution allowing administrators to limit IP addresses for Sugar access.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Security"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "Download",
+          "url": "http://upsertconsulting.com/plugins/ip-restriction-manager"
+        },
+        {
+          "label": "Github",
+          "url": "https://github.com/UpsertLLC/IPRestrictionManager"
+        }
+      ]
+    },
+    {
+      "id": "plugin-last-modified",
+      "name": "Upsert\u00ae Last Modified By",
+      "status": "online",
+      "description": "Displays last modification information directly under audited fields in SugarCRM. Shows who changed a field and when without opening the Audit Log, improving transparency and accountability. An easily readable label appears under the field, serving up handy audit information at a glance. You can put a last modified by stamp on any audited field in any stock or custom Sugar module. Administrators choose which audited fields they want to enable through the Last Modified plugin's Admin page.",
+      "image": "img/plugins/last-modified/logo.png",
+      "metrics": [
+        {
+          "label": "Fields",
+          "value": "Configurable"
+        },
+        {
+          "label": "Visibility",
+          "value": "At-a-glance"
+        }
+      ],
+      "logo": "img/plugins/last-modified-by/logo.png",
+      "featuredImage": "img/plugins/last-modified-by/recording.gif",
+      "company": "Upsert, LLC",
+      "shortDescription": "Displays last modification information directly under audited fields without opening the Audit Log.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/last-modified-by"
+        }
+      ]
+    },
+    {
+      "id": "plugin-launchpad",
+      "name": "Upsert\u00ae LaunchPad",
+      "status": "online",
+      "description": "Configurable navigation menu system for SugarCRM allowing administrators to add always-available links in the navigation bar. Supports team/role-based configuration and internationalization. Each category and menu item in LaunchPad can be configured as visible to all users or users of specific teams or roles. A simple drag-and-drop interface allows you to quickly configure the order of link categories and menu items. You may also appoint an icon for each menu item, giving users a quick visual cue to the type of resource it is. For each LaunchPad element that you create, define localized language translations to accommodate all of your business units.",
+      "image": "img/plugins/launchpad/logo.png",
+      "metrics": [
+        {
+          "label": "Links",
+          "value": "Unlimited"
+        },
+        {
+          "label": "i18n",
+          "value": "Yes"
+        }
+      ],
+      "logo": "img/plugins/launchpad/logo.png",
+      "featuredImage": "img/plugins/launchpad/recording.gif",
+      "company": "Upsert, LLC",
+      "shortDescription": "Configurable navigation menu system allowing administrators to add always-available links.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/launchpad"
+        }
+      ]
+    },
+    {
+      "id": "plugin-lens",
+      "name": "Upsert\u00ae Lens",
+      "status": "online",
+      "description": "Administrative tool providing visibility and control over SugarCRM instance management. Features dashlets for full-text search queue, job queue, tracker, geocoding, and upgrade history. Problems can now be solved on your own with greater visibility and control over your Sugar instance. Until now, only developers could manage these crucial under-the-hood processes. The plugin provides comprehensive administrative capabilities that were previously only accessible to developers, enabling IT administrators to manage critical SugarCRM processes independently.",
+      "image": "img/plugins/lens/logo.png",
+      "metrics": [
+        {
+          "label": "Dashlets",
+          "value": "6+"
+        },
+        {
+          "label": "Admin Tools",
+          "value": "Comprehensive"
+        }
+      ],
+      "logo": "img/plugins/lens/logo.png",
+      "featuredImage": "img/plugins/lens/ConfigRecording.gif",
+      "company": "Upsert, LLC",
+      "shortDescription": "Administrative tool providing visibility and control over SugarCRM instance management.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/lens"
+        }
+      ]
+    },
+    {
+      "id": "plugin-lockout",
+      "name": "Upsert\u00ae Lockout",
+      "status": "online",
+      "description": "Prevents administrators from making system changes during business hours. Designates maintenance windows to protect users from forced page reloads and system instability. System Administrators who are granted access to Lockout can designate standalone or recurring maintenance windows, effectively prohibiting other admins and users with developer-level role privileges from accessing select admin functions during non-maintenance times. Attempting to access a locked action will show the locked-out admin a list of upcoming access windows so they can schedule their work accordingly. Select administrators will be able to bypass lockouts for emergency situations.",
+      "image": "img/plugins/lockout/logo.png",
+      "metrics": [
+        {
+          "label": "Protection",
+          "value": "24/7"
+        },
+        {
+          "label": "Emergency Bypass",
+          "value": "Yes"
+        }
+      ],
+      "logo": "img/plugins/lockout/logo.png",
+      "featuredImage": "img/plugins/lockout/recording.gif",
+      "company": "Upsert, LLC",
+      "shortDescription": "Prevents administrators from making system changes during business hours.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/lockout"
+        }
+      ]
+    },
+    {
+      "id": "plugin-loqate",
+      "name": "Upsert\u00ae Loqate Connector",
+      "status": "online",
+      "description": "Integrates SugarCRM with Loqate for real-time global address, phone, and email validation. Features as-you-type address lookup, batch validation, geocoding, and compliance with international standards. Find and confirm addresses on the fly with as-you-type address lookup. Use the autocomplete functionality to virtually eliminate human data-entry errors. Activate batch mode to check your lists across 250 countries and territories. Comply with international address standards and postal regulations. The plugin converts addresses into precise latitude and longitude coordinates, optimizes delivery routes, and confirms that your customers' mobile, landline, and VoIP numbers are valid.",
+      "image": "img/plugins/loqate/logo.png",
+      "metrics": [
+        {
+          "label": "Countries",
+          "value": "250+"
+        },
+        {
+          "label": "Real-time",
+          "value": "Yes"
+        }
+      ],
+      "logo": "img/plugins/loqate/logo.png",
+      "featuredImage": "img/plugins/loqate/Upsert_Connector_for_Loqate_Real-time_validation.gif",
+      "company": "Upsert, LLC",
+      "shortDescription": "Integrates SugarCRM with Loqate for real-time global address, phone, and email validation.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Loqate API"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/loqate"
+        }
+      ]
+    },
+    {
+      "id": "plugin-markdown-field",
+      "name": "Upsert\u00ae Markdown Field",
+      "status": "online",
+      "description": "Adds a new field type to SugarCRM Studio that accepts and renders markdown formatting. Supports headers, bullets, font styles, tables, code blocks, and more for enhanced content display. Even non-technical users can quickly adapt to simple markdown rules for converting plain text to familiar, readable text styles. Supported formatting styles include bold, italics, strikethrough, headings, lists, masked text links, block quotes, tables, inline code, and code blocks. Sugar admins can add markdown fields to any stock or custom Sugar module, extending Studio capabilities to meet customization needs.",
+      "image": "img/plugins/markdown-field/logo.png",
+      "metrics": [
+        {
+          "label": "Formatting",
+          "value": "Full Markdown"
+        },
+        {
+          "label": "Studio",
+          "value": "Integrated"
+        }
+      ],
+      "logo": "img/plugins/markdown-field/logo.png",
+      "featuredImage": "img/plugins/markdown-field/recording.gif",
+      "company": "Upsert, LLC",
+      "shortDescription": "Adds a new field type to SugarCRM Studio that accepts and renders markdown formatting.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Markdown"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/markdown-field"
+        }
+      ]
+    },
+    {
+      "id": "plugin-masked-textfield",
+      "name": "Upsert\u00ae Masked TextField",
+      "status": "online",
+      "description": "Custom field type for SugarCRM that conceals sensitive field values until explicitly revealed. Protects PII like social security numbers with click-to-reveal functionality and quick copy features. Some data, like social security numbers and other PII, is better shown on a need-to-know basis. Protect this sensitive information from prying eyes by masking the field value in Sugar's user interface. Each masked field value can be easily revealed with a click of its \"view\" icon. Users can also copy the value into their clipboard without even looking at what's hidden underneath. Use Studio to create as many masked text fields as you need.",
+      "image": "img/plugins/masked-textfield/logo.png",
+      "metrics": [
+        {
+          "label": "Security",
+          "value": "Enhanced"
+        },
+        {
+          "label": "Fields",
+          "value": "Unlimited"
+        }
+      ],
+      "logo": "img/plugins/masked-textfield/logo.png",
+      "featuredImage": "img/plugins/masked-textfield/recording.gif",
+      "company": "Upsert, LLC",
+      "shortDescription": "Custom field type that conceals sensitive field values until explicitly revealed.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/masked-textfield"
+        }
+      ]
+    },
+    {
+      "id": "plugin-msteams-connector",
+      "name": "Upsert\u00ae Microsoft Teams Connector",
+      "status": "online",
+      "description": "Enables sending Microsoft Teams messages directly from SugarCRM records. Features record-linked messages, channel management dashlet, and rich text editing. Need to touch base with someone about that opportunity? Just choose \"Send Microsoft Teams Message\" from any Sugar record's actions menu to instantly send a chat to a user or channel. The connector preloads your message with a link to the record, and you can add your ideas to the content before hitting send. With the Channels record view dashlet, you can relate multiple new or existing channels to the Sugar record, and read the channel discussions right there in the dashlet.",
+      "image": "img/plugins/msteams-connector/logo.png",
+      "metrics": [
+        {
+          "label": "Integration",
+          "value": "Full"
+        },
+        {
+          "label": "Channels",
+          "value": "Yes"
+        }
+      ],
+      "logo": "img/plugins/microsoft-teams-connector/logo.png",
+      "featuredImage": "img/plugins/microsoft-teams-connector/menu-send-in-sugar.png",
+      "company": "Upsert, LLC",
+      "shortDescription": "Enables sending Microsoft Teams messages directly from SugarCRM records.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Microsoft Teams API"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/microsoft-teams-connector"
+        }
+      ]
+    },
+    {
+      "id": "plugin-migrator",
+      "name": "Upsert\u00ae Migrator",
+      "status": "online",
+      "description": "Development framework for managing database migrations, schema changes, and data transformations across SugarCRM environments with precision and reliability. Create, modify, and deploy database schema changes with confidence. Generate migration files that handle table creation, column modifications, index management, and updates across all your SugarCRM environments. Built specifically for SugarCRM upgrades, Migrator ensures changes are preserved and properly managed in your Sugar deployment. Execute complex data migrations with PHP logic that understands your SugarCRM structure. Transform records, update field values, and maintain data integrity during environment promotions and Sugar upgrades.",
+      "image": "img/plugins/migrator/logo.png",
+      "metrics": [
+        {
+          "label": "Version Control",
+          "value": "Yes"
+        },
+        {
+          "label": "Sugar-aware",
+          "value": "Yes"
+        }
+      ],
+      "featuredImage": null,
+      "company": "Upsert, LLC",
+      "shortDescription": "Development framework for managing database migrations, schema changes, and data transformations.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Database"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/migrator"
+        }
+      ]
+    },
+    {
+      "id": "plugin-notifications",
+      "name": "Upsert\u00ae Notifications",
+      "status": "online",
+      "description": "Comprehensive notification system for SugarCRM supporting event-driven alerts, business updates, file attachments, and maintenance windows. Delivers via email, popup, or notification center with read receipts. Stay on top of your business processes with timely alerts triggered by important events such as escalated opportunities by the VP of Sales or urgent tasks that go over SLA. Broadcast important news to users right where they work. Alerts sent via Notifications can include file attachments, as well. Send out the sales kit, distribute new time cards, or just attach HR's latest newsletter and users can download the files right to their desktops or devices. Each notification has a Read or Unread status, making it possible to determine which users have clicked into the email, alert, or notification to read it.",
+      "image": "img/plugins/notifications/logo.png",
+      "metrics": [
+        {
+          "label": "Delivery Methods",
+          "value": "3"
+        },
+        {
+          "label": "Read Receipts",
+          "value": "Yes"
+        }
+      ],
+      "logo": "img/plugins/notifications/logo.png",
+      "featuredImage": "img/plugins/notifications/recording.gif",
+      "company": "Upsert, LLC",
+      "shortDescription": "Comprehensive notification system supporting event-driven alerts, business updates, and file attachments.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Email"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/notifications"
+        }
+      ]
+    },
+    {
+      "id": "plugin-preference-enforcer",
+      "name": "Upsert\u00ae Preference Enforcer",
+      "status": "online",
+      "description": "Allows administrators to assign and enforce user profile options for new user onboarding. Supports module tab layouts, themes, label placement, locale settings, and can be applied to users, teams, or roles. As you introduce new team members to Sugar, you'll leverage Preference Enforcer to fine tune all of their preferences before they even log in. Users within a particular team or role may all have the same preference profile, while some users may require unique settings of their own. You can choose which tabs new users will see in their navigation bars and in what order. You can even set up different tab layouts for different user roles so that Support Agents see cases up first and Sellers see their leads and opportunities.",
+      "image": "img/plugins/preference-enforcer/logo.png",
+      "metrics": [
+        {
+          "label": "Preferences",
+          "value": "All"
+        },
+        {
+          "label": "Enforcement",
+          "value": "Configurable"
+        }
+      ],
+      "logo": "img/plugins/preference-enforcer/logo.png",
+      "featuredImage": "img/plugins/preference-enforcer/PreferenceEnforcerPreview.png",
+      "company": "Upsert, LLC",
+      "shortDescription": "Allows administrators to assign and enforce user profile options for new user onboarding.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/preference-enforcer"
+        }
+      ]
+    },
+    {
+      "id": "plugin-shopify",
+      "name": "Upsert\u00ae Shopify Connector",
+      "status": "online",
+      "description": "Seamlessly synchronizes Shopify store data into SugarCRM including companies, customers, orders, products, and locations. Supports multiple stores, flexible field mapping, and automatic relationship management. Connect and manage multiple Shopify stores from a single SugarCRM instance. Each store configuration is managed independently, allowing you to customize field mappings and sync settings per store while maintaining a unified view of all your e-commerce data in Sugar. Configure custom field mappings between Shopify and SugarCRM using the intuitive Field Maps module. Track inventory and orders across multiple Shopify locations. The connector synchronizes location data from Shopify, allowing you to manage multi-location operations and ensure accurate order fulfillment.",
+      "image": "img/plugins/shopify/logo.png",
+      "metrics": [
+        {
+          "label": "Stores",
+          "value": "Multiple"
+        },
+        {
+          "label": "Sync",
+          "value": "Real-time"
+        }
+      ],
+      "company": "Upsert, LLC",
+      "shortDescription": "Seamlessly synchronizes Shopify store data into SugarCRM including customers, orders, and products.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Shopify API"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/shopify"
+        }
+      ]
+    },
+    {
+      "id": "plugin-slack-connector",
+      "name": "Upsert\u00ae Slack Connector",
+      "status": "online",
+      "description": "Enables sending Slack messages directly from SugarCRM records. Features record-linked messages, channel management, SugarBPM integration, and Slack command search. Need to touch base with someone about that opportunity? Just choose \"Send Slack Message\" from any record's actions menu to instantly send a chat to a user or channel. The connector preloads your message with a link to the record, and you can add your ideas to the content before hitting send. Admins can use the connector to set up SugarBPM processes that send custom, automated Slack messages when the right conditions are met in Sugar. Users can even search Sugar using Slack commands.",
+      "image": "img/plugins/slack-connector/logo.png",
+      "metrics": [
+        {
+          "label": "Integration",
+          "value": "Full"
+        },
+        {
+          "label": "BPM",
+          "value": "Yes"
+        }
+      ],
+      "featuredImage": "img/plugins/slack-connector/action_menu.png",
+      "company": "Upsert, LLC",
+      "shortDescription": "Enables sending Slack messages directly from SugarCRM records with SugarBPM integration.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Slack API"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/slack-connector"
+        }
+      ]
+    },
+    {
+      "id": "plugin-sudo",
+      "name": "Upsert\u00ae Sudo",
+      "status": "online",
+      "description": "Flagship admin tool allowing administrators and select users to impersonate other users in SugarCRM. Eliminates password sharing, supports troubleshooting, and enables new-user setup delegation. Compatible with SugarIdentity. Because our solution lets you assign sudo impersonation ability to regular users, teams, or roles, time-consuming tasks like troubleshooting and new-user setup can be delegated to managers and IT staff without giving those users admin access. As you introduce new team members to Sugar, you'll leverage Sudo to fine tune all of their user-specific configurations, dashboards, and credentials. Because Sugar has robust user-specific configurations and visibility rules, it can be difficult or even impossible to reproduce a user's issue as an administrator. Sudo neutralizes this challenge by immediately placing you in the same environment as the user reporting the problem.",
+      "image": "img/plugins/sudo/logo.png",
+      "metrics": [
+        {
+          "label": "Users",
+          "value": "Configurable"
+        },
+        {
+          "label": "SugarIdentity",
+          "value": "Yes"
+        }
+      ],
+      "logo": "img/plugins/sudo/logo.png",
+      "featuredImage": "img/plugins/sudo/recording.gif",
+      "company": "Upsert, LLC",
+      "shortDescription": "Allows administrators and select users to impersonate other users in SugarCRM.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Security"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/sudo"
+        }
+      ]
+    },
+    {
+      "id": "plugin-swagger-connector",
+      "name": "Upsert\u00ae Swagger Connector",
+      "status": "online",
+      "description": "Streamlines API management by exporting detailed endpoint documentation from SugarCRM and importing it into Swagger. Supports real-time updates and subscription-based exports for accurate API specifications. Reduce manual effort and ensure consistency across your Swagger API specifications by easily exporting Sugar endpoint documentation. Did a recent upgrade or customization add new endpoints to your instance? Keep your Swagger API documentation accurate and up-to-date automatically with every change by subscribing to our export endpoint. The connector provides a stock export for Swagger and is available as open-source under the Apache 2.0 license.",
+      "image": "img/plugins/swagger-connector/logo.png",
+      "metrics": [
+        {
+          "label": "License",
+          "value": "Open Source"
+        },
+        {
+          "label": "Real-time",
+          "value": "Yes"
+        }
+      ],
+      "logo": "img/plugins/swagger-connector/logo.png",
+      "featuredImage": "img/plugins/swagger-connector/screenshot.png",
+      "company": "Upsert, LLC",
+      "shortDescription": "Streamlines API management by exporting detailed endpoint documentation from Sugar to Swagger.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Swagger",
+        "OpenAPI"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/swagger-connector"
+        },
+        {
+          "label": "Download",
+          "url": "https://upsertconsulting.com/snippets/2024/sugar-swagger-export"
+        }
+      ]
+    },
+    {
+      "id": "plugin-themes",
+      "name": "Upsert\u00ae Themes",
+      "status": "deprecated",
+      "description": "Allows reskinning SugarCRM with brand colors and defining alternative color palettes for cloned environments. Features custom navigation colors, borders, buttons, link text, and environment watermarks. It's never been easier to re-skin an application to match your brand identity. Simply visit the Admin console to define new colors for Sugar's navigation bar, borders, buttons, and link text. Do you get confused when you switch between your sandbox and production instances? Have you ever accidentally used the training instance for real work? Now you can add a prominent watermark and define unique color palettes for all of your cloned environments. You'll define each environment's settings in your base production instance, so they carry over any time you refresh your sandbox instances.",
+      "image": "img/plugins/themes/logo.png",
+      "metrics": [
+        {
+          "label": "Branding",
+          "value": "Full"
+        },
+        {
+          "label": "Environments",
+          "value": "Multiple"
+        }
+      ],
+      "logo": "img/plugins/themes/logo.png",
+      "featuredImage": "img/plugins/themes/Recording.png",
+      "company": "Upsert, LLC",
+      "shortDescription": "Allows reskinning SugarCRM with brand colors and defining alternative color palettes for environments.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "CSS"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+      ]
+    },
+    {
+      "id": "plugin-timesheets",
+      "name": "Upsert\u00ae Timesheets",
+      "status": "online",
+      "description": "Comprehensive time tracking solution for SugarCRM allowing users to log time against any record. Features stopwatch widget, time validation, round intervals, approvals via SugarBPM, and comprehensive reporting. Whether you are looking to understand how much effort goes into pursuing deals for big clients, what the biggest time sinks for customer support team are, or to reliably invoice your customers for the work your team delivered last month, Timesheets provides your users the capabilities to log their time. Kick off real-time tracking with a context-aware stopwatch widget from anywhere in the application. Set Timesheets to round to the nearest minutes increment of your choice - like the nearest 10th or 15th minute so you can easily report and invoice for time spent that aligns with your business practices.",
+      "image": "img/plugins/timesheets/logo.png",
+      "metrics": [
+        {
+          "label": "Records",
+          "value": "Any"
+        },
+        {
+          "label": "Reporting",
+          "value": "Built-in"
+        }
+      ],
+      "logo": "img/plugins/timesheets/logo.png",
+      "featuredImage": "img/plugins/timesheets/detail.png",
+      "company": "Upsert, LLC",
+      "shortDescription": "Comprehensive time tracking solution allowing users to log time against any Sugar record.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "SugarBPM"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/timesheets"
+        }
+      ]
+    },
+    {
+      "id": "plugin-trash-bin",
+      "name": "Upsert\u00ae Trash Bin",
+      "status": "online",
+      "description": "Enables viewing and restoring deleted records in SugarCRM. Features list view of deleted records, relationship restoration, team/role-based visibility, and post-mortem installation for emergency recovery. The Trash Bin view on enabled modules will display a list of that module's deleted records and the option to restore each one as needed. Admins may also grant deleted-record visibility to selected teams, roles, and users. Based on the selected configuration, the chosen users will be able to see and restore only the records that they deleted themselves, or only the deleted records that are assigned to them, or any record that they could see by virtue of team membership before it was deleted. Users with Trash Bin access will be prompted to re-establish relationships that were lost when a restored record was deleted.",
+      "image": "img/plugins/trash-bin/logo.png",
+      "metrics": [
+        {
+          "label": "Recovery",
+          "value": "Full"
+        },
+        {
+          "label": "Relationships",
+          "value": "Restorable"
+        }
+      ],
+      "logo": "img/plugins/trash-bin/logo.png",
+      "featuredImage": "img/plugins/trash-bin/recording.gif",
+      "company": "Upsert, LLC",
+      "shortDescription": "Enables viewing and restoring deleted records in SugarCRM with relationship restoration.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Database"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/trash-bin"
+        }
+      ]
+    },
+    {
+      "id": "plugin-user-adoption",
+      "name": "Upsert\u00ae User Adoption",
+      "status": "online",
+      "description": "Tracks user behavior across SugarCRM modules to provide insights into user adoption patterns. Monitors creates, reads, updates, and deletes with real-time analytics dashlets and comprehensive reporting capabilities. Track actions like creates, reads, updates, and deletes. You can then see which users are most active, which modules see the most traffic, and generate your own reports that leverage this data. The plugin lets you ignore certain users, platform integrations, or specific action types for the most accurate reports. You get invaluable insights that let you identify potential weak spots in your workflows, and improve system processes. Stay up-to-date with user adoption in real-time through intuitive analytics dashlets. You can monitor and visualize trends that help you make data-driven decisions about how to train users and configure your system.",
+      "image": "img/plugins/user-adoption/logo.png",
+      "metrics": [
+        {
+          "label": "Tracking",
+          "value": "Comprehensive"
+        },
+        {
+          "label": "Analytics",
+          "value": "Real-time"
+        }
+      ],
+      "logo": "img/plugins/user-adoption/logo.png",
+      "featuredImage": "img/plugins/user-adoption/preview.png",
+      "company": "Upsert, LLC",
+      "shortDescription": "Tracks user behavior across SugarCRM modules to provide insights into user adoption patterns.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Analytics"
+      ],
+      "start_year": 2025,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "http://upsertconsulting.com/plugins/user-adoption"
+        }
+      ]
+    },
+    {
+      "id": "plugin-ip-restriction-manager-sugarcrm",
+      "name": "IP Restriction Manager",
+      "status": "online",
+      "description": "Open-source security solution allowing SugarCRM administrators to setup restrictive IP ranges for authentication. These ranges can be specific to a user, team, role or combination of all three. IP ranges can be specified in multiple formats including specific IPs, wildcards, CIDR notation, and start-end ranges. The plugin supports multiple platforms (Base, Mobile, All) and provides comprehensive security controls. Even if a hacker is able to steal a user's credentials, with the IP restriction manager, you can block users from accessing your system based on their location - even if they have the correct credentials. This provides an additional layer of security for your SugarCRM instance. The plugin is completely free and open source, licensed under Apache 2.0.",
+      "shortDescription": "Open-source security solution allowing administrators to limit IP addresses and platforms for Sugar access.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM"
+      ],
+      "image": "",
+      "company": "SugarCRM",
+      "logo": "",
+      "featuredImage": "img/plugins/ip-restriction-manager/recording.gif",
+      "start_year": 2016,
+      "end_year": 2018,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "https://github.com/sugarcrm/IPRestrictionManager"
+        }
+      ]
+    },
+    {
+      "id": "plugin-sugar-field-work-log",
+      "name": "Sugar Field Work Log",
+      "status": "deprecated",
+      "description": "Custom SugarCRM field type for tracking work logs and time entries. Provides enhanced functionality for logging work activities, time tracking, and work-related data within SugarCRM records. The plugin extends SugarCRM's field capabilities with a specialized work log field type that can be used across modules to track work activities, time spent, and related work information. This field type integrates seamlessly with SugarCRM's Studio, allowing administrators to add work log fields to any stock or custom module.",
+      "shortDescription": "Custom SugarCRM field type for tracking work logs and time entries across modules.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM"
+      ],
+      "image": null,
+      "company": "SugarCRM",
+      "logo": null,
+      "featuredImage": null,
+      "start_year": 2018,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "https://github.com/sugarcrm/SugarFieldWorkLog"
+        }
+      ]
+    },
+    {
+      "id": "plugin-sugar-repairs-module",
+      "name": "Sugar Repairs Module",
+      "status": "deprecated",
+      "description": "Administrative module for SugarCRM that provides repair and maintenance functionality. This module enables administrators to perform system repairs, maintenance tasks, and diagnostic operations within the SugarCRM interface. The Repairs Module offers comprehensive tools for maintaining SugarCRM instance health, performing database repairs, clearing caches, rebuilding relationships, and executing other critical maintenance operations. It provides a centralized interface for common administrative tasks that would otherwise require command-line access or manual database operations. This project is deprecated as we were able to get the worklog field concept merged into the core SugarCRM product as the comment log",
+      "shortDescription": "Administrative module providing repair and maintenance functionality for SugarCRM instances.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM"
+      ],
+      "image": null,
+      "company": "SugarCRM",
+      "logo": null,
+      "featuredImage": null,
+      "start_year": 2017,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "https://github.com/sugarcrm/SugarRepairsModule"
+        }
+      ]
+    },
+    {
+      "id": "plugin-sugar-instance-packager",
+      "name": "Sugar Instance Packager",
+      "status": "deprecated",
+      "description": "Development and deployment tool for packaging SugarCRM instances for migration, backup, or deployment purposes. The Instance Packager allows administrators and developers to create complete packages of SugarCRM instances including customizations, modules, configurations, and data. This tool streamlines the process of moving SugarCRM instances between environments, creating backups, and deploying customizations. It provides comprehensive packaging capabilities that ensure all custom code, configurations, and data are properly captured and can be reliably deployed to other environments.",
+      "shortDescription": "Development tool for packaging SugarCRM instances for migration, backup, or deployment.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM"
+      ],
+      "image": null,
+      "company": "SugarCRM",
+      "logo": null,
+      "featuredImage": null,
+      "start_year": 2017,
+      "end_year": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "https://github.com/sugarcrm/Sugar-Instance-Packager"
+        }
+      ]
+    },
+    {
+      "id": "plugin-sugarcrm-portal",
+      "name": "SugarCRM Portal",
+      "status": "deprecated",
+      "description": "Designed, developed, and integrated an internal SugarCRM instance with a custom customer-facing SugarCRM instance. This comprehensive portal solution enables customers to communicate directly with SugarCRM support teams to get assistance and view their data usage information. The integration seamlessly connects internal support operations with customer-facing interfaces, providing a unified experience for customer service and support interactions. The portal includes custom modules, workflows, and integrations that allow customers to access their account information, submit support requests, track ticket status, and monitor their SugarCRM instance usage metrics. This solution streamlines customer support operations while providing customers with self-service capabilities and transparent access to their account data.",
+      "shortDescription": "Custom customer-facing portal integrated with internal SugarCRM for support communication and data usage viewing.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "API Integration"
+      ],
+      "image": null,
+      "company": "SugarCRM",
+      "logo": null,
+      "featuredImage": null,
+      "start_year": 2015,
+      "end_year": 2019,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "https://portal.sugarondemand.com/"
+        }
+      ]
+    },
+    {
+      "id": "plugin-sugarcrm-support-site",
+      "name": "SugarCRM Support Site",
+      "status": "completed",
+      "description": "Designed and implemented a comprehensive Content Management System (CMS) for the internal knowledge team to write and publish content to the SugarCRM support site. This system automated critical content management processes including versioning, editioning, and in some cases, content for developer documentation. The CMS streamlines the content creation and publishing workflow, enabling the knowledge team to efficiently manage documentation, support articles, and technical content. The system includes automated version control for documentation, edition-specific content management, and sophisticated content generation capabilities that can automatically create complex content. This solution significantly improved the efficiency of content creation and maintenance while ensuring consistency and accuracy across all published materials.",
+      "shortDescription": "CMS designed and implemented for internal knowledge team to write and publish content.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "CMS",
+        "API Documentation"
+      ],
+      "image": null,
+      "company": "SugarCRM",
+      "logo": null,
+      "featuredImage": null,
+      "start_year": 2013,
+      "end_year": 2019,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "https://support.sugarcrm.com/"
+        }
+      ]
+    },
+    {
+      "id": "plugin-sugarcrm-support-tooling",
+      "name": "SugarCRM Support Tooling",
+      "status": "deprecated",
+      "description": "Designed and implemented comprehensive customizations for the Sugar Support team to help them interact with customers and manage their case load more effectively. This suite of internal tools included a revolutionary Support Dashboard that provided support agents with a unified view of customer interactions, case management, and workflow optimization. The Support Dashboard featured innovative design patterns and user experience concepts that later became the inspiration for the Sales and Service Console views found in SugarCRM Today. The tooling solution streamlined support operations by providing agents with quick access to customer history, case details, related records, and actionable insights. The system improved case resolution times, enhanced customer satisfaction, and established new paradigms for console-based CRM interfaces that would influence the future direction of SugarCRM's product development.",
+      "shortDescription": "Customizations for Sugar Support team including a Support Dashboard that inspired Sales and Service Console views in SugarCRM Today.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Dashboard Design"
+      ],
+      "image": null,
+      "url": null,
+      "company": "SugarCRM",
+      "logo": null,
+      "featuredImage": null,
+      "start_year": 2011,
+      "end_year": 2019
+    },
+    {
+      "id": "sugarcrm-developer-certification-test",
+      "name": "SugarCRM Developer Certification",
+      "status": "completed",
+      "description": "Contributed to the development and writing of the SugarCRM Developer Certification test in 2015. This comprehensive certification examination was designed to validate developers' knowledge and expertise in SugarCRM platform development, including customizations, module development, API usage, and best practices. The certification test covered critical areas such as SugarCRM architecture, data relationships, workflow automation, custom modules, API integration, and security considerations. This certification program helped establish industry standards for SugarCRM development expertise and provided developers with a recognized credential to demonstrate their proficiency in the platform.",
+      "shortDescription": "Contributed to writing the SugarCRM Developer Certification test, establishing industry standards for SugarCRM development expertise.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Certification Development"
+      ],
+      "image": null,
+      "url": null,
+      "start_year": 2015,
+      "end_year": null,
+      "company": "SugarCRM",
+      "logo": null,
+      "featuredImage": null
+    },
+    {
+      "id": "dashboard-manager",
+      "name": "Dashboard Manager",
+      "status": "deprecated",
+      "description": "Developed a SugarCRM 6.x module loadable plugin that allows system administrators to set up and manage dashboard templates. This module provides administrators with the ability to create standardized dashboard configurations and push them to users, ensuring consistent dashboard layouts across teams and improving onboarding efficiency. The Dashboard Manager module simplifies the process of dashboard deployment and maintenance, allowing administrators to define template dashboards with specific dashlet configurations and apply them to individual users or groups. The module was published on SugarForge and has been used by the SugarCRM community to streamline dashboard management in enterprise deployments.",
+      "shortDescription": "SugarCRM 6.x module for managing and pushing user dashboards, allowing administrators to create and deploy dashboard templates.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM"
+      ],
+      "image": null,
+      "start_year": 2012,
+      "end_year": 2013,
+      "company": "SugarCRM",
+      "logo": null,
+      "featuredImage": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "https://github.com/geraldclark/DashboardManager"
+        }
+      ]
+    },
+    {
+      "id": "sugarcrm-developer-guide",
+      "name": "SugarCRM Developer Guide",
+      "status": "completed",
+      "description": "Wrote and maintained the comprehensive SugarCRM Developer Guide from 2011 to 2019, serving as the primary technical documentation resource for SugarCRM developers worldwide. This extensive documentation covered all aspects of SugarCRM development, including platform architecture, module development, API usage, customization techniques, best practices, and advanced development topics. The Developer Guide provided developers with the knowledge and examples needed to build custom solutions, integrate third-party systems, and extend SugarCRM functionality. As the primary maintainer, I was responsible for keeping the documentation current with each platform release, ensuring accuracy, and expanding coverage to include new features and capabilities. This documentation became an essential resource for the SugarCRM developer community and continues to be referenced by developers building solutions on the platform.",
+      "shortDescription": "Wrote and maintained the SugarCRM Developer Guide, serving as the primary technical documentation resource for developers.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Technical Writing",
+        "Documentation"
+      ],
+      "image": null,
+      "start_year": 2011,
+      "end_year": 2019,
+      "company": "SugarCRM",
+      "logo": null,
+      "featuredImage": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "https://support.sugarcrm.com/SmartLinks/Developer_Guide/"
+        }
+      ]
+    },
+    {
+      "id": "blog-lead-capture-forms",
+      "name": "Integrating Lead Capture Forms with SugarCRM",
+      "status": "completed",
+      "description": "Published a comprehensive technical guide on integrating lead capture forms with SugarCRM, covering multiple integration options to accommodate various business needs. The blog post details four different approaches: the unauthenticated REST endpoint POST /rest/v10/Leads/register, the WebToLeadCapture entry point, authenticated REST API endpoints, and custom endpoint solutions. The article provides developers with practical examples and best practices for implementing lead capture functionality, helping businesses streamline their lead generation process and improve data quality. The guide includes downloadable Postman collections to help developers get started quickly with their implementations.",
+      "shortDescription": "Comprehensive technical guide on integrating lead capture forms with SugarCRM.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "REST API",
+        "Technical Writing"
+      ],
+      "image": null,
+      "start_year": 2024,
+      "end_year": null,
+      "company": "Upsert, LLC",
+      "logo": null,
+      "featuredImage": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "https://upsertconsulting.com/blog/2024/integrating-lead-capture-forms-with-sugarcrm"
+        }
+      ]
+    },
+    {
+      "id": "blog-upsert-api",
+      "name": "The SugarCRM Upsert API as Explained by Upsert",
+      "status": "completed",
+      "description": "Authored an in-depth technical blog post explaining the SugarCRM upsert API endpoints introduced in SugarCRM 10.2.0. The article provides a comprehensive guide to understanding and implementing upsert functionality, which combines update and insert operations into a single API call. The blog covers how to populate sync keys, fetch records by sync field, perform upsert operations, and delete records using the new integrate endpoints. The guide helps developers reduce API requests, simplify integration code, improve performance, and prevent duplicate record creation. The article includes practical examples, request/response formats, and downloadable Postman environment and collection files to help developers quickly implement upsert functionality in their integrations. This article was also published on SugarClub at [SugarClub Dev Blog](https://sugarclub.sugarcrm.com/dev-club/b/dev-blog/posts/upsert-explained-by-upsert).",
+      "shortDescription": "In-depth guide to the SugarCRM upsert API endpoints.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "REST API",
+        "Technical Writing"
+      ],
+      "image": null,
+      "start_year": 2020,
+      "end_year": null,
+      "company": "Upsert, LLC",
+      "logo": null,
+      "featuredImage": null,
+      "urls": [
+        {
+          "label": "Blog Post",
+          "url": "https://upsertconsulting.com/blog/2020/upsert-as-explained-by-upsert"
+        },
+        {
+          "label": "SugarClub Dev Blog",
+          "url": "https://sugarclub.sugarcrm.com/dev-club/b/dev-blog/posts/upsert-explained-by-upsert"
+        }
+      ]
+    },
+    {
+      "id": "blog-custom-record-views",
+      "name": "How to Build Custom Record Views in Sugar",
+      "status": "completed",
+      "description": "Created a detailed technical tutorial on building custom record views and routes in SugarCRM, published as a Halloween-themed \"coder treat\" for developers. The comprehensive guide walks through creating custom views for record creation, viewing, and editing, along with layouts and routes to create clean, custom URLs. The article provides step-by-step instructions for creating limited field views that work separately from stock record views, including code examples for view files, metadata definitions, layout configurations, and routing setup. The tutorial helps developers create custom data entry interfaces for teams that need simplified views without the complexity of full record layouts, and includes downloadable code examples for Sugar 9.0.0 Professional.",
+      "shortDescription": "Detailed tutorial on building custom record views, layouts, and routes in SugarCRM to create simplified data entry interfaces.",
+      "tech": [
+        "PHP",
+        "JavaScript",
+        "SugarCRM",
+        "Technical Writing"
+      ],
+      "image": null,
+      "start_year": 2019,
+      "end_year": null,
+      "company": "Upsert, LLC",
+      "logo": null,
+      "featuredImage": null,
+      "urls": [
+        {
+          "label": "View Project",
+          "url": "https://upsertconsulting.com/blog/2019/how-to-build-custom-record-views"
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "skill-1",
+      "category": "Software",
+      "icon": "fas fa-desktop",
+      "items": [
+        { "name": "SugarCRM" },
+        { "name": "SalesForce" },
+        { "name": "Microsoft Dynamics CRM" }
+      ]
+    },
+    {
+      "id": "skill-2",
+      "category": "Languages",
+      "icon": "fas fa-code",
+      "items": [
+        { "name": "C#.NET" },
+        { "name": "C++" },
+        { "name": "CSS (Cascading Style Sheets)" },
+        { "name": "JavaScript" },
+        { "name": "PHP" },
+        { "name": "SCSS (Sassy CSS)" },
+        { "name": "VB.NET" }
+      ]
+    },
+    {
+      "id": "skill-3",
+      "category": "Frameworks",
+      "icon": "fas fa-layer-group",
+      "items": [
+        { "name": "Backbone.js" },
+        { "name": "Bootstrap (Twitter Bootstrap)" },
+        { "name": "FuelPHP" },
+        { "name": "jQuery" },
+        { "name": "Laravel" },
+        { "name": "Tailwind CSS" },
+        { "name": "Vue.js" },
+        { "name": "RingCentral App Connect" },
+        { "name": "RingCentral Embeddable" }
+      ]
+    },
+    {
+      "id": "skill-4",
+      "category": "Platforms",
+      "icon": "fas fa-cloud",
+      "items": [
+        { "name": "AWS (Amazon Web Services)" },
+        { "name": "Microsoft Azure" },
+        { "name": "Docker" },
+        { "name": "GCP (Google Cloud Platform)" },
+        { "name": "Vagrant" },
+        { "name": "VM (Virtual Machines)" }
+      ]
+    },
+    {
+      "id": "skill-5",
+      "category": "Databases",
+      "icon": "fas fa-database",
+      "items": [
+        { "name": "MSSQL (Microsoft SQL Server)" },
+        { "name": "MySQL" },
+        { "name": "Redis" },
+        { "name": "Oracle" },
+        { "name": "MariaDB" },
+        { "name": "DB2"}
+      ]
+    },
+    {
+      "id": "skill-6",
+      "category": "Services",
+      "icon": "fas fa-server",
+      "items": [
+        { "name": "Dialpad" },
+        { "name": "Loqate" },
+        { "name": "Microsoft Graph" },
+        { "name": "Microsoft Teams" },
+        { "name": "Microsoft Teams Phone" },
+        { "name": "RingCentral" },
+        { "name": "Shopify" },
+        { "name": "Slack" },
+        { "name": "Ytel" }
+      ]
+    },
+    {
+      "id": "skill-7",
+      "category": "Protocols & Standards",
+      "icon": "fas fa-shield-alt",
+      "items": [
+        { "name": "GraphQL" },
+        { "name": "LDAP (Lightweight Directory Access Protocol)" },
+        { "name": "OAuth (Open Authorization)" },
+        { "name": "REST (Representational State Transfer) APIs" },
+        { "name": "SAML (Security Assertion Markup Language)" },
+        { "name": "SOAP (Simple Object Access Protocol) APIs" },
+        { "name": "SSO (Single Sign-On)" },
+        { "name": "XML (Extensible Markup Language)" },
+        { "name": "JSON (JavaScript Object Notation)" },
+        { "name": "YAML (YAML Ain't Markup Language)" },
+        { "name": "Markdown" },
+        { "name": "SQL (Structured Query Language)" }
+      ]
+    },
+    {
+      "id": "skill-8",
+      "category": "Development Tools",
+      "icon": "fas fa-wrench",
+      "items": [
+        { "name": "Composer" },
+        { "name": "Gulp" },
+        { "name": "npm (Node Package Manager)" },
+        { "name": "Cursor" },
+        { "name": "PhpStorm" },
+        { "name": "Postman" },
+        { "name": "SSIS (SQL Server Integration Services)" },
+        { "name": "Swagger" },
+        { "name": "Talend" },
+        { "name": "Visual Studio Code" },
+        { "name": "PHPUnit" },
+        { "name": "Cypress" }
+      ]
+    },
+    {
+      "id": "skill-9",
+      "category": "Version Control",
+      "icon": "fas fa-code-branch",
+      "items": [
+        { "name": "Bitbucket" },
+        { "name": "Git" },
+        { "name": "GitHub" },
+        { "name": "GitLab" }
+      ]
+    }
+  ],
+  "contact": [
+    {
+      "id": "contact-1",
+      "type": "email",
+      "label": "Email",
+      "value": "mailto:geraldbclark@gmail.com",
+      "url": "mailto:geraldbclark@gmail.com",
+      "icon": "fas fa-envelope"
+    },
+    {
+      "id": "contact-2",
+      "type": "github",
+      "label": "GitHub",
+      "value": "github.com/geraldclark",
+      "url": "https://github.com/geraldclark",
+      "icon": "fab fa-github"
+    },
+    {
+      "id": "contact-3",
+      "type": "gitlab",
+      "label": "GitLab",
+      "value": "gitlab.com/geraldclark",
+      "url": "https://gitlab.com/geraldclark",
+      "icon": "fab fa-gitlab"
+    },
+    {
+      "id": "contact-4",
+      "type": "linkedin",
+      "label": "LinkedIn",
+      "value": "linkedin.com/in/geraldclark",
+      "url": "https://linkedin.com",
+      "icon": "fab fa-linkedin"
+    }
+  ],
+  "distinctions": [
+    {
+      "id": "distinction-1",
+      "name": "Certified Developer",
+      "issuer": "SugarCRM",
+      "year": 2024,
+      "icon": "fas fa-certificate"
+    },
+    {
+      "id": "distinction-2",
+      "name": "Certified Web Developer 7.5",
+      "issuer": "Sage SalesLogix",
+      "year": null,
+      "icon": "fas fa-certificate"
+    },
+    {
+      "id": "distinction-3",
+      "name": "Certified Engineer 7.5",
+      "issuer": "Sage SalesLogix",
+      "year": null,
+      "icon": "fas fa-certificate"
+    },
+    {
+      "id": "distinction-4",
+      "name": "Certified Web Developer 7.2",
+      "issuer": "Sage SalesLogix",
+      "year": null,
+      "icon": "fas fa-certificate"
+    },
+    {
+      "id": "distinction-5",
+      "name": "Certified Engineer 7.2",
+      "issuer": "Sage SalesLogix",
+      "year": null,
+      "icon": "fas fa-certificate"
+    },
+    {
+      "id": "distinction-6",
+      "name": "Certified LAN Developer 7.2",
+      "issuer": "Sage SalesLogix",
+      "year": null,
+      "icon": "fas fa-certificate"
+    },
+    {
+      "id": "distinction-8",
+      "name": "4.0: Installation and Deployment",
+      "issuer": "Microsoft Dynamics CRM",
+      "year": null,
+      "icon": "fas fa-certificate"
+    },
+    {
+      "id": "distinction-9",
+      "name": "Sugar Support MVP",
+      "issuer": "SugarCRM",
+      "year": 2013,
+      "icon": "fas fa-medal"
+    },
+    {
+      "id": "distinction-10",
+      "name": "Certified Developer",
+      "issuer": "SugarCRM",
+      "year": 2013,
+      "icon": "fas fa-certificate"
+    },
+    {
+      "id": "distinction-11",
+      "name": "Eagle Scout",
+      "issuer": "Boy Scouts of America",
+      "year": 2003,
+      "icon": "fas fa-medal"
+    }
+  ]
+}

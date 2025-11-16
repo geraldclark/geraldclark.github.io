@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerald Clark - Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header/Status Bar -->
+        <header class="status-bar">
+            <div class="status-left">
+                <span class="status-indicator active"></span>
+                <span class="status-text">SYSTEM ONLINE</span>
+                <span class="status-time" id="current-time"></span>
+            </div>
+            <div class="status-nav-tabs">
+                <a href="#top" class="nav-link" data-section="top">
+                    <i class="fas fa-terminal nav-file-icon"></i>
+                    <span class="nav-path">Terminal</span>
+                    <button class="nav-close-btn" data-section="top" aria-label="Close tab">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </a>
+                <a href="#dashboard" class="nav-link" data-section="dashboard">
+                    <i class="fas fa-chart-bar nav-file-icon"></i>
+                    <span class="nav-path">Dashboard</span>
+                    <button class="nav-close-btn" data-section="dashboard" aria-label="Close tab">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </a><a href="#about" class="nav-link" data-section="about">
+                    <i class="fab fa-js nav-file-icon"></i>
+                    <span class="nav-path">About.js</span>
+                    <button class="nav-close-btn" data-section="about" aria-label="Close tab">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </a>
+                <a href="#projects" class="nav-link" data-section="projects">
+                    <i class="fas fa-file-alt nav-file-icon"></i>
+                    <span class="nav-path">Projects.log</span>
+                    <button class="nav-close-btn" data-section="projects" aria-label="Close tab">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </a>
+                <a href="#skills" class="nav-link" data-section="skills">
+                    <i class="fas fa-cog nav-file-icon"></i>
+                    <span class="nav-path">Skills.yml</span>
+                    <button class="nav-close-btn" data-section="skills" aria-label="Close tab">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </a>
+                <a href="#distinctions" class="nav-link" data-section="distinctions">
+                    <i class="fas fa-certificate nav-file-icon"></i>
+                    <span class="nav-path">Distinctions.crt</span>
+                    <button class="nav-close-btn" data-section="distinctions" aria-label="Close tab">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </a>
+                <a href="#contact" class="nav-link" data-section="contact">
+                    <i class="fab fa-markdown nav-file-icon"></i>
+                    <span class="nav-path">Contact.md</span>
+                    <button class="nav-close-btn" data-section="contact" aria-label="Close tab">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </a>
+            </div>
+            <div class="status-right">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Dashboard -->
+        <main class="dashboard">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                        <span class="terminal-title">gerald@portfolio:~$</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-line">
+                            <span class="prompt">$</span>
+                            <span class="command">whoami</span>
+                        </div>
+                        <div class="terminal-output">
+                            <h1 class="hero-name">Gerald Clark</h1>
+                            <p class="hero-title">CTO / Co-Founder</p>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="prompt">$</span>
+                            <span class="command blinking">_</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Grid -->
+            <section class="stats-grid" data-section="stats">
+                <!-- Stats will be generated from portfolio.json -->
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="content-section" data-section="about">
+                <div class="section-header">
+                    <h2 class="section-title">ABOUT.JS</h2>
+                    <div class="section-line"></div>
+                </div>
+                <div class="content-card">
+                    <!-- About section will be generated from portfolio.json -->
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">PROJECTS.LOG</h2>
+                    <div class="section-line"></div>
+                </div>
+                <div class="projects-grid" data-section="projects">
+                    <!-- Projects will be generated from portfolio.json -->
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">SKILLS.YML</h2>
+                    <div class="section-line"></div>
+                </div>
+                <div class="skills-container" data-section="skills">
+                    <!-- Skills will be generated from portfolio.json -->
+                </div>
+            </section>
+
+            <!-- Distinctions Section -->
+            <section id="distinctions" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">DISTINCTIONS.CRT</h2>
+                    <div class="section-line"></div>
+                </div>
+                <div class="content-card">
+                    <div class="distinctions-container" data-section="distinctions">
+                        <!-- Distinctions will be generated from portfolio.json -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title"># CONTACT.MD</h2>
+                    <div class="section-line"></div>
+                </div>
+                <div class="content-card">
+                    <div class="contact-grid" data-section="contact">
+                        <!-- Contact items will be generated from portfolio.json -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <div class="footer-content">
+                <span class="footer-text">© 2024 Gerald Clark | System Status: <span class="status-online">OPERATIONAL</span></span>
+                <span class="footer-stats">
+                    <span>CPU: <span class="stat-value-small">12%</span></span>
+                    <span>RAM: <span class="stat-value-small">45%</span></span>
+                    <span>NET: <span class="stat-value-small">2.3MB/s</span></span>
+                </span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="delete-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">DELETE CARD</h3>
+                <button class="modal-close" id="modal-close-btn" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-message">Are you sure you want to delete this card? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-cancel" id="modal-cancel-btn">Cancel</button>
+                <button class="modal-btn modal-btn-delete" id="modal-delete-btn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Close Tab Confirmation Modal -->
+    <div class="modal-overlay" id="close-tab-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">CLOSE TAB</h3>
+                <button class="modal-close" id="close-tab-modal-close-btn" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-message" id="close-tab-message">Are you sure you want to close this tab? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-cancel" id="close-tab-cancel-btn">Cancel</button>
+                <button class="modal-btn modal-btn-delete" id="close-tab-confirm-btn">Close Tab</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Logs Panel -->
+    <div class="logs-panel-overlay" id="logs-panel-overlay">
+        <div class="logs-panel" id="logs-panel">
+            <div class="logs-panel-header">
+                <div class="logs-panel-title">
+                    <i class="fas fa-stream"></i>
+                    <span>PROJECT LOGS</span>
+                </div>
+                <button class="logs-panel-close" id="logs-panel-close" aria-label="Close logs panel">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="logs-panel-content">
+                <div class="logs-sidebar">
+                    <div class="logs-search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="logs-search-input" class="logs-search-input" placeholder="Search projects...">
+                    </div>
+                    <div class="logs-project-list" id="logs-project-list">
+                        <!-- Project list will be generated here -->
+                    </div>
+                </div>
+                <div class="logs-main-content">
+                    <div class="logs-details" id="logs-details">
+                        <div class="logs-empty-state">
+                            <i class="fas fa-file-alt"></i>
+                            <p>Select a project to view details</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.write('<script src="app.js?v=' + Date.now() + '"><\/script>');
+    </script>
+</body>
+</html>
+
