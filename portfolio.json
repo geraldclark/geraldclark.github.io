@@ -1518,28 +1518,12 @@
   ],
   "contact": [
     {
-      "id": "contact-1",
-      "type": "email",
-      "label": "Email",
-      "value": "mailto:geraldbclark@gmail.com",
-      "url": "mailto:geraldbclark@gmail.com",
-      "icon": "fas fa-envelope"
-    },
-    {
       "id": "contact-2",
       "type": "github",
       "label": "GitHub",
       "value": "github.com/geraldclark",
       "url": "https://github.com/geraldclark",
       "icon": "fab fa-github"
-    },
-    {
-      "id": "contact-3",
-      "type": "gitlab",
-      "label": "GitLab",
-      "value": "gitlab.com/geraldclark",
-      "url": "https://gitlab.com/geraldclark",
-      "icon": "fab fa-gitlab"
     },
     {
       "id": "contact-4",

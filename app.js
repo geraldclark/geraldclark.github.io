@@ -741,6 +741,61 @@ const app = (function() {
             }
         },
 
+        scrollToSection(sectionId) {
+            // Handle top/terminal link - scroll to hero section's actual position
+            if (sectionId === 'top') {
+                const heroSection = document.querySelector('.hero-section');
+                if (heroSection) {
+                    const offset = 96; // Account for fixed status bar with tabs
+                    const targetPosition = heroSection.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    // Fallback to top if hero section not found
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
+                return;
+            }
+            
+            // Handle dashboard link - scroll to projects completed stat card
+            if (sectionId === 'dashboard') {
+                const navLinks = document.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-section') === 'dashboard') {
+                        link.classList.add('active');
+                    }
+                });
+                
+                const projectsCompletedCard = document.querySelector('[data-card-id="stat-1"]');
+                if (projectsCompletedCard) {
+                    const offset = 96;
+                    const targetPosition = projectsCompletedCard.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+                return;
+            }
+            
+            // Handle other sections
+            const target = document.getElementById(sectionId);
+            if (target) {
+                const offset = 96;
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        },
+        
         handleMobileMenuClick(sectionId) {
             // Use the same scroll logic as regular nav links
             const navLinks = document.querySelectorAll('.nav-link');
@@ -753,39 +808,7 @@ const app = (function() {
                 matchingLink.click();
             } else {
                 // Fallback scroll logic
-                if (sectionId === 'top') {
-                    const heroSection = document.querySelector('.hero-section');
-                    if (heroSection) {
-                        const offset = 96;
-                        const targetPosition = heroSection.getBoundingClientRect().top + window.pageYOffset - offset;
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    } else {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }
-                } else if (sectionId === 'dashboard') {
-                    const projectsCompletedCard = document.querySelector('[data-card-id="stat-1"]');
-                    if (projectsCompletedCard) {
-                        const offset = 96;
-                        const targetPosition = projectsCompletedCard.getBoundingClientRect().top + window.pageYOffset - offset;
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                } else {
-                    const target = document.getElementById(sectionId);
-                    if (target) {
-                        const offset = 96;
-                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                }
+                this.scrollToSection(sectionId);
             }
             
             // Update active state in mobile menu
@@ -882,23 +905,48 @@ const app = (function() {
             const themeIcon = document.getElementById('theme-icon');
             const html = document.documentElement;
             
+            if (!themeToggle) {
+                console.error('Theme toggle button not found');
+                return;
+            }
+            
+            if (!themeIcon) {
+                console.error('Theme icon not found');
+                return;
+            }
+            
             // Get saved theme or default to light
             const savedTheme = localStorage.getItem('theme') || 'light';
             html.setAttribute('data-theme', savedTheme);
             this.updateIcon(savedTheme, themeIcon);
             
+            // Remove any existing listeners by cloning the button
+            const newToggle = themeToggle.cloneNode(true);
+            themeToggle.parentNode.replaceChild(newToggle, themeToggle);
+            
+            // Get the new elements
+            const newThemeToggle = document.getElementById('theme-toggle');
+            const newThemeIcon = document.getElementById('theme-icon');
+            
             // Toggle theme on button click
-            themeToggle.addEventListener('click', () => {
-                const currentTheme = html.getAttribute('data-theme');
+            newThemeToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const currentTheme = html.getAttribute('data-theme') || 'light';
                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                console.log('Toggling theme from', currentTheme, 'to', newTheme);
                 
                 html.setAttribute('data-theme', newTheme);
                 localStorage.setItem('theme', newTheme);
-                this.updateIcon(newTheme, themeIcon);
+                this.updateIcon(newTheme, newThemeIcon);
             });
         },
 
         updateIcon(theme, iconElement) {
+            if (!iconElement) return;
+            
             if (theme === 'light') {
                 iconElement.classList.remove('fa-moon');
                 iconElement.classList.add('fa-sun');
@@ -1586,10 +1634,16 @@ const app = (function() {
                 if (!tabToClose) return;
                 
                 const navLink = document.querySelector(`.nav-link[data-section="${tabToClose}"]`);
+                const footerNavLink = document.querySelector(`.footer-nav-link[data-section="${tabToClose}"]`);
                 const section = tabToClose === 'top' ? document.querySelector('.hero-section') : document.getElementById(tabToClose);
                 
                 if (navLink) {
                     navLink.style.display = 'none';
+                }
+                
+                // Also hide the corresponding footer nav link
+                if (footerNavLink) {
+                    footerNavLink.style.display = 'none';
                 }
                 
                 if (section) {
@@ -2661,6 +2715,7 @@ const app = (function() {
             logs.init();
             navigation.init();
             modals.initCloseTab();
+            this.initFooter();
             
             // Close dropdowns when clicking outside
             document.addEventListener('click', (e) => {
@@ -2669,6 +2724,54 @@ const app = (function() {
                         dropdown.classList.remove('active');
                     });
                 }
+            });
+        },
+        
+        initFooter() {
+            // Back to top button
+            const backToTopBtn = document.getElementById('back-to-top');
+            if (backToTopBtn) {
+                // Show/hide button based on scroll position
+                const toggleBackToTop = () => {
+                    if (window.pageYOffset > 300) {
+                        backToTopBtn.style.opacity = '1';
+                        backToTopBtn.style.visibility = 'visible';
+                    } else {
+                        backToTopBtn.style.opacity = '0';
+                        backToTopBtn.style.visibility = 'hidden';
+                    }
+                };
+                
+                // Initial check
+                toggleBackToTop();
+                
+                // Listen for scroll events
+                window.addEventListener('scroll', toggleBackToTop);
+                
+                // Scroll to top on click
+                backToTopBtn.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+            
+            // Footer nav links - use same scroll logic as main nav
+            const footerNavLinks = document.querySelectorAll('.footer-nav-link');
+            footerNavLinks.forEach(link => {
+                const sectionId = link.getAttribute('data-section');
+                
+                // Check if the corresponding top nav link is hidden, and hide footer nav link too
+                const topNavLink = document.querySelector(`.nav-link[data-section="${sectionId}"]`);
+                if (topNavLink && topNavLink.style.display === 'none') {
+                    link.style.display = 'none';
+                }
+                
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    navigation.scrollToSection(sectionId);
+                });
             });
             
             // Add close button event listeners
