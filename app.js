@@ -163,23 +163,60 @@ const app = (function() {
     // NAVIGATION
     // ============================================
     const navigation = {
+        // Flag to prevent updateActiveNav from overriding manual active state
+        skipActiveUpdate: false,
+        
         init() {
             const navLinks = document.querySelectorAll('.nav-link');
             const sections = document.querySelectorAll('section[id]');
             const heroSection = document.querySelector('.hero-section');
             
+            // Restore saved nav order
+            this.restoreNavOrder();
+            
+            // Make nav links draggable (desktop only)
+            if (window.innerWidth > 768) {
+                this.initDragAndDrop();
+            }
+            
+            // Initialize mobile menu
+            this.initMobileMenu();
+            
             // Smooth scroll behavior
             navLinks.forEach(link => {
                 link.addEventListener('click', function (e) {
+                    // Don't navigate if this was a drag operation
+                    if (this.wasDragging || this.classList.contains('dragging')) {
+                        this.wasDragging = false;
+                        return;
+                    }
+                    
+                    // Don't navigate if clicking on close button
+                    if (e.target.closest('.nav-close-btn')) {
+                        return;
+                    }
+                    
                     e.preventDefault();
                     const targetId = this.getAttribute('href').substring(1);
+                    const sectionId = this.getAttribute('data-section');
                     
-                    // Handle top/terminal link
-                    if (targetId === 'top' || this.getAttribute('data-section') === 'top') {
-                        window.scrollTo({
-                            top: 0,
-                            behavior: 'smooth'
-                        });
+                    // Handle top/terminal link - scroll to hero section's actual position
+                    if (targetId === 'top' || sectionId === 'top') {
+                        const heroSection = document.querySelector('.hero-section');
+                        if (heroSection) {
+                            const offset = 96; // Account for fixed status bar with tabs
+                            const targetPosition = heroSection.getBoundingClientRect().top + window.pageYOffset - offset;
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        } else {
+                            // Fallback to top if hero section not found
+                            window.scrollTo({
+                                top: 0,
+                                behavior: 'smooth'
+                            });
+                        }
                         return;
                     }
                     
@@ -220,11 +257,544 @@ const app = (function() {
             
             // Update active nav link on scroll
             window.addEventListener('scroll', () => {
-                navigation.updateActiveNav();
+                // Skip update if we just set it manually (e.g., after drag)
+                if (!navigation.skipActiveUpdate) {
+                    navigation.updateActiveNav();
+                }
             });
             
             // Initial update
             navigation.updateActiveNav();
+        },
+
+        initDragAndDrop() {
+            const navTabs = document.querySelector('.status-nav-tabs');
+            if (!navTabs) {
+                console.warn('Nav tabs container not found');
+                return;
+            }
+
+            const navLinks = Array.from(navTabs.querySelectorAll('.nav-link'));
+            if (navLinks.length === 0) {
+                console.warn('No nav links found');
+                return;
+            }
+
+            let draggedElement = null;
+            let isDragging = false;
+            let dragStartX = 0;
+            let dragStartY = 0;
+            let dropIndicator = null;
+            
+            // Create drop indicator element
+            dropIndicator = document.createElement('div');
+            dropIndicator.className = 'nav-drop-indicator';
+            dropIndicator.style.cssText = 'position: absolute; height: 30px; width: 3px; background: var(--accent-orange); pointer-events: none; z-index: 1001; display: none;';
+            document.body.appendChild(dropIndicator);
+
+            // Add dragover handler to the container for better drop zone detection
+            navTabs.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                
+                const dragging = document.querySelector('.nav-link.dragging');
+                if (!dragging) return;
+                
+                // Remove all drop indicators
+                navTabs.querySelectorAll('.nav-link').forEach(navLink => {
+                    navLink.classList.remove('drag-over', 'drag-before', 'drag-after');
+                });
+                
+                // Get the position where we should insert
+                const afterElement = this.getDragAfterElement(navTabs, e.clientX);
+                
+                // Show drop indicator line
+                if (dropIndicator) {
+                    let indicatorX = 0;
+                    let indicatorY = 0;
+                    
+                    if (afterElement == null) {
+                        // Will be inserted at the end
+                        const lastLink = navTabs.querySelector('.nav-link:last-of-type:not(.dragging)');
+                        if (lastLink) {
+                            const rect = lastLink.getBoundingClientRect();
+                            indicatorX = rect.right;
+                            indicatorY = rect.top;
+                            lastLink.classList.add('drag-after');
+                        }
+                    } else {
+                        // Will be inserted before this element
+                        const rect = afterElement.getBoundingClientRect();
+                        indicatorX = rect.left;
+                        indicatorY = rect.top;
+                        afterElement.classList.add('drag-before');
+                    }
+                    
+                    if (indicatorX > 0) {
+                        dropIndicator.style.left = indicatorX + 'px';
+                        dropIndicator.style.top = indicatorY + 'px';
+                        dropIndicator.style.display = 'block';
+                    }
+                }
+                
+                // Update DOM position (but don't reorder content yet)
+                if (afterElement == null) {
+                    navTabs.appendChild(dragging);
+                } else {
+                    navTabs.insertBefore(dragging, afterElement);
+                }
+            });
+            
+            navTabs.addEventListener('dragleave', (e) => {
+                // Only hide indicator if we're leaving the container entirely
+                if (!navTabs.contains(e.relatedTarget)) {
+                    if (dropIndicator) {
+                        dropIndicator.style.display = 'none';
+                    }
+                    navTabs.querySelectorAll('.nav-link').forEach(navLink => {
+                        navLink.classList.remove('drag-over', 'drag-before', 'drag-after');
+                    });
+                }
+            });
+
+            navLinks.forEach((link, index) => {
+                link.setAttribute('draggable', 'true');
+                link.style.cursor = 'grab';
+                link.style.userSelect = 'none';
+
+                // Track mouse down to distinguish between click and drag
+                link.addEventListener('mousedown', (e) => {
+                    // Don't start drag if clicking on close button
+                    if (e.target.closest('.nav-close-btn')) {
+                        return;
+                    }
+                    dragStartX = e.clientX;
+                    dragStartY = e.clientY;
+                    isDragging = false;
+                });
+
+                link.addEventListener('dragstart', (e) => {
+                    // Don't start drag if clicking on close button
+                    if (e.target.closest('.nav-close-btn')) {
+                        e.preventDefault();
+                        return false;
+                    }
+                    
+                    isDragging = true;
+                    draggedElement = link;
+                    link.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'move';
+                    e.dataTransfer.setData('text/html', link.outerHTML);
+                });
+
+                link.addEventListener('dragend', (e) => {
+                    isDragging = false;
+                    link.classList.remove('dragging');
+                    // Remove all drag-related classes
+                    document.querySelectorAll('.nav-link').forEach(el => {
+                        el.classList.remove('drag-over', 'drag-before', 'drag-after');
+                    });
+                    // Hide drop indicator
+                    if (dropIndicator) {
+                        dropIndicator.style.display = 'none';
+                    }
+                    
+                    // Reorder content sections after drag is complete
+                    this.reorderContentSections();
+                    
+                    // Save new order
+                    this.saveNavOrder();
+                    
+                    // Set the dragged tab as active
+                    if (draggedElement) {
+                        // Prevent scroll-based active nav updates temporarily
+                        navigation.skipActiveUpdate = true;
+                        
+                        // Remove active class from all nav links
+                        document.querySelectorAll('.nav-link').forEach(navLink => {
+                            navLink.classList.remove('active');
+                        });
+                        
+                        // Add active class to the dragged element
+                        draggedElement.classList.add('active');
+                        
+                        // Scroll to the corresponding section
+                        const sectionId = draggedElement.getAttribute('data-section');
+                        if (sectionId === 'top') {
+                            // Scroll to hero section's actual position
+                            const heroSection = document.querySelector('.hero-section');
+                            if (heroSection) {
+                                const offset = 96;
+                                const targetPosition = heroSection.getBoundingClientRect().top + window.pageYOffset - offset;
+                                window.scrollTo({
+                                    top: targetPosition,
+                                    behavior: 'smooth'
+                                });
+                            } else {
+                                window.scrollTo({
+                                    top: 0,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        } else if (sectionId === 'dashboard') {
+                            const projectsCompletedCard = document.querySelector('[data-card-id="stat-1"]');
+                            if (projectsCompletedCard) {
+                                const offset = 96;
+                                const targetPosition = projectsCompletedCard.getBoundingClientRect().top + window.pageYOffset - offset;
+                                window.scrollTo({
+                                    top: targetPosition,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        } else {
+                            const target = document.getElementById(sectionId);
+                            if (target) {
+                                const offset = 96;
+                                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                                window.scrollTo({
+                                    top: targetPosition,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }
+                        
+                        // Re-enable scroll-based updates after scroll completes
+                        setTimeout(() => {
+                            navigation.skipActiveUpdate = false;
+                        }, 1000); // Wait for smooth scroll to complete
+                    }
+                    
+                    // Mark that we were dragging to prevent click event
+                    if (draggedElement) {
+                        draggedElement.wasDragging = true;
+                        setTimeout(() => {
+                            if (draggedElement) {
+                                draggedElement.wasDragging = false;
+                            }
+                        }, 100);
+                    }
+                });
+
+                // Individual link dragover is now handled at container level for better precision
+
+                link.addEventListener('dragenter', (e) => {
+                    e.preventDefault();
+                    if (link !== draggedElement) {
+                        // Visual feedback handled in dragover
+                    }
+                });
+
+                link.addEventListener('dragleave', (e) => {
+                    // Only remove if we're actually leaving the element (not just moving to a child)
+                    if (!link.contains(e.relatedTarget)) {
+                        link.classList.remove('drag-over', 'drag-before', 'drag-after');
+                    }
+                });
+
+                link.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // Remove all drag-related classes
+                    document.querySelectorAll('.nav-link').forEach(el => {
+                        el.classList.remove('drag-over', 'drag-before', 'drag-after');
+                    });
+                    // Hide drop indicator
+                    if (dropIndicator) {
+                        dropIndicator.style.display = 'none';
+                    }
+                    
+                    if (draggedElement && draggedElement !== link) {
+                        const parent = link.parentElement;
+                        if (draggedElement.nextSibling === link) {
+                            parent.insertBefore(link, draggedElement);
+                        } else {
+                            parent.insertBefore(draggedElement, link);
+                        }
+                    }
+                });
+            });
+        },
+
+        getDragAfterElement(container, x) {
+            const draggableElements = [...container.querySelectorAll('.nav-link:not(.dragging)')];
+            
+            if (draggableElements.length === 0) return null;
+            
+            // Find the element we're closest to
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                // Use the middle point of the element as the decision point
+                const middle = box.left + box.width / 2;
+                const offset = x - middle;
+                
+                // If we're to the left of this element's middle, and closer than previous
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
+        },
+
+        reorderContentSections() {
+            const navTabs = document.querySelector('.status-nav-tabs');
+            if (!navTabs) return;
+
+            const navLinks = Array.from(navTabs.querySelectorAll('.nav-link'));
+            const dashboard = document.querySelector('.dashboard');
+            if (!dashboard) return;
+
+            // Get all sections and create a map
+            const sectionMap = new Map();
+            
+            // Hero section (top) - this is a section element with class "hero-section"
+            const heroSection = document.querySelector('.hero-section');
+            if (heroSection) {
+                sectionMap.set('top', heroSection);
+            }
+            
+            // Stats grid (dashboard) - this is a section element with class "stats-grid" and data-section="stats"
+            const statsGrid = document.querySelector('.stats-grid[data-section="stats"]');
+            if (statsGrid) {
+                sectionMap.set('dashboard', statsGrid);
+            }
+            
+            // Content sections with IDs - these are section elements with IDs
+            const contentSections = ['about', 'projects', 'skills', 'distinctions', 'contact'];
+            contentSections.forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    sectionMap.set(sectionId, section);
+                }
+            });
+
+            // Get all current children of dashboard (these are the sections we want to reorder)
+            const allChildren = Array.from(dashboard.children);
+            
+            // Build ordered list based on nav link order
+            const orderedSections = [];
+            navLinks.forEach(navLink => {
+                const sectionId = navLink.getAttribute('data-section');
+                const sectionElement = sectionMap.get(sectionId);
+                
+                // Check if this section exists and is a direct child of dashboard
+                if (sectionElement && allChildren.includes(sectionElement)) {
+                    orderedSections.push(sectionElement);
+                }
+            });
+            
+            // Only reorder if we have sections to reorder and the order is different
+            if (orderedSections.length === 0) return;
+            
+            // Check if order actually changed
+            let orderChanged = false;
+            for (let i = 0; i < orderedSections.length; i++) {
+                if (allChildren[i] !== orderedSections[i]) {
+                    orderChanged = true;
+                    break;
+                }
+            }
+            
+            if (!orderChanged) return;
+            
+            // Reorder: remove all sections first, then append in new order
+            // This ensures proper ordering
+            orderedSections.forEach(section => {
+                if (section.parentNode === dashboard) {
+                    dashboard.removeChild(section);
+                }
+            });
+            
+            // Append sections in the new order
+            orderedSections.forEach(section => {
+                dashboard.appendChild(section);
+            });
+        },
+
+        saveNavOrder() {
+            return;
+            const navTabs = document.querySelector('.status-nav-tabs');
+            if (!navTabs) return;
+
+            const navLinks = Array.from(navTabs.querySelectorAll('.nav-link'));
+            const order = navLinks.map(link => link.getAttribute('data-section'));
+            
+            localStorage.setItem('nav-order', JSON.stringify(order));
+        },
+
+        restoreNavOrder() {
+            return;
+            const savedOrder = localStorage.getItem('nav-order');
+            if (!savedOrder) return;
+
+            try {
+                const order = JSON.parse(savedOrder);
+                const navTabs = document.querySelector('.status-nav-tabs');
+                if (!navTabs) return;
+
+                const navLinks = Array.from(navTabs.querySelectorAll('.nav-link'));
+                const linkMap = new Map();
+                navLinks.forEach(link => {
+                    linkMap.set(link.getAttribute('data-section'), link);
+                });
+
+                // Reorder nav links
+                order.forEach(sectionId => {
+                    const link = linkMap.get(sectionId);
+                    if (link) {
+                        navTabs.appendChild(link);
+                    }
+                });
+
+                // Reorder content sections to match
+                this.reorderContentSections();
+            } catch (e) {
+                console.error('Error restoring nav order:', e);
+            }
+        },
+
+        initMobileMenu() {
+            const menuToggle = document.getElementById('mobile-menu-toggle');
+            const menuOverlay = document.getElementById('mobile-menu-overlay');
+            const menuClose = document.getElementById('mobile-menu-close');
+            const menuNav = document.getElementById('mobile-menu-nav');
+            
+            if (!menuToggle || !menuOverlay || !menuClose || !menuNav) return;
+
+            // Generate menu items from nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            menuNav.innerHTML = '';
+            
+            navLinks.forEach(link => {
+                const sectionId = link.getAttribute('data-section');
+                const icon = link.querySelector('.nav-file-icon')?.className || 'fas fa-circle';
+                const label = link.querySelector('.nav-path')?.textContent || sectionId;
+                
+                const menuItem = document.createElement('a');
+                menuItem.className = 'mobile-menu-item';
+                menuItem.setAttribute('data-section', sectionId);
+                menuItem.href = link.getAttribute('href') || `#${sectionId}`;
+                
+                menuItem.innerHTML = `
+                    <i class="${icon} mobile-menu-item-icon"></i>
+                    <span class="mobile-menu-item-label">${label}</span>
+                `;
+                
+                menuItem.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.handleMobileMenuClick(sectionId);
+                    this.closeMobileMenu();
+                });
+                
+                menuNav.appendChild(menuItem);
+            });
+
+            // Toggle menu
+            menuToggle.addEventListener('click', () => {
+                this.openMobileMenu();
+            });
+
+            menuClose.addEventListener('click', () => {
+                this.closeMobileMenu();
+            });
+
+            // Close on overlay click
+            menuOverlay.addEventListener('click', (e) => {
+                if (e.target === menuOverlay) {
+                    this.closeMobileMenu();
+                }
+            });
+
+            // Close on Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && menuOverlay.classList.contains('active')) {
+                    this.closeMobileMenu();
+                }
+            });
+        },
+
+        openMobileMenu() {
+            const menuOverlay = document.getElementById('mobile-menu-overlay');
+            if (menuOverlay) {
+                // Set display first, then trigger animation on next frame
+                menuOverlay.style.display = 'flex';
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        menuOverlay.classList.add('active');
+                    });
+                });
+                document.body.style.overflow = 'hidden';
+            }
+        },
+
+        closeMobileMenu() {
+            const menuOverlay = document.getElementById('mobile-menu-overlay');
+            if (menuOverlay) {
+                menuOverlay.classList.remove('active');
+                // Wait for animation to complete before hiding
+                setTimeout(() => {
+                    if (!menuOverlay.classList.contains('active')) {
+                        menuOverlay.style.display = 'none';
+                    }
+                }, 350);
+                document.body.style.overflow = '';
+            }
+        },
+
+        handleMobileMenuClick(sectionId) {
+            // Use the same scroll logic as regular nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            const matchingLink = Array.from(navLinks).find(link => 
+                link.getAttribute('data-section') === sectionId
+            );
+            
+            if (matchingLink) {
+                // Trigger click on the matching nav link to use existing scroll logic
+                matchingLink.click();
+            } else {
+                // Fallback scroll logic
+                if (sectionId === 'top') {
+                    const heroSection = document.querySelector('.hero-section');
+                    if (heroSection) {
+                        const offset = 96;
+                        const targetPosition = heroSection.getBoundingClientRect().top + window.pageYOffset - offset;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                } else if (sectionId === 'dashboard') {
+                    const projectsCompletedCard = document.querySelector('[data-card-id="stat-1"]');
+                    if (projectsCompletedCard) {
+                        const offset = 96;
+                        const targetPosition = projectsCompletedCard.getBoundingClientRect().top + window.pageYOffset - offset;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                } else {
+                    const target = document.getElementById(sectionId);
+                    if (target) {
+                        const offset = 96;
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            }
+            
+            // Update active state in mobile menu
+            document.querySelectorAll('.mobile-menu-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-section') === sectionId) {
+                    item.classList.add('active');
+                }
+            });
         },
 
         updateActiveNav() {
@@ -233,6 +803,7 @@ const app = (function() {
             const heroSection = document.querySelector('.hero-section');
             const statsGrid = document.querySelector('.stats-grid[data-section="stats"]');
             const scrollPosition = window.pageYOffset + 100; // Offset for better detection
+            const mobileMenuItems = document.querySelectorAll('.mobile-menu-item');
             
             // Check if we're at the top (hero section)
             if (heroSection && scrollPosition < heroSection.offsetTop + heroSection.offsetHeight - 200) {
@@ -240,6 +811,13 @@ const app = (function() {
                     link.classList.remove('active');
                     if (link.getAttribute('data-section') === 'top') {
                         link.classList.add('active');
+                    }
+                });
+                // Update mobile menu
+                mobileMenuItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('data-section') === 'top') {
+                        item.classList.add('active');
                     }
                 });
                 return;
@@ -260,6 +838,13 @@ const app = (function() {
                             link.classList.add('active');
                         }
                     });
+                    // Update mobile menu
+                    mobileMenuItems.forEach(item => {
+                        item.classList.remove('active');
+                        if (item.getAttribute('data-section') === 'dashboard') {
+                            item.classList.add('active');
+                        }
+                    });
                     return;
                 }
             }
@@ -274,6 +859,13 @@ const app = (function() {
                         link.classList.remove('active');
                         if (link.getAttribute('data-section') === sectionId) {
                             link.classList.add('active');
+                        }
+                    });
+                    // Update mobile menu
+                    mobileMenuItems.forEach(item => {
+                        item.classList.remove('active');
+                        if (item.getAttribute('data-section') === sectionId) {
+                            item.classList.add('active');
                         }
                     });
                 }
@@ -1195,6 +1787,14 @@ const app = (function() {
             document.querySelectorAll('.stats-grid, .projects-grid, .skills-container, .contact-grid, .distinctions-container').forEach(grid => {
                 cards.checkAllMinimized(grid);
             });
+            
+            // Restore nav order after content is generated (sections need to exist)
+            navigation.restoreNavOrder();
+            
+            // Regenerate mobile menu after content loads (in case nav links changed)
+            if (window.innerWidth <= 768) {
+                navigation.initMobileMenu();
+            }
             
             // Add dynamic behavior to project cards
             const projectCards = document.querySelectorAll('.project-card');

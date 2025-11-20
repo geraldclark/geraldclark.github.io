@@ -151,6 +151,61 @@ body {
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     margin-bottom: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.nav-link[draggable="true"] {
+    cursor: grab;
+    -webkit-user-drag: element;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.nav-link[draggable="true"]:active {
+    cursor: grabbing;
+}
+
+.nav-link.dragging {
+    opacity: 0.4;
+    transform: rotate(2deg) scale(0.95);
+    cursor: grabbing;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.4);
+}
+
+.nav-link.drag-over {
+    border-color: var(--accent-orange);
+    box-shadow: 0 0 0 2px var(--accent-orange);
+    background: var(--nav-bg-hover);
+}
+
+/* Visual indicator for drop position - before */
+.nav-link.drag-before {
+    border-left: 3px solid var(--accent-orange);
+    padding-left: 9px;
+    background: var(--nav-bg-hover);
+    margin-left: -3px;
+}
+
+/* Visual indicator for drop position - after */
+.nav-link.drag-after {
+    border-right: 3px solid var(--accent-orange);
+    padding-right: 9px;
+    background: var(--nav-bg-hover);
+    margin-right: -3px;
+}
+
+/* Drop indicator line */
+.nav-drop-indicator {
+    position: fixed;
+    height: 30px;
+    width: 3px;
+    background: var(--accent-orange);
+    pointer-events: none;
+    z-index: 1001;
+    box-shadow: 0 0 8px var(--accent-orange);
+    border-radius: 2px;
 }
 
 .nav-file-icon {
@@ -344,6 +399,26 @@ body {
     gap: 16px;
     padding: 12px 24px;
     flex-shrink: 0;
+}
+
+.mobile-menu-toggle {
+    display: none;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--accent-orange);
+    cursor: pointer;
+    padding: 8px 12px;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-menu-toggle:hover {
+    background: var(--card-bg);
+    border-color: var(--accent-orange);
+    transform: scale(1.05);
 }
 
 .theme-toggle {
@@ -1834,7 +1909,7 @@ body {
 @media (max-width: 768px) {
     .dashboard {
         padding: 24px 16px;
-        padding-top: 140px; /* More space for status bar on mobile */
+        padding-top: 80px; /* Reduced since nav tabs are hidden */
     }
 
     .hero-name {
@@ -1864,40 +1939,39 @@ body {
     }
 
     .status-bar {
-        flex-wrap: wrap;
-        min-height: auto;
+        flex-wrap: nowrap;
+        min-height: 62px;
         padding-bottom: 0;
+        align-items: center;
     }
 
     .status-left {
         padding: 8px 12px;
-        width: 100%;
+        flex: 1;
         order: 1;
     }
 
+    /* Hide nav tabs on mobile */
     .status-nav-tabs {
-        order: 2;
-        width: 100%;
-        padding: 0 8px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
-    }
-
-    .status-nav-tabs::-webkit-scrollbar {
-        height: 4px;
-    }
-
-    .status-nav-tabs::-webkit-scrollbar-thumb {
-        background: var(--navy-500);
-        border-radius: 2px;
+        display: none !important;
     }
 
     .status-right {
         padding: 8px 12px;
-        order: 3;
-        width: 100%;
+        order: 2;
+        flex-shrink: 0;
         justify-content: flex-end;
+        gap: 8px;
+    }
+
+    /* Show mobile menu toggle */
+    .mobile-menu-toggle {
+        display: flex !important;
+    }
+    
+    /* Adjust status bar height on mobile */
+    .status-bar {
+        min-height: 62px;
     }
 
     .nav-link {
@@ -2080,6 +2154,141 @@ body {
     }
 }
 
+/* Mobile Menu Styles */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    display: none;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding-top: 62px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+                visibility 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                backdrop-filter 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu-overlay.active {
+    display: flex;
+    visibility: visible;
+    opacity: 1;
+}
+
+.mobile-menu {
+    width: 280px;
+    max-width: 85vw;
+    height: calc(100vh - 62px);
+    background: var(--card-bg);
+    border-left: 1px solid var(--border-color);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    overflow: hidden;
+    will-change: transform;
+}
+
+.mobile-menu-overlay.active .mobile-menu {
+    transform: translateX(0);
+}
+
+.mobile-menu-header {
+    padding: 16px 20px;
+    background: var(--navy-700);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+[data-theme="light"] .mobile-menu-header {
+    background: var(--terminal-header-bg);
+}
+
+.mobile-menu-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.mobile-menu-close {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-secondary);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.mobile-menu-close:hover {
+    background: var(--nav-bg-hover);
+    border-color: var(--accent-orange);
+    color: var(--accent-orange);
+}
+
+.mobile-menu-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+.mobile-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid var(--border-color);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-menu-item:last-child {
+    border-bottom: none;
+}
+
+.mobile-menu-item:hover,
+.mobile-menu-item.active {
+    background: var(--nav-bg-hover);
+    color: var(--accent-orange);
+    padding-left: 24px;
+}
+
+.mobile-menu-item-icon {
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.mobile-menu-item-label {
+    flex: 1;
+}
+
+/* Mobile menu overlay should only show when active, not by default */
+
 /* View Logs Button */
 .view-logs-btn {
     width: 100%;
@@ -2135,13 +2344,14 @@ body {
     background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(4px);
     z-index: 1000;
-    display: flex;
+    display: none;
     align-items: stretch;
     justify-content: flex-start;
     visibility: hidden;
 }
 
 .logs-panel-overlay.active {
+    display: flex;
     visibility: visible;
 }
 

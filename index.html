@@ -70,11 +70,29 @@
                 </a>
             </div>
             <div class="status-right">
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                    <i class="fas fa-bars"></i>
+                </button>
                 <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
                     <i class="fas fa-moon" id="theme-icon"></i>
                 </button>
             </div>
         </header>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu-overlay" id="mobile-menu-overlay">
+            <div class="mobile-menu" id="mobile-menu">
+                <div class="mobile-menu-header">
+                    <span class="mobile-menu-title">Navigation</span>
+                    <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <nav class="mobile-menu-nav" id="mobile-menu-nav">
+                    <!-- Menu items will be generated from nav links -->
+                </nav>
+            </div>
+        </div>
 
         <!-- Main Dashboard -->
         <main class="dashboard">
