@@ -3,13 +3,15 @@ import { getProjects, projectPath, projectLogoPath } from '../lib/portfolio.js';
 
 interface Props {
   activeId?: string | null;
+  /** list = index page; detail = project page. Controls mobile layout. */
+  mode?: 'list' | 'detail';
 }
 
-const { activeId = null } = Astro.props;
+const { activeId = null, mode = 'list' } = Astro.props;
 const projects = getProjects();
 ---
 
-<div class="project-browser">
+<div class:list={['project-browser', `mode-${mode}`]}>
   <aside class="logs-sidebar" aria-label="Project list">
     <div class="logs-search-container">
       <i class="fas fa-search" aria-hidden="true"></i>
@@ -54,6 +56,7 @@ const projects = getProjects();
                 )
               }
               <span class="logs-project-item-name">{project.name}</span>
+              <i class="fas fa-chevron-right logs-project-item-chevron" aria-hidden="true"></i>
             </a>
           );
         })

@@ -46,20 +46,33 @@ function initMobileMenu() {
 
   const open = () => {
     overlay.hidden = false;
+    // CSS shows the drawer via .active (display/opacity/slide)
+    overlay.classList.add('active');
+    openBtn.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
   };
   const close = () => {
+    overlay.classList.remove('active');
     overlay.hidden = true;
+    openBtn.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   };
 
-  openBtn.addEventListener('click', open);
+  openBtn.setAttribute('aria-expanded', 'false');
+  openBtn.setAttribute('aria-controls', 'mobile-menu');
+  openBtn.addEventListener('click', () => {
+    if (overlay.classList.contains('active')) close();
+    else open();
+  });
   closeBtn?.addEventListener('click', close);
   overlay.addEventListener('click', (event) => {
     if (event.target === overlay) close();
   });
   overlay.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', close);
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && overlay.classList.contains('active')) close();
   });
 }
 

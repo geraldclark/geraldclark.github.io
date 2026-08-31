@@ -118,7 +118,8 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 100;
+    /* Above mobile menu overlay (1000) so hamburger stays tappable while open */
+    z-index: 1100;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     min-height: 62px;
 }
@@ -3295,23 +3296,65 @@ html:has(.project-shell) body {
 
 @media (max-width: 768px) {
   .dashboard.project-browser-page {
-    padding: 64px 8px 8px;
+    padding: 64px 0 0;
   }
 
   .project-browser {
     flex-direction: column;
+    border: none;
+    border-radius: 0;
   }
 
-  .project-browser .logs-sidebar {
+  /* Index: full-screen searchable list */
+  .project-browser.mode-list .logs-main-content {
+    display: none;
+  }
+
+  .project-browser.mode-list .logs-sidebar {
     width: 100%;
-    height: 38%;
-    max-height: 38%;
+    height: 100%;
+    max-height: none;
     border-right: none;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: none;
   }
 
-  .project-browser .logs-main-content {
-    height: 62%;
+  /* Detail: full-screen project content */
+  .project-browser.mode-detail .logs-sidebar {
+    display: none;
+  }
+
+  .project-browser.mode-detail .logs-main-content {
+    width: 100%;
+    height: 100%;
+  }
+
+  .project-browser.mode-detail .logs-details {
+    padding: 12px 16px 24px;
+  }
+
+  .project-browser .logs-project-item {
+    min-height: 52px;
+    padding: 12px 14px;
+  }
+
+  .project-browser .logs-project-item-chevron {
+    display: inline-block;
+    margin-left: auto;
+    color: var(--text-muted);
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .project-browser .logs-search-container {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--card-bg);
   }
 }
+
+.project-browser .logs-project-item-chevron {
+  display: none;
+}
+
 

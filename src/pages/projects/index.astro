@@ -28,8 +28,8 @@ const jsonLd = [
   <div class="dashboard-container project-shell">
     <StatusBar active="projects" />
     <main class="dashboard project-browser-page">
-      <ProjectBrowser>
-        <div class="logs-empty-state">
+      <ProjectBrowser mode="list">
+        <div class="logs-empty-state desktop-only-empty">
           <i class="fas fa-file-alt" aria-hidden="true"></i>
           <p>Select a project from the list to view details</p>
           <p class="projects-count">{projects.length} projects available</p>
@@ -44,5 +44,11 @@ const jsonLd = [
     margin-top: 0.75rem;
     font-size: 0.85rem;
     opacity: 0.8;
+  }
+
+  @media (max-width: 768px) {
+    .desktop-only-empty {
+      display: none;
+    }
   }
 </style>
