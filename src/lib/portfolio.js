@@ -57,6 +57,32 @@ export function getProjects() {
   return [...(portfolio.projects || [])].sort(compareProjects);
 }
 
+/** Number of recent projects shown in project browser sidebars. */
+export const RECENT_PROJECTS_LIMIT = 8;
+
+/** Home page: initial rows on desktop (3 columns × 3 rows). */
+export const HOME_PROJECTS_DESKTOP_INITIAL = 9;
+
+/** Home page: max projects visible on mobile. */
+export const HOME_PROJECTS_MOBILE_LIMIT = 3;
+
+/**
+ * Most recent projects (newest first). On a detail page, includes the active
+ * project when it falls outside the recent window.
+ * @param {string|null} [activeId]
+ * @param {number} [limit]
+ * @returns {Project[]}
+ */
+export function getRecentProjects(activeId = null, limit = RECENT_PROJECTS_LIMIT) {
+  const sorted = getProjects();
+  const recent = sorted.slice(0, limit);
+  if (!activeId || recent.some((project) => project.id === activeId)) {
+    return recent;
+  }
+  const active = getProjectById(activeId);
+  return active ? [active, ...recent] : recent;
+}
+
 /** @param {string} id */
 export function getProjectById(id) {
   return (portfolio.projects || []).find((project) => project.id === id) || null;

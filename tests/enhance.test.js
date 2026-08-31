@@ -169,3 +169,23 @@ describe('initProjectSearch', () => {
     expect([...items].every((item) => !item.hidden)).toBe(true);
   });
 });
+
+describe('initHomeProjectsGrid', () => {
+  it('expands the home grid when View more is clicked', async () => {
+    const { initHomeProjectsGrid } = await import('../src/scripts/enhance-core.js');
+    document.body.innerHTML = `
+      <div class="home-projects-grid" data-home-projects-grid>
+        <article class="project-card">One</article>
+      </div>
+      <button type="button" data-home-projects-expand>View more</button>
+    `;
+    initHomeProjectsGrid();
+
+    const grid = document.querySelector('[data-home-projects-grid]');
+    const button = document.querySelector('[data-home-projects-expand]');
+    button.click();
+
+    expect(grid.hasAttribute('data-expanded')).toBe(true);
+    expect(button.hidden).toBe(true);
+  });
+});

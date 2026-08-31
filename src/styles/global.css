@@ -1060,6 +1060,48 @@ body {
     align-items: start;
 }
 
+/* Home: 3 columns on desktop, view-more for overflow */
+.home-projects-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.home-projects-grid:not([data-expanded]) .project-card:nth-child(n + 10) {
+    display: none;
+}
+
+.home-projects-actions {
+    display: flex;
+    justify-content: center;
+    padding: 0 8px 8px;
+}
+
+.home-projects-view-more {
+    padding: 12px 24px;
+    background: transparent;
+    border: 1px solid var(--accent-orange);
+    border-radius: 6px;
+    color: var(--accent-orange);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.home-projects-view-more:hover {
+    background: var(--accent-orange);
+    color: #fff;
+}
+
+.home-projects-view-more[hidden] {
+    display: none !important;
+}
+
+/* Projects index: 3 columns on wide screens */
+.projects-index-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .projects-grid.all-minimized {
     min-height: auto;
 }
@@ -2031,6 +2073,18 @@ body {
     }
 
     .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .home-projects-grid:not([data-expanded]) .project-card:nth-child(n + 4) {
+        display: none;
+    }
+
+    .home-projects-actions {
+        display: none;
+    }
+
+    .projects-index-grid {
         grid-template-columns: 1fr;
     }
 
@@ -3305,17 +3359,19 @@ html:has(.project-shell) body {
     border-radius: 0;
   }
 
-  /* Index: full-screen searchable list */
-  .project-browser.mode-list .logs-main-content {
+  /* Index: full project grid (sidebar is desktop quick-nav only) */
+  .project-browser.mode-list .logs-sidebar {
     display: none;
   }
 
-  .project-browser.mode-list .logs-sidebar {
+  .project-browser.mode-list .logs-main-content {
+    display: flex;
     width: 100%;
     height: 100%;
-    max-height: none;
-    border-right: none;
-    border-bottom: none;
+  }
+
+  .project-browser.mode-list .logs-details {
+    padding: 12px 16px 24px;
   }
 
   /* Detail: full-screen project content */

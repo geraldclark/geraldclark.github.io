@@ -3,6 +3,7 @@ import {
   getPortfolio,
   getProjectById,
   getProjects,
+  getRecentProjects,
   projectImageIsLogo,
   projectImagePath,
   projectLogoPath,
@@ -79,6 +80,23 @@ describe('getProjects', () => {
     const firstId = getPortfolio().projects[0].id;
     getProjects();
     expect(getPortfolio().projects[0].id).toBe(firstId);
+  });
+});
+
+describe('getRecentProjects', () => {
+  it('returns the newest projects first', () => {
+    const all = getProjects();
+    const recent = getRecentProjects(null, 3);
+    expect(recent).toHaveLength(3);
+    expect(recent.map((p) => p.id)).toEqual(all.slice(0, 3).map((p) => p.id));
+  });
+
+  it('prepends the active project when it is outside the recent window', () => {
+    const all = getProjects();
+    const active = all[all.length - 1];
+    const recent = getRecentProjects(active.id, 3);
+    expect(recent[0].id).toBe(active.id);
+    expect(recent).toHaveLength(4);
   });
 });
 

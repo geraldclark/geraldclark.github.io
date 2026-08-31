@@ -6,6 +6,7 @@ import ProjectCard from '../components/ProjectCard.astro';
 import {
   getPortfolio,
   getProjects,
+  HOME_PROJECTS_DESKTOP_INITIAL,
 } from '../lib/portfolio.js';
 import {
   personSchema,
@@ -15,6 +16,7 @@ import {
 
 const portfolio = getPortfolio();
 const projects = getProjects();
+const hiddenDesktopCount = Math.max(0, projects.length - HOME_PROJECTS_DESKTOP_INITIAL);
 const about = portfolio.about;
 const skills = portfolio.skills || [];
 const contact = portfolio.contact || [];
@@ -110,12 +112,20 @@ const person = {
           <div class="section-line"></div>
         </div>
         <p class="section-intro">
-          <a href="/projects/">Browse all {projects.length} projects</a> with full descriptions,
-          or open any card below.
+          Recent work below. <a href="/projects/">Browse all {projects.length} projects</a>.
         </p>
-        <div class="projects-grid">
+        <div class="projects-grid home-projects-grid" data-home-projects-grid>
           {projects.map((project) => <ProjectCard project={project} />)}
         </div>
+        {
+          hiddenDesktopCount > 0 && (
+            <div class="home-projects-actions">
+              <button type="button" class="home-projects-view-more" data-home-projects-expand>
+                View more ({hiddenDesktopCount})
+              </button>
+            </div>
+          )
+        }
       </section>
 
       <section id="skills" class="content-section">

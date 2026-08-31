@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import StatusBar from '../../components/StatusBar.astro';
 import ProjectBrowser from '../../components/ProjectBrowser.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
 import { getProjects } from '../../lib/portfolio.js';
 import { projectListSchema, breadcrumbSchema } from '../../lib/schema.js';
 
@@ -29,10 +30,14 @@ const jsonLd = [
     <StatusBar active="projects" />
     <main class="dashboard project-browser-page">
       <ProjectBrowser mode="list">
-        <div class="logs-empty-state desktop-only-empty">
-          <i class="fas fa-file-alt" aria-hidden="true"></i>
-          <p>Select a project from the list to view details</p>
-          <p class="projects-count">{projects.length} projects available</p>
+        <div class="projects-index">
+          <header class="projects-index-header desktop-only-empty">
+            <h1>All projects</h1>
+            <p>{projects.length} projects · sidebar shows the most recent</p>
+          </header>
+          <div class="projects-grid projects-index-grid">
+            {projects.map((project) => <ProjectCard project={project} />)}
+          </div>
         </div>
       </ProjectBrowser>
     </main>
@@ -40,15 +45,33 @@ const jsonLd = [
 </Base>
 
 <style>
-  .projects-count {
-    margin-top: 0.75rem;
-    font-size: 0.85rem;
+  .projects-index-header {
+    margin-bottom: 1.25rem;
+  }
+
+  .projects-index-header h1 {
+    margin: 0 0 0.35rem;
+    font-size: 1.35rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .projects-index-header p {
+    margin: 0;
+    font-size: 0.9rem;
     opacity: 0.8;
+  }
+
+  .projects-index-grid {
+    padding-bottom: 1rem;
   }
 
   @media (max-width: 768px) {
     .desktop-only-empty {
       display: none;
+    }
+
+    .projects-index {
+      padding: 0;
     }
   }
 </style>

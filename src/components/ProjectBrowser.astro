@@ -1,5 +1,5 @@
 ---
-import { getProjects, projectPath, projectLogoPath } from '../lib/portfolio.js';
+import { getRecentProjects, projectPath, projectLogoPath } from '../lib/portfolio.js';
 
 interface Props {
   activeId?: string | null;
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { activeId = null, mode = 'list' } = Astro.props;
-const projects = getProjects();
+const projects = getRecentProjects(activeId);
 ---
 
 <div class:list={['project-browser', `mode-${mode}`]}>
@@ -20,7 +20,7 @@ const projects = getProjects();
         type="search"
         id="project-search-input"
         class="logs-search-input"
-        placeholder="Search projects..."
+        placeholder="Search recent projects..."
         data-project-search
       />
     </div>
@@ -62,6 +62,13 @@ const projects = getProjects();
         })
       }
     </div>
+    {
+      mode === 'detail' && (
+        <p class="logs-browse-all">
+          <a href="/projects/">Browse all projects</a>
+        </p>
+      )
+    }
   </aside>
   <div class="logs-main-content">
     <div class="logs-details">
@@ -81,5 +88,23 @@ const projects = getProjects();
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
+  }
+
+  .logs-browse-all {
+    flex-shrink: 0;
+    margin: 0;
+    padding: 8px 12px 12px;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
+  .logs-browse-all a {
+    color: var(--accent-orange);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .logs-browse-all a:hover {
+    text-decoration: underline;
   }
 </style>

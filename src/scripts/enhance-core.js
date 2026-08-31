@@ -107,10 +107,22 @@ export function initProjectSearch() {
   }
 }
 
+export function initHomeProjectsGrid() {
+  const grid = document.querySelector('[data-home-projects-grid]');
+  const expandBtn = document.querySelector('[data-home-projects-expand]');
+  if (!grid || !expandBtn) return;
+
+  expandBtn.addEventListener('click', () => {
+    grid.setAttribute('data-expanded', '');
+    expandBtn.hidden = true;
+  });
+}
+
 export function bootEnhance() {
   updateClock();
   setInterval(updateClock, 1000);
   initTheme();
   initMobileMenu();
   initProjectSearch();
+  initHomeProjectsGrid();
 }
