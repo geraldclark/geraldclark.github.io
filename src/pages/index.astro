@@ -1,0 +1,282 @@
+---
+import Base from '../layouts/Base.astro';
+import StatusBar from '../components/StatusBar.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import {
+  getPortfolio,
+  getProjects,
+} from '../lib/portfolio.js';
+import {
+  personSchema,
+  websiteSchema,
+  projectListSchema,
+} from '../lib/schema.js';
+
+const portfolio = getPortfolio();
+const projects = getProjects();
+const about = portfolio.about;
+const skills = portfolio.skills || [];
+const contact = portfolio.contact || [];
+const distinctions = portfolio.distinctions || [];
+
+const onlineCount = projects.filter((p) => p.status === 'online').length;
+const companies = new Set(projects.map((p) => p.company).filter(Boolean)).size;
+
+const description =
+  'Portfolio of Gerald Clark, CTO and Co-Founder at Upsert. SugarAI plugins, architecture, and consulting work from Pittsburgh, PA.';
+
+const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
+---
+
+<Base
+  title="Gerald Clark - Portfolio"
+  description={description}
+  image="/img/logo.png"
+  jsonLd={jsonLd}
+>
+  <div class="dashboard-container">
+    <StatusBar active="home" />
+
+    <main class="dashboard">
+      <section class="hero-section" id="top">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+            <span class="terminal-title">gerald@portfolio:~$</span>
+          </div>
+          <div class="terminal-body">
+            <div class="terminal-line">
+              <span class="prompt">$</span>
+              <span class="command">whoami</span>
+            </div>
+            <div class="terminal-output">
+              <h1 class="hero-name">{about.name}</h1>
+              <p class="hero-title">{about.roles?.slice(0, 2).join(' / ')}</p>
+            </div>
+            <div class="terminal-line">
+              <span class="prompt">$</span>
+              <span class="command blinking">_</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-grid" aria-label="Portfolio stats">
+        <div class="stat-card">
+          <div class="stat-label">PROJECTS</div>
+          <div class="stat-value">{projects.length}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">ONLINE</div>
+          <div class="stat-value">{onlineCount}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">COMPANIES</div>
+          <div class="stat-value">{companies}</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">LOCATION</div>
+          <div class="stat-value stat-value-text">{about.location}</div>
+        </div>
+      </section>
+
+      <section id="about" class="content-section">
+        <div class="section-header">
+          <h2 class="section-title">ABOUT.JS</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="content-card">
+          <div class="code-block">
+            <div class="code-editor">
+              <pre class="about-pre"><code>{`// About ${about.name}
+const person = {
+  name: "${about.name}",
+  roles: ${JSON.stringify(about.roles || [], null, 2).replace(/\n/g, '\n  ')},
+  location: "${about.location}",
+  skills: ${JSON.stringify(about.skills || [], null, 2).replace(/\n/g, '\n  ')},
+  passion: "${about.passion}"
+};`}</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects" class="content-section">
+        <div class="section-header">
+          <h2 class="section-title">PROJECTS.LOG</h2>
+          <div class="section-line"></div>
+        </div>
+        <p class="section-intro">
+          <a href="/projects/">Browse all {projects.length} projects</a> with full descriptions,
+          or open any card below.
+        </p>
+        <div class="projects-grid">
+          {projects.map((project) => <ProjectCard project={project} />)}
+        </div>
+      </section>
+
+      <section id="skills" class="content-section">
+        <div class="section-header">
+          <h2 class="section-title">SKILLS.YML</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="skills-container">
+          {
+            skills.map((skill) => (
+              <article class="skill-category">
+                <h3 class="skill-category-title">
+                  {skill.icon && <i class={skill.icon} aria-hidden="true"></i>}
+                  {skill.category}
+                </h3>
+                <ul class="skill-list">
+                  {(skill.items || []).map((item) => (
+                    <li class="skill-item">{item.name}</li>
+                  ))}
+                </ul>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section id="distinctions" class="content-section">
+        <div class="section-header">
+          <h2 class="section-title">DISTINCTIONS.CRT</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="content-card">
+          <div class="distinctions-container">
+            {
+              distinctions.map((item) => (
+                <article class="distinction-card">
+                  {item.icon && <i class={item.icon} aria-hidden="true"></i>}
+                  <h3>{item.name}</h3>
+                  <p>
+                    {item.issuer}
+                    {item.year ? ` · ${item.year}` : ''}
+                  </p>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="content-section">
+        <div class="section-header">
+          <h2 class="section-title"># CONTACT.MD</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="content-card">
+          <div class="contact-grid">
+            {
+              contact.map((item) => (
+                <a
+                  class="contact-card"
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {item.icon && <i class={item.icon} aria-hidden="true"></i>}
+                  <span class="contact-label">{item.label}</span>
+                  <span class="contact-value">{item.value}</span>
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</Base>
+
+<style>
+  .section-intro {
+    margin: 0 0 1.25rem;
+    color: var(--text-secondary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+  }
+
+  .section-intro a {
+    color: var(--accent-orange);
+  }
+
+  .about-pre {
+    margin: 0;
+    padding: 1.25rem;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    white-space: pre;
+  }
+
+  .skill-category {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+  }
+
+  .skill-category-title {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    color: var(--accent-orange);
+  }
+
+  .skill-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-item {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .distinction-card,
+  .contact-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .contact-card:hover {
+    border-color: var(--border-color-accent);
+  }
+
+  .contact-label {
+    font-weight: 600;
+  }
+
+  .contact-value {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .stat-value-text {
+    font-size: 1rem !important;
+  }
+</style>

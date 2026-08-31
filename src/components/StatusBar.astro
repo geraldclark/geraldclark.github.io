@@ -1,0 +1,67 @@
+---
+interface Props {
+  active?: string;
+}
+
+const { active = 'home' } = Astro.props;
+
+const links = [
+  { id: 'home', href: '/', label: 'Terminal', icon: 'fas fa-terminal' },
+  { id: 'about', href: '/#about', label: 'About.js', icon: 'fab fa-js' },
+  { id: 'projects', href: '/projects/', label: 'Projects.log', icon: 'fas fa-file-alt' },
+  { id: 'skills', href: '/#skills', label: 'Skills.yml', icon: 'fas fa-cog' },
+  { id: 'distinctions', href: '/#distinctions', label: 'Distinctions.crt', icon: 'fas fa-certificate' },
+  { id: 'contact', href: '/#contact', label: 'Contact.md', icon: 'fab fa-markdown' },
+];
+---
+
+<header class="status-bar">
+  <div class="status-left">
+    <span class="status-indicator active"></span>
+    <span class="status-text">SYSTEM ONLINE</span>
+    <span class="status-time" id="current-time"></span>
+  </div>
+  <nav class="status-nav-tabs" aria-label="Primary">
+    {
+      links.map((link) => (
+        <a
+          href={link.href}
+          class:list={['nav-link', { active: active === link.id }]}
+          data-section={link.id}
+        >
+          <i class={link.icon + ' nav-file-icon'} aria-hidden="true"></i>
+          <span class="nav-path">{link.label}</span>
+        </a>
+      ))
+    }
+  </nav>
+  <div class="status-right">
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu" type="button">
+      <i class="fas fa-bars" aria-hidden="true"></i>
+    </button>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" type="button">
+      <i class="fas fa-moon" id="theme-icon" aria-hidden="true"></i>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu-overlay" id="mobile-menu-overlay" hidden>
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-header">
+      <span class="mobile-menu-title">Navigation</span>
+      <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu" type="button">
+        <i class="fas fa-times" aria-hidden="true"></i>
+      </button>
+    </div>
+    <nav class="mobile-menu-nav" id="mobile-menu-nav" aria-label="Mobile">
+      {
+        links.map((link) => (
+          <a href={link.href} class="mobile-menu-item" data-section={link.id}>
+            <i class={link.icon} aria-hidden="true"></i>
+            <span>{link.label}</span>
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+---
+import Base from '../../layouts/Base.astro';
+import StatusBar from '../../components/StatusBar.astro';
+import ProjectBrowser from '../../components/ProjectBrowser.astro';
+import { getProjects } from '../../lib/portfolio.js';
+import { projectListSchema, breadcrumbSchema } from '../../lib/schema.js';
+
+const projects = getProjects();
+const description =
+  'All projects by Gerald Clark, including Upsert SugarAI plugins, open-source tools, and consulting work.';
+
+const site = Astro.site?.href || 'https://gerald-clark.com';
+const jsonLd = [
+  projectListSchema(projects),
+  breadcrumbSchema([
+    { name: 'Home', url: site },
+    { name: 'Projects', url: new URL('/projects/', site).href },
+  ]),
+];
+---
+
+<Base
+  title="Projects | Gerald Clark"
+  description={description}
+  image="/img/logo.png"
+  jsonLd={jsonLd}
+>
+  <div class="dashboard-container project-shell">
+    <StatusBar active="projects" />
+    <main class="dashboard project-browser-page">
+      <ProjectBrowser>
+        <div class="logs-empty-state">
+          <i class="fas fa-file-alt" aria-hidden="true"></i>
+          <p>Select a project from the list to view details</p>
+          <p class="projects-count">{projects.length} projects available</p>
+        </div>
+      </ProjectBrowser>
+    </main>
+  </div>
+</Base>
+
+<style>
+  .projects-count {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    opacity: 0.8;
+  }
+</style>

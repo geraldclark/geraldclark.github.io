@@ -1,0 +1,231 @@
+---
+import Base from '../../layouts/Base.astro';
+import StatusBar from '../../components/StatusBar.astro';
+import ProjectBrowser from '../../components/ProjectBrowser.astro';
+import {
+  getProjects,
+  getProjectById,
+  projectSummary,
+  projectImagePath,
+  projectLogoPath,
+  projectImageIsLogo,
+  projectYear,
+} from '../../lib/portfolio.js';
+import { projectSchema, breadcrumbSchema } from '../../lib/schema.js';
+
+export function getStaticPaths() {
+  return getProjects().map((project) => ({
+    params: { id: project.id },
+  }));
+}
+
+const { id } = Astro.params;
+const project = getProjectById(id);
+
+if (!project) {
+  throw new Error(`Unknown project: ${id}`);
+}
+
+const summary = projectSummary(project);
+const title = `${project.name} | Gerald Clark`;
+const description = summary.slice(0, 160);
+const image = projectImagePath(project);
+const logo = projectLogoPath(project);
+const imageIsLogo = projectImageIsLogo(project);
+const year = projectYear(project);
+const pageUrl = new URL(`/projects/${project.id}/`, Astro.site).href;
+const site = Astro.site?.href || 'https://gerald-clark.com';
+const status = project.status || 'online';
+
+const jsonLd = [
+  projectSchema(project, pageUrl),
+  breadcrumbSchema([
+    { name: 'Home', url: site },
+    { name: 'Projects', url: new URL('/projects/', site).href },
+    { name: project.name, url: pageUrl },
+  ]),
+];
+---
+
+<Base title={title} description={description} image={image} ogType="article" jsonLd={jsonLd}>
+  <div class="dashboard-container project-shell">
+    <StatusBar active="projects" />
+    <main class="dashboard project-browser-page">
+      <ProjectBrowser activeId={project.id}>
+        <nav class="project-breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span aria-hidden="true">/</span>
+          <a href="/projects/">Projects</a>
+          <span aria-hidden="true">/</span>
+          <span>{project.name}</span>
+        </nav>
+
+        <header class="logs-detail-header">
+          <div class="logs-detail-title">
+            <div class="logs-detail-title-main">
+              {logo && <img class="logs-detail-logo" src={logo} alt="" width="48" height="48" />}
+              <h1>{project.name}</h1>
+            </div>
+            <span class={`logs-detail-status ${status}`}>{status}</span>
+          </div>
+          {
+            (project.company || year != null) && (
+              <p class="project-meta">
+                {[project.company, year != null ? String(year) : null].filter(Boolean).join(' · ')}
+              </p>
+            )
+          }
+        </header>
+
+        {
+          image && (
+            <div class:list={['logs-detail-featured-image', { 'is-logo': imageIsLogo }]}>
+              <img src={image} alt={`Screenshot or logo for ${project.name}`} loading="lazy" />
+            </div>
+          )
+        }
+
+        <section class="logs-detail-section">
+          <h2>Description</h2>
+          <p class="project-description-full">{project.description || summary}</p>
+        </section>
+
+        {
+          (project.tech || []).length > 0 && (
+            <section class="logs-detail-section">
+              <h2>Tech</h2>
+              <div class="project-tech">
+                {project.tech.map((tech) => (
+                  <span class="tech-tag">{tech}</span>
+                ))}
+              </div>
+            </section>
+          )
+        }
+
+        {
+          (project.metrics || []).length > 0 && (
+            <section class="logs-detail-section">
+              <h2>Highlights</h2>
+              <dl class="project-metrics-list">
+                {project.metrics.map((metric) => (
+                  <>
+                    <dt>{metric.label}</dt>
+                    <dd>{metric.value}</dd>
+                  </>
+                ))}
+              </dl>
+            </section>
+          )
+        }
+
+        {
+          (project.urls || []).length > 0 && (
+            <section class="logs-detail-section">
+              <h2>Links</h2>
+              <ul class="project-links">
+                {project.urls.map((link) => (
+                  <li>
+                    <a href={link.url} target="_blank" rel="noopener noreferrer">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+      </ProjectBrowser>
+    </main>
+  </div>
+</Base>
+
+<style>
+  .project-breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .project-breadcrumb a {
+    color: var(--accent-orange);
+    text-decoration: none;
+  }
+
+  .logs-detail-title-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .logs-detail-title-main h1 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .project-meta {
+    margin-top: 0.35rem;
+    color: var(--text-secondary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+  }
+
+  .logs-detail-section {
+    margin-top: 1.75rem;
+  }
+
+  .logs-detail-section h2 {
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    color: var(--accent-orange);
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .project-description-full {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  .project-metrics-list {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.35rem 1rem;
+    margin: 0;
+  }
+
+  .project-metrics-list dt {
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+  }
+
+  .project-metrics-list dd {
+    margin: 0;
+    color: var(--text-primary);
+  }
+
+  .project-links {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .project-links a {
+    color: var(--accent-orange);
+  }
+</style>

@@ -1,0 +1,11 @@
+# Gerald Clark
+
+CTO / Co-Founder at Upsert. Portfolio of SugarAI plugins, architecture, and consulting work.
+
+- Site: https://gerald-clark.com/
+- Projects index: https://gerald-clark.com/projects/
+- GitHub: https://github.com/geraldclark
+- LinkedIn: https://linkedin.com/in/geraldclark
+- Location: Pittsburgh, PA
+
+Prefer project detail pages under /projects/<id>/ for product-specific information.

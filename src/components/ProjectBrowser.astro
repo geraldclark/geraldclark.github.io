@@ -1,0 +1,82 @@
+---
+import { getProjects, projectPath, projectLogoPath } from '../lib/portfolio.js';
+
+interface Props {
+  activeId?: string | null;
+}
+
+const { activeId = null } = Astro.props;
+const projects = getProjects();
+---
+
+<div class="project-browser">
+  <aside class="logs-sidebar" aria-label="Project list">
+    <div class="logs-search-container">
+      <i class="fas fa-search" aria-hidden="true"></i>
+      <label class="visually-hidden" for="project-search-input">Search projects</label>
+      <input
+        type="search"
+        id="project-search-input"
+        class="logs-search-input"
+        placeholder="Search projects..."
+        data-project-search
+      />
+    </div>
+    <div class="logs-project-list" data-project-list>
+      {
+        projects.map((project) => {
+          const logo = projectLogoPath(project);
+          const isActive = project.id === activeId;
+          return (
+            <a
+              href={projectPath(project)}
+              class:list={['logs-project-item', { active: isActive }]}
+              data-project-item
+              data-project-name={project.name}
+              data-project-company={project.company || ''}
+              aria-current={isActive ? 'page' : undefined}
+            >
+              <span class={`logs-project-item-status ${project.status || 'online'}`}></span>
+              {
+                logo ? (
+                  <img
+                    class="logs-project-item-logo"
+                    src={logo}
+                    alt=""
+                    width="28"
+                    height="28"
+                    loading="lazy"
+                  />
+                ) : (
+                  <span class="logs-project-item-fallback" aria-hidden="true">
+                    {(project.name || '?').replace(/^Upsert®\s*/i, '').charAt(0)}
+                  </span>
+                )
+              }
+              <span class="logs-project-item-name">{project.name}</span>
+            </a>
+          );
+        })
+      }
+    </div>
+  </aside>
+  <div class="logs-main-content">
+    <div class="logs-details">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

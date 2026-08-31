@@ -1,0 +1,25 @@
+{
+  "name": "geraldclark.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geraldclark/geraldclark.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/geraldclark/geraldclark.github.io/issues"
+  },
+  "homepage": "https://github.com/geraldclark/geraldclark.github.io#readme",
+  "dependencies": {
+    "astro": "^7.2.9"
+  }
+}

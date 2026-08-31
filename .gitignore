@@ -1,21 +1,23 @@
-# Docker
-Dockerfile
-.dockerignore
-nginx.conf
-USAGE.md
+# Dependencies & build
+node_modules/
+dist/
+.astro/
 
 # Local development
 .env
 .env.local
 
-# OS files
+# OS / editor
 .DS_Store
 Thumbs.db
-
-# Editor files
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
+# Legacy Docker leftovers (if reintroduced)
+Dockerfile
+.dockerignore
+nginx.conf
+USAGE.md

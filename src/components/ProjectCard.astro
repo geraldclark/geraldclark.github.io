@@ -1,0 +1,73 @@
+---
+import { projectPath, projectSummary, projectYear, projectLogoPath } from '../lib/portfolio.js';
+
+interface Props {
+  project: {
+    id: string;
+    name: string;
+    status?: string;
+    shortDescription?: string;
+    description?: string;
+    company?: string;
+    tech?: string[];
+    start_year?: number | null;
+    end_year?: number | null;
+    logo?: string;
+    image?: string;
+    featuredImage?: string | null;
+  };
+}
+
+const { project } = Astro.props;
+const year = projectYear(project);
+const summary = projectSummary(project);
+const status = project.status || 'online';
+const logo = projectLogoPath(project);
+---
+
+<article class="project-card">
+  <a class="project-card-link" href={projectPath(project)}>
+    <div class="project-header">
+      <span class={`project-status ${status}`} title={status.toUpperCase()}></span>
+      {
+        logo ? (
+          <img class="project-card-logo" src={logo} alt="" width="32" height="32" loading="lazy" />
+        ) : (
+          <span class="project-card-fallback" aria-hidden="true">
+            {(project.name || '?').replace(/^Upsert®\s*/i, '').charAt(0)}
+          </span>
+        )
+      }
+      <h3 class="project-name">{project.name}</h3>
+    </div>
+    <div class="project-content">
+      <p class="project-description">{summary}</p>
+    </div>
+    <div class="project-footer">
+      <div class="project-tech">
+        {(project.tech || []).map((tech) => <span class="tech-tag">{tech}</span>)}
+      </div>
+      <div class="project-metrics">
+        {
+          year != null && (
+            <div class="metric">
+              <span class="metric-label">When</span>
+              <span class="metric-value">{year}</span>
+            </div>
+          )
+        }
+        {
+          project.company && (
+            <div class="metric">
+              <span class="metric-label">Company</span>
+              <span class="metric-value">{project.company}</span>
+            </div>
+          )
+        }
+      </div>
+      <span class="view-logs-btn">
+        <i class="fas fa-file-alt" aria-hidden="true"></i> View project
+      </span>
+    </div>
+  </a>
+</article>
