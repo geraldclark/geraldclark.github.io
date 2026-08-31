@@ -1502,6 +1502,12 @@
           "name": "SugarAI"
         },
         {
+          "name": "SugarBPM"
+        },
+        {
+          "name": "SugarLogic"
+        },
+        {
           "name": "SalesForce"
         },
         {
@@ -1550,6 +1556,9 @@
         },
         {
           "name": "FuelPHP"
+        },
+        {
+          "name": "FullCalendar"
         },
         {
           "name": "jQuery"
@@ -1630,6 +1639,9 @@
           "name": "Dialpad"
         },
         {
+          "name": "Fireflies.ai"
+        },
+        {
           "name": "Loqate"
         },
         {
@@ -1651,7 +1663,13 @@
           "name": "Slack"
         },
         {
+          "name": "WhatsApp Business API"
+        },
+        {
           "name": "Ytel"
+        },
+        {
+          "name": "Zoom Phone"
         }
       ]
     },
@@ -1668,6 +1686,9 @@
         },
         {
           "name": "OAuth (Open Authorization)"
+        },
+        {
+          "name": "OpenAPI"
         },
         {
           "name": "REST (Representational State Transfer) APIs"
@@ -1700,26 +1721,53 @@
     },
     {
       "id": "skill-8",
-      "category": "Development Tools",
+      "category": "Development Tooling",
       "icon": "fas fa-wrench",
       "items": [
         {
+          "name": "Astro"
+        },
+        {
+          "name": "Claude"
+        },
+        {
+          "name": "ChatGPT"
+        },
+        {
           "name": "Composer"
+        },
+        {
+          "name": "Cursor"
+        },
+        {
+          "name": "Cypress"
+        },
+        {
+          "name": "Gemini"
+        },
+        {
+          "name": "GitHub Actions"
+        },
+        {
+          "name": "GitHub Copilot"
         },
         {
           "name": "Gulp"
         },
         {
-          "name": "npm (Node Package Manager)"
+          "name": "MCP (Model Context Protocol)"
         },
         {
-          "name": "Cursor"
+          "name": "npm (Node Package Manager)"
         },
         {
           "name": "PhpStorm"
         },
         {
           "name": "Postman"
+        },
+        {
+          "name": "PHPUnit"
         },
         {
           "name": "SSIS (SQL Server Integration Services)"
@@ -1731,13 +1779,10 @@
           "name": "Talend"
         },
         {
+          "name": "Vitest"
+        },
+        {
           "name": "Visual Studio Code"
-        },
-        {
-          "name": "PHPUnit"
-        },
-        {
-          "name": "Cypress"
         }
       ]
     },

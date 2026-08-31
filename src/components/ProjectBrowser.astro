@@ -1,5 +1,5 @@
 ---
-import { getRecentProjects, projectPath, projectLogoPath } from '../lib/portfolio.js';
+import { getProjects, projectPath, projectLogoPath } from '../lib/portfolio.js';
 
 interface Props {
   activeId?: string | null;
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { activeId = null, mode = 'list' } = Astro.props;
-const projects = getRecentProjects(activeId);
+const projects = getProjects();
 ---
 
 <div class:list={['project-browser', `mode-${mode}`]}>
@@ -20,7 +20,7 @@ const projects = getRecentProjects(activeId);
         type="search"
         id="project-search-input"
         class="logs-search-input"
-        placeholder="Search recent projects..."
+        placeholder="Search projects..."
         data-project-search
       />
     </div>
