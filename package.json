@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:build": "astro build && vitest run --config vitest.build.config.js"
   },
   "repository": {
     "type": "git",
@@ -21,5 +24,9 @@
   "homepage": "https://github.com/geraldclark/geraldclark.github.io#readme",
   "dependencies": {
     "astro": "^7.2.9"
+  },
+  "devDependencies": {
+    "jsdom": "^30.0.1",
+    "vitest": "^4.1.11"
   }
 }
