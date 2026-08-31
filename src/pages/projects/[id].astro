@@ -36,6 +36,64 @@ const year = projectYear(project);
 const pageUrl = new URL(`/projects/${project.id}/`, Astro.site).href;
 const site = Astro.site?.href || 'https://gerald-clark.com';
 const status = project.status || 'online';
+const isUpsertPlugin =
+  project.company === 'Upsert, LLC' && (project.id || '').startsWith('plugin-');
+const isOpenSource = (project.urls || []).some((link) =>
+  /github\.com/i.test(link.url || '')
+);
+const isWriting =
+  (project.id || '').startsWith('blog-') ||
+  /developer guide|certification/i.test(project.name || '');
+
+/** Human-readable project kind for employers and buyers. */
+function projectKind() {
+  if (isWriting) return 'Writing / thought leadership';
+  if (isUpsertPlugin) return 'Commercial SugarAI plugin';
+  if (isOpenSource) return 'Open-source SugarAI add-on';
+  if (project.company === 'SugarCRM') return 'Product & platform work';
+  return 'Project';
+}
+
+function linkLabel(link) {
+  const label = (link.label || '').trim();
+  const url = link.url || '';
+  if (/github\.com/i.test(url)) return 'View source on GitHub';
+  if (/upsertconsulting\.com\/plugins/i.test(url)) return 'View product page';
+  if (/upsertconsulting\.com\/blog/i.test(url) || /\/blog\//i.test(url)) {
+    return 'Read the article';
+  }
+  if (/download/i.test(label)) return 'Download';
+  if (label && label !== 'View Project') return label;
+  if (isUpsertPlugin) return 'View product page';
+  return 'Open link';
+}
+
+const kind = projectKind();
+/** Soft year phrase for the header (no "Timeline" label). */
+const yearPhrase = (() => {
+  if (project.start_year && project.end_year && project.start_year !== project.end_year) {
+    return `${project.start_year}–${project.end_year}`;
+  }
+  if (year == null) return null;
+  if (isUpsertPlugin && !project.end_year) return `Since ${year}`;
+  if (status === 'completed' || status === 'deprecated') return String(year);
+  if (!project.end_year) return `Since ${year}`;
+  return String(year);
+})();
+
+const facts = [
+  { label: 'Type', value: kind },
+  project.company ? { label: 'Organization', value: project.company } : null,
+  status ? { label: 'Status', value: status } : null,
+].filter(Boolean);
+
+const primaryLinks = (project.urls || []).map((link, index) => ({
+  ...link,
+  displayLabel: linkLabel(link),
+  isPrimary:
+    index === 0 ||
+    /upsertconsulting\.com\/plugins|github\.com/i.test(link.url || ''),
+}));
 
 const jsonLd = [
   projectSchema(project, pageUrl),
@@ -68,14 +126,25 @@ const jsonLd = [
             </div>
             <span class={`logs-detail-status ${status}`}>{status}</span>
           </div>
-          {
-            (project.company || year != null) && (
-              <p class="project-meta">
-                {[project.company, year != null ? String(year) : null].filter(Boolean).join(' · ')}
-              </p>
-            )
-          }
+          <p class="project-meta">{[kind, project.company, yearPhrase].filter(Boolean).join(' · ')}</p>
         </header>
+
+        {
+          primaryLinks.length > 0 && (
+            <div class="project-actions">
+              {primaryLinks.map((link) => (
+                <a
+                  class:list={['project-action', { primary: link.isPrimary }]}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {link.displayLabel}
+                </a>
+              ))}
+            </div>
+          )
+        }
 
         {
           image && (
@@ -86,52 +155,33 @@ const jsonLd = [
         }
 
         <section class="logs-detail-section">
-          <h2>Description</h2>
+          <h2>{isUpsertPlugin ? 'What it does' : 'Overview'}</h2>
           <p class="project-description-full">{project.description || summary}</p>
+        </section>
+
+        <section class="logs-detail-section">
+          <h2>At a glance</h2>
+          <dl class="project-facts">
+            {
+              facts.map((fact) => (
+                <>
+                  <dt>{fact.label}</dt>
+                  <dd class={fact.label === 'Status' ? 'fact-status' : undefined}>{fact.value}</dd>
+                </>
+              ))
+            }
+          </dl>
         </section>
 
         {
           (project.tech || []).length > 0 && (
             <section class="logs-detail-section">
-              <h2>Tech</h2>
+              <h2>{isUpsertPlugin ? 'Built with' : 'Skills demonstrated'}</h2>
               <div class="project-tech">
                 {project.tech.map((tech) => (
                   <span class="tech-tag">{tech}</span>
                 ))}
               </div>
-            </section>
-          )
-        }
-
-        {
-          (project.metrics || []).length > 0 && (
-            <section class="logs-detail-section">
-              <h2>Highlights</h2>
-              <dl class="project-metrics-list">
-                {project.metrics.map((metric) => (
-                  <>
-                    <dt>{metric.label}</dt>
-                    <dd>{metric.value}</dd>
-                  </>
-                ))}
-              </dl>
-            </section>
-          )
-        }
-
-        {
-          (project.urls || []).length > 0 && (
-            <section class="logs-detail-section">
-              <h2>Links</h2>
-              <ul class="project-links">
-                {project.urls.map((link) => (
-                  <li>
-                    <a href={link.url} target="_blank" rel="noopener noreferrer">
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
             </section>
           )
         }
@@ -178,6 +228,48 @@ const jsonLd = [
     font-size: 0.9rem;
   }
 
+  .project-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 1.25rem 0 0.75rem;
+  }
+
+  .project-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0.75rem 1.15rem;
+    border-radius: 6px;
+    border: 2px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .project-action.primary {
+    border-color: var(--accent-orange);
+    background: var(--accent-orange);
+    color: #fff;
+    box-shadow: 0 2px 10px rgba(249, 115, 22, 0.35);
+  }
+
+  .project-action:hover {
+    border-color: var(--accent-orange);
+    transform: translateY(-1px);
+  }
+
+  .project-action.primary:hover {
+    background: var(--accent-orange-dark);
+    border-color: var(--accent-orange-dark);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(249, 115, 22, 0.45);
+  }
+
   .logs-detail-section {
     margin-top: 1.75rem;
   }
@@ -198,34 +290,25 @@ const jsonLd = [
     margin: 0;
   }
 
-  .project-metrics-list {
+  .project-facts {
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: 0.35rem 1rem;
+    gap: 0.45rem 1.25rem;
     margin: 0;
   }
 
-  .project-metrics-list dt {
+  .project-facts dt {
     color: var(--text-muted);
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.85rem;
   }
 
-  .project-metrics-list dd {
+  .project-facts dd {
     margin: 0;
     color: var(--text-primary);
   }
 
-  .project-links {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin: 0;
-    padding: 0;
-  }
-
-  .project-links a {
-    color: var(--accent-orange);
+  .project-facts .fact-status {
+    text-transform: capitalize;
   }
 </style>
