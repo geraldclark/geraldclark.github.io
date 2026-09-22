@@ -7,6 +7,96 @@ export const NAV_ORDER_KEY = 'nav-order';
 const SCROLL_OFFSET = 96;
 const DESKTOP_MIN_WIDTH = 768;
 
+export const navScrollState = { skipActiveUpdate: false };
+
+/** @param {Document} doc @param {Window} win */
+export function getNavScrollRegions(doc = document, win = window) {
+  const navLinks = Array.from(doc.querySelectorAll('.status-nav-tabs .nav-link')).filter(
+    (link) => link.style.display !== 'none'
+  );
+
+  /** @type {{ sectionId: string, top: number }[]} */
+  const regions = [];
+  const docTop = (/** @type {Element} */ el) => el.getBoundingClientRect().top + win.pageYOffset;
+
+  navLinks.forEach((link) => {
+    const sectionId = link.getAttribute('data-section');
+    if (!sectionId) return;
+
+    if (sectionId === 'home') {
+      const hero = doc.querySelector('.hero-section');
+      const stats = doc.querySelector('.stats-grid');
+      const blocks = [hero, stats].filter(
+        (el) => el instanceof HTMLElement && el.style.display !== 'none'
+      );
+      if (blocks.length > 0) regions.push({ sectionId, top: docTop(blocks[0]) });
+      return;
+    }
+
+    const section = doc.getElementById(sectionId);
+    if (section instanceof HTMLElement && section.style.display !== 'none') {
+      regions.push({ sectionId, top: docTop(section) });
+    }
+  });
+
+  return regions;
+}
+
+/**
+ * @param {{ sectionId: string, top: number }[]} regions
+ * @param {number} scrollY
+ * @param {number} [offset]
+ */
+export function activeNavSectionForScroll(regions, scrollY, offset = SCROLL_OFFSET) {
+  if (regions.length === 0) return null;
+  const probe = scrollY + offset;
+  let active = regions[0].sectionId;
+  regions.forEach((region) => {
+    if (probe >= region.top) active = region.sectionId;
+  });
+  return active;
+}
+
+/** @param {string} sectionId @param {Document} doc */
+export function setActiveNavSection(sectionId, doc = document) {
+  doc.querySelectorAll('.status-nav-tabs .nav-link').forEach((link) => {
+    link.classList.toggle('active', link.getAttribute('data-section') === sectionId);
+  });
+  doc.querySelectorAll('.mobile-menu-item').forEach((item) => {
+    item.classList.toggle('active', item.getAttribute('data-section') === sectionId);
+  });
+}
+
+/** @param {number} [ms] */
+export function pauseNavScrollUpdates(ms = 1000) {
+  navScrollState.skipActiveUpdate = true;
+  setTimeout(() => {
+    navScrollState.skipActiveUpdate = false;
+    updateActiveNav();
+  }, ms);
+}
+
+/** @param {Document} doc @param {Window} win */
+export function updateActiveNav(doc = document, win = window) {
+  const regions = getNavScrollRegions(doc, win);
+  const sectionId = activeNavSectionForScroll(regions, win.pageYOffset);
+  if (sectionId) setActiveNavSection(sectionId, doc);
+}
+
+/** @param {Document} doc @param {Window} win */
+export function initNavScrollSpy(doc = document, win = window) {
+  if (!doc.querySelector('.dashboard')) return;
+
+  const onScroll = () => {
+    if (navScrollState.skipActiveUpdate) return;
+    updateActiveNav(doc, win);
+  };
+
+  win.addEventListener('scroll', onScroll, { passive: true });
+  win.addEventListener('resize', onScroll, { passive: true });
+  updateActiveNav(doc, win);
+}
+
 export function updateClock() {
   const el = document.getElementById('current-time');
   if (!el) return;
@@ -366,11 +456,15 @@ function initNavLinkClicks(doc) {
 
       e.preventDefault();
       if (isHomeHash || sectionId === 'home') {
+        setActiveNavSection('home', doc);
         scrollToNavSection('home', doc);
+        pauseNavScrollUpdates();
         return;
       }
       if (inPageHash) {
+        setActiveNavSection(hashMatch[1], doc);
         scrollToNavSection(hashMatch[1], doc);
+        pauseNavScrollUpdates();
       }
     });
   });
@@ -475,7 +569,10 @@ function initNavDragAndDrop(doc) {
         draggedElement.classList.add('active');
 
         const sectionId = draggedElement.getAttribute('data-section');
-        if (sectionId) scrollToNavSection(sectionId, doc);
+        if (sectionId) {
+          scrollToNavSection(sectionId, doc);
+          pauseNavScrollUpdates();
+        }
 
         draggedElement.wasDragging = true;
         setTimeout(() => {
@@ -596,6 +693,8 @@ export function initNavTabs(doc = document) {
   if (window.innerWidth > DESKTOP_MIN_WIDTH) {
     initNavDragAndDrop(doc);
   }
+
+  initNavScrollSpy(doc);
 }
 
 export function bootEnhance() {

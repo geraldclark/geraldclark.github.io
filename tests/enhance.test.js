@@ -4,6 +4,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   NAV_ORDER_KEY,
+  activeNavSectionForScroll,
   initCloseTab,
   initMobileMenu,
   initProjectSearch,
@@ -14,6 +15,7 @@ import {
   restoreNavOrder,
   saveNavOrder,
   sectionsForNavTab,
+  setActiveNavSection,
   updateClock,
 } from '../src/scripts/enhance-core.js';
 
@@ -174,6 +176,31 @@ describe('initProjectSearch', () => {
     input.value = '';
     input.dispatchEvent(new Event('input', { bubbles: true }));
     expect([...items].every((item) => !item.hidden)).toBe(true);
+  });
+});
+
+describe('nav scroll spy', () => {
+  it('picks the last region whose top is above the scroll probe', () => {
+    const regions = [
+      { sectionId: 'home', top: 0 },
+      { sectionId: 'about', top: 800 },
+      { sectionId: 'projects', top: 1600 },
+    ];
+    expect(activeNavSectionForScroll(regions, 0, 96)).toBe('home');
+    expect(activeNavSectionForScroll(regions, 900, 96)).toBe('about');
+    expect(activeNavSectionForScroll(regions, 2000, 96)).toBe('projects');
+  });
+
+  it('sets active class on matching nav links', () => {
+    document.body.innerHTML = `
+      <nav class="status-nav-tabs">
+        <a class="nav-link" data-section="home"></a>
+        <a class="nav-link active" data-section="about"></a>
+      </nav>
+    `;
+    setActiveNavSection('home');
+    expect(document.querySelector('[data-section="home"]').classList.contains('active')).toBe(true);
+    expect(document.querySelector('[data-section="about"]').classList.contains('active')).toBe(false);
   });
 });
 
