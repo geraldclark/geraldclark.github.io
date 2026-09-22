@@ -1,14 +1,16 @@
 ---
 interface Props {
   active?: string;
+  /** Desktop tab close buttons and drag (homepage only). */
+  tabControls?: boolean;
 }
 
-const { active = 'home' } = Astro.props;
+const { active = 'home', tabControls = false } = Astro.props;
 
 const links = [
   { id: 'home', href: '/', label: 'Terminal', icon: 'fas fa-terminal' },
   { id: 'about', href: '/#about', label: 'About.js', icon: 'fab fa-js' },
-  { id: 'projects', href: '/projects/', label: 'Projects.log', icon: 'fas fa-file-alt' },
+  { id: 'projects', href: '/#projects', label: 'Projects.log', icon: 'fas fa-file-alt' },
   { id: 'skills', href: '/#skills', label: 'Skills.yml', icon: 'fas fa-cog' },
   { id: 'distinctions', href: '/#distinctions', label: 'Distinctions.crt', icon: 'fas fa-certificate' },
   { id: 'contact', href: '/#contact', label: 'Contact.md', icon: 'fab fa-markdown' },
@@ -31,6 +33,18 @@ const links = [
         >
           <i class={link.icon + ' nav-file-icon'} aria-hidden="true"></i>
           <span class="nav-path">{link.label}</span>
+          {
+            tabControls && (
+              <button
+                type="button"
+                class="nav-close-btn"
+                data-section={link.id}
+                aria-label="Close tab"
+              >
+                <i class="fas fa-times" aria-hidden="true"></i>
+              </button>
+            )
+          }
         </a>
       ))
     }

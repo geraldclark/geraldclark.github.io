@@ -3,10 +3,17 @@
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
+  NAV_ORDER_KEY,
+  initCloseTab,
   initMobileMenu,
   initProjectSearch,
   initTheme,
+  orderedDashboardSections,
   projectItemMatches,
+  reorderContentSections,
+  restoreNavOrder,
+  saveNavOrder,
+  sectionsForNavTab,
   updateClock,
 } from '../src/scripts/enhance-core.js';
 
@@ -167,6 +174,136 @@ describe('initProjectSearch', () => {
     input.value = '';
     input.dispatchEvent(new Event('input', { bubbles: true }));
     expect([...items].every((item) => !item.hidden)).toBe(true);
+  });
+});
+
+describe('nav section ordering', () => {
+  it('bundles hero and stats under home', () => {
+    document.body.innerHTML = `
+      <main class="dashboard">
+        <section class="hero-section"></section>
+        <section class="stats-grid"></section>
+        <section id="about"></section>
+        <section id="skills"></section>
+      </main>
+    `;
+    const dashboard = document.querySelector('.dashboard');
+    const homeBlocks = sectionsForNavTab('home', dashboard);
+    expect(homeBlocks.map((el) => el.className || el.id)).toEqual(['hero-section', 'stats-grid']);
+  });
+
+  it('reorders dashboard sections to match tab order', () => {
+    document.body.innerHTML = `
+      <nav class="status-nav-tabs">
+        <a class="nav-link" data-section="home"></a>
+        <a class="nav-link" data-section="skills"></a>
+        <a class="nav-link" data-section="about"></a>
+      </nav>
+      <main class="dashboard">
+        <section class="hero-section"></section>
+        <section class="stats-grid"></section>
+        <section id="about"></section>
+        <section id="skills"></section>
+      </main>
+    `;
+    reorderContentSections();
+    const ids = [...document.querySelector('.dashboard').children].map(
+      (el) => el.id || el.className
+    );
+    expect(ids).toEqual(['hero-section', 'stats-grid', 'skills', 'about']);
+  });
+
+  it('persists and restores nav tab order', () => {
+    document.body.innerHTML = `
+      <nav class="status-nav-tabs">
+        <a class="nav-link" data-section="home"></a>
+        <a class="nav-link" data-section="about"></a>
+        <a class="nav-link" data-section="skills"></a>
+      </nav>
+      <main class="dashboard">
+        <section class="hero-section"></section>
+        <section class="stats-grid"></section>
+        <section id="about"></section>
+        <section id="skills"></section>
+      </main>
+    `;
+    const navTabs = document.querySelector('.status-nav-tabs');
+    const skillsLink = navTabs.querySelector('[data-section="skills"]');
+    navTabs.appendChild(skillsLink);
+    saveNavOrder();
+
+    document.body.innerHTML = `
+      <nav class="status-nav-tabs">
+        <a class="nav-link" data-section="home"></a>
+        <a class="nav-link" data-section="about"></a>
+        <a class="nav-link" data-section="skills"></a>
+      </nav>
+      <main class="dashboard">
+        <section class="hero-section"></section>
+        <section class="stats-grid"></section>
+        <section id="about"></section>
+        <section id="skills"></section>
+      </main>
+    `;
+    restoreNavOrder();
+    const order = [...document.querySelectorAll('.nav-link')].map((l) =>
+      l.getAttribute('data-section')
+    );
+    expect(order).toEqual(['home', 'about', 'skills']);
+    expect(localStorage.getItem(NAV_ORDER_KEY)).toBeTruthy();
+  });
+
+  it('orderedDashboardSections keeps stats immediately after hero', () => {
+    document.body.innerHTML = `
+      <main class="dashboard">
+        <section class="hero-section"></section>
+        <section class="stats-grid"></section>
+        <section id="about"></section>
+      </main>
+    `;
+    const ordered = orderedDashboardSections(['about', 'home'], document.querySelector('.dashboard'));
+    expect(ordered.map((el) => el.id || el.className)).toEqual([
+      'about',
+      'hero-section',
+      'stats-grid',
+    ]);
+  });
+});
+
+describe('initCloseTab', () => {
+  beforeEach(() => {
+    document.body.innerHTML = `
+      <nav class="status-nav-tabs">
+        <a class="nav-link active" data-section="about" href="/#about">
+          <span class="nav-path">About.js</span>
+          <button type="button" class="nav-close-btn" data-section="about">×</button>
+        </a>
+      </nav>
+      <section id="about"></section>
+      <div class="modal-overlay" id="close-tab-modal">
+        <p id="close-tab-message"></p>
+        <button id="close-tab-cancel-btn" type="button">Cancel</button>
+        <button id="close-tab-confirm-btn" type="button">Close</button>
+      </div>
+    `;
+    initCloseTab();
+  });
+
+  it('opens the modal when close is clicked without navigating', () => {
+    const link = document.querySelector('.nav-link');
+    const closeBtn = document.querySelector('.nav-close-btn');
+    const modal = document.getElementById('close-tab-modal');
+    const clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true });
+    closeBtn.dispatchEvent(clickEvent);
+    expect(modal.classList.contains('active')).toBe(true);
+    expect(link.getAttribute('href')).toBe('/#about');
+  });
+
+  it('hides the section after confirm', () => {
+    document.querySelector('.nav-close-btn').click();
+    document.getElementById('close-tab-confirm-btn').click();
+    expect(document.getElementById('about').style.display).toBe('none');
+    expect(document.querySelector('.nav-link').style.display).toBe('none');
   });
 });
 

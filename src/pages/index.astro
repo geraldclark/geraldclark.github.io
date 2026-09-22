@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import StatusBar from '../components/StatusBar.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import CloseTabModal from '../components/CloseTabModal.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import {
   getPortfolio,
@@ -38,7 +39,7 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
   jsonLd={jsonLd}
 >
   <div class="dashboard-container">
-    <StatusBar active="home" />
+    <StatusBar active="home" tabControls />
 
     <main class="dashboard">
       <section class="hero-section" id="top">
@@ -202,6 +203,7 @@ const person = {
     </main>
 
     <SiteFooter />
+    <CloseTabModal />
   </div>
 </Base>
 
