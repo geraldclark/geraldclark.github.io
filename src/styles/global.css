@@ -1466,6 +1466,47 @@ body {
     border-radius: 8px;
 }
 
+.contact-grid-static {
+    padding: 0;
+}
+
+.contact-grid-static .contact-item {
+    cursor: pointer;
+    align-items: center;
+    text-align: center;
+    background: var(--card-bg);
+}
+
+.contact-grid-static .contact-icon {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.75rem;
+}
+
+.contact-grid-static .contact-icon .fa-github {
+    font-size: 1.65rem;
+}
+
+.contact-grid-static .contact-icon .fa-linkedin {
+    font-size: 1.5rem;
+}
+
+.contact-grid-static .contact-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0;
+    margin-bottom: 0.35rem;
+}
+
+.contact-grid-static .contact-value {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    word-break: break-word;
+}
+
 .contact-item {
     display: flex;
     flex-direction: column;

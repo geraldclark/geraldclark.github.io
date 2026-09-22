@@ -200,16 +200,22 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
         </div>
         <p class="section-intro">Let's connect!</p>
         <div class="content-card">
-          <div class="contact-grid">
+          <div class="contact-grid contact-grid-static">
             {
               contact.map((item) => (
                 <a
-                  class="contact-card"
+                  class="contact-item"
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {item.icon && <i class={item.icon} aria-hidden="true"></i>}
+                  {
+                    item.icon && (
+                      <span class="contact-icon">
+                        <i class={item.icon} aria-hidden="true"></i>
+                      </span>
+                    )
+                  }
                   <span class="contact-label">{item.label}</span>
                   <span class="contact-value">{item.value}</span>
                 </a>
@@ -258,8 +264,7 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
     color: var(--text-secondary);
   }
 
-  .distinction-card,
-  .contact-card {
+  .distinction-card {
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
@@ -269,19 +274,6 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
     padding: 1rem;
     color: inherit;
     text-decoration: none;
-  }
-
-  .contact-card:hover {
-    border-color: var(--border-color-accent);
-  }
-
-  .contact-label {
-    font-weight: 600;
-  }
-
-  .contact-value {
-    color: var(--text-muted);
-    font-size: 0.9rem;
   }
 
 </style>
