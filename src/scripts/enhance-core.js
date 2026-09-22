@@ -205,6 +205,49 @@ export function projectItemMatches(term, name, company) {
   return name.toLowerCase().includes(q) || company.toLowerCase().includes(q);
 }
 
+/** @param {Document} doc */
+export function initProjectImageLightbox(doc = document) {
+  const triggers = doc.querySelectorAll('[data-project-image-lightbox]');
+  const overlay = doc.getElementById('project-image-lightbox');
+  const img = doc.getElementById('project-image-lightbox-img');
+  const closeBtn = doc.getElementById('project-image-lightbox-close');
+  if (!overlay || !img || triggers.length === 0) return;
+
+  const open = (src, alt) => {
+    img.src = src;
+    img.alt = alt;
+    overlay.hidden = false;
+    overlay.classList.add('active');
+    doc.body.style.overflow = 'hidden';
+  };
+
+  const close = () => {
+    overlay.classList.remove('active');
+    overlay.hidden = true;
+    doc.body.style.overflow = '';
+    img.removeAttribute('src');
+  };
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const src =
+        trigger.getAttribute('data-full-src') ||
+        trigger.querySelector('img')?.getAttribute('src') ||
+        '';
+      const alt = trigger.querySelector('img')?.getAttribute('alt') || 'Project preview';
+      if (src) open(src, alt);
+    });
+  });
+
+  closeBtn?.addEventListener('click', close);
+  overlay.addEventListener('click', (event) => {
+    if (event.target === overlay) close();
+  });
+  doc.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && overlay.classList.contains('active')) close();
+  });
+}
+
 export function initProjectSearch() {
   const input = document.querySelector('[data-project-search]');
   const list = document.querySelector('[data-project-list]');
@@ -664,6 +707,7 @@ export function bootEnhance() {
   initTheme();
   initMobileMenu();
   initProjectSearch();
+  initProjectImageLightbox();
   initHomeProjectsGrid();
   initCodeFolds();
   initNavTabs();

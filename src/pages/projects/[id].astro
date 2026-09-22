@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import StatusBar from '../../components/StatusBar.astro';
 import ProjectBrowser from '../../components/ProjectBrowser.astro';
+import ProjectImageLightbox from '../../components/ProjectImageLightbox.astro';
 import {
   getProjects,
   getProjectById,
@@ -154,7 +155,15 @@ const jsonLd = [
         {
           image && (
             <div class:list={['logs-detail-featured-image', { 'is-logo': imageIsLogo }]}>
-              <img src={image} alt={`Screenshot or logo for ${project.name}`} loading="lazy" />
+              <button
+                type="button"
+                class="project-image-lightbox-trigger"
+                data-project-image-lightbox
+                data-full-src={image}
+                aria-label={`View larger preview of ${project.name}`}
+              >
+                <img src={image} alt={`Screenshot or logo for ${project.name}`} loading="lazy" />
+              </button>
             </div>
           )
         }
@@ -192,6 +201,7 @@ const jsonLd = [
         }
       </ProjectBrowser>
     </main>
+    {image && !imageIsLogo && <ProjectImageLightbox />}
   </div>
 </Base>
 

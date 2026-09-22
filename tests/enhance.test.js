@@ -6,6 +6,7 @@ import {
   activeNavSectionForScroll,
   initCloseTab,
   initMobileMenu,
+  initProjectImageLightbox,
   initProjectSearch,
   initTheme,
   orderedDashboardSections,
@@ -133,6 +134,31 @@ describe('initMobileMenu', () => {
     document.getElementById('mobile-menu-toggle').click();
     overlay.querySelector('a').click();
     expect(overlay.classList.contains('active')).toBe(false);
+  });
+});
+
+describe('initProjectImageLightbox', () => {
+  it('opens and closes the preview overlay', () => {
+    document.body.innerHTML = `
+      <button type="button" data-project-image-lightbox data-full-src="/img/test.png">
+        <img src="/img/test.png" alt="Test shot" />
+      </button>
+      <div class="modal-overlay image-lightbox-overlay" id="project-image-lightbox" hidden>
+        <button type="button" id="project-image-lightbox-close">Close</button>
+        <img id="project-image-lightbox-img" alt="" />
+      </div>
+    `;
+    initProjectImageLightbox();
+
+    document.querySelector('[data-project-image-lightbox]').click();
+    const overlay = document.getElementById('project-image-lightbox');
+    const preview = document.getElementById('project-image-lightbox-img');
+    expect(overlay.classList.contains('active')).toBe(true);
+    expect(preview.getAttribute('src')).toBe('/img/test.png');
+
+    document.getElementById('project-image-lightbox-close').click();
+    expect(overlay.classList.contains('active')).toBe(false);
+    expect(preview.hasAttribute('src')).toBe(false);
   });
 });
 

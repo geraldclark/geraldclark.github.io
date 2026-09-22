@@ -3325,31 +3325,92 @@ html:has(.project-shell) body {
   margin: 16px 0 8px;
   border-radius: 8px;
   overflow: hidden;
+  width: fit-content;
   max-width: 100%;
   border: 1px solid var(--border-color);
   background: var(--card-bg);
 }
 
+.logs-detail-featured-image .project-image-lightbox-trigger {
+  display: block;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: zoom-in;
+  line-height: 0;
+  max-width: 100%;
+}
+
+.logs-detail-featured-image .project-image-lightbox-trigger:focus-visible {
+  outline: 2px solid var(--accent-orange);
+  outline-offset: 2px;
+}
+
 .logs-detail-featured-image img {
   display: block;
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: auto;
   max-height: 360px;
   object-fit: contain;
   object-position: center;
-  margin: 0 auto;
 }
 
 .logs-detail-featured-image.is-logo {
-  width: fit-content;
   max-width: 220px;
   padding: 16px;
   margin: 16px 0 8px;
 }
 
+.logs-detail-featured-image.is-logo .project-image-lightbox-trigger {
+  cursor: default;
+  pointer-events: none;
+}
+
 .logs-detail-featured-image.is-logo img {
   width: 160px;
   max-height: 160px;
+}
+
+.image-lightbox-overlay {
+  padding: 24px;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.image-lightbox-overlay img {
+  display: block;
+  max-width: min(95vw, 1400px);
+  max-height: min(90vh, 1200px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.45);
+}
+
+.image-lightbox-close {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1001;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.image-lightbox-close:hover {
+  border-color: var(--accent-orange);
+  color: var(--accent-orange);
 }
 
 @media (max-width: 768px) {
