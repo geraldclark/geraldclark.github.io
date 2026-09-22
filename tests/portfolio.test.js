@@ -9,7 +9,9 @@ import {
   projectLogoPath,
   projectPath,
   projectSummary,
+  projectCardSummary,
   projectYear,
+  formatProjectStatus,
 } from '../src/lib/portfolio.js';
 
 describe('getPortfolio', () => {
@@ -35,9 +37,51 @@ describe('projectYear', () => {
   });
 });
 
+describe('formatProjectStatus', () => {
+  it('returns sentence-case labels', () => {
+    expect(formatProjectStatus('online')).toBe('Online');
+    expect(formatProjectStatus('completed')).toBe('Completed');
+    expect(formatProjectStatus('deprecated')).toBe('Deprecated');
+    expect(formatProjectStatus('offline')).toBe('Deprecated');
+  });
+});
+
 describe('projectPath', () => {
   it('builds trailing-slash project paths', () => {
     expect(projectPath({ id: 'plugin-assist' })).toBe('/projects/plugin-assist/');
+  });
+});
+
+describe('projectCardSummary', () => {
+  it('leads with SugarAI when the blurb omits the host product', () => {
+    expect(
+      projectCardSummary({
+        id: 'plugin-focused-views',
+        company: 'Upsert, LLC',
+        shortDescription: 'Lets admins assign subpanels to record view tabs.',
+      })
+    ).toBe('SugarAI add-on that lets admins assign subpanels to record view tabs.');
+  });
+
+  it('does not duplicate SugarAI when already stated', () => {
+    expect(
+      projectCardSummary({
+        id: 'plugin-engage-zoom',
+        company: 'Upsert, LLC',
+        shortDescription:
+          'SugarAI add-on that embeds Zoom Phone for dial-from-record and SMS.',
+      })
+    ).toBe('SugarAI add-on that embeds Zoom Phone for dial-from-record and SMS.');
+  });
+
+  it('passes through non-plugin projects unchanged', () => {
+    expect(
+      projectCardSummary({
+        id: 'blog-foo',
+        company: 'Upsert, LLC',
+        shortDescription: 'Guide to custom record views.',
+      })
+    ).toBe('Guide to custom record views.');
   });
 });
 

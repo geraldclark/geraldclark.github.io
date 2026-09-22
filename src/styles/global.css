@@ -744,7 +744,6 @@ body {
 .stat-card.minimized .card-title-minimized .stat-label {
     font-size: 11px;
     color: var(--text-secondary);
-    text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 600;
 }
@@ -791,7 +790,6 @@ body {
 .contact-item.minimized .card-title-minimized .contact-label {
     font-size: 12px;
     color: var(--text-primary);
-    text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 600;
     margin: 0;
@@ -859,7 +857,6 @@ body {
 .stat-label {
     font-size: 11px;
     color: var(--text-secondary);
-    text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 600;
 }
@@ -920,6 +917,17 @@ body {
     align-items: center;
     gap: 16px;
     margin-bottom: 24px;
+}
+
+.section-intro {
+    margin: -12px 0 1.25rem;
+    color: var(--text-secondary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+}
+
+.section-intro a {
+    color: var(--accent-orange);
 }
 
 .section-title {
@@ -1199,7 +1207,6 @@ body {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     font-weight: 600;
-    text-transform: uppercase;
     white-space: nowrap;
     border: 1px solid var(--border-color);
     border-radius: 4px;
@@ -1337,7 +1344,6 @@ body {
 .metric-label {
     font-size: 11px;
     color: var(--text-muted);
-    text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 4px;
 }
@@ -1574,7 +1580,6 @@ body {
 .contact-label {
     font-size: 12px;
     color: var(--text-muted);
-    text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 8px;
     display: none;
@@ -1769,7 +1774,6 @@ body {
 .contact-label {
     font-size: 12px;
     color: var(--text-muted);
-    text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 8px;
     display: none;
@@ -1994,7 +1998,6 @@ body {
     font-weight: 600;
     color: var(--text-primary);
     font-family: 'JetBrains Mono', monospace;
-    text-transform: uppercase;
     letter-spacing: 1px;
     margin: 0;
 }
@@ -2431,7 +2434,6 @@ body {
     font-size: 14px;
     font-weight: 600;
     color: var(--text-primary);
-    text-transform: uppercase;
     letter-spacing: 1px;
 }
 
@@ -2602,7 +2604,6 @@ body {
     font-size: 16px;
     font-weight: 600;
     color: var(--text-primary);
-    text-transform: uppercase;
     letter-spacing: 1px;
 }
 
@@ -2839,7 +2840,6 @@ body {
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px;
     font-weight: 600;
-    text-transform: uppercase;
     position: relative;
 }
 
@@ -2851,7 +2851,6 @@ body {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     font-weight: 600;
-    text-transform: uppercase;
     white-space: nowrap;
     border: 1px solid var(--border-color);
     border-radius: 4px;
@@ -3015,7 +3014,6 @@ body {
     font-size: 14px;
     font-weight: 600;
     color: var(--accent-orange);
-    text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 12px;
     display: flex;
@@ -3063,7 +3061,6 @@ body {
     font-size: 12px;
     font-weight: 600;
     color: var(--text-secondary);
-    text-transform: uppercase;
     letter-spacing: 0.5px;
     min-width: 80px;
 }
@@ -3094,7 +3091,6 @@ body {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
     color: var(--text-muted);
-    text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 8px;
 }

@@ -39,7 +39,7 @@
       "logo": "img/plugins/calculated-fields/logo.png",
       "featuredImage": "img/plugins/calculated-fields/CalculatedFields.png",
       "company": "Upsert, LLC",
-      "shortDescription": "Adds performance-optimized SugarLogic functions and custom formulas for aggregations, conditionals, dates, and boolean logic.",
+      "shortDescription": "SugarAI add-on that adds performance-optimized SugarLogic functions and custom formulas for aggregations, conditionals, dates, and boolean logic.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -110,7 +110,7 @@
       "logo": "img/plugins/bpm-essentials/logo.png",
       "featuredImage": "img/plugins/bpm-essentials/bpm-custom-actions.png",
       "company": "Upsert, LLC",
-      "shortDescription": "Adds SugarBPM process actions and admin dashlets for field updates, comment logs, preferred-agent routing, and process visibility.",
+      "shortDescription": "SugarAI add-on that adds SugarBPM process actions and admin dashlets for field updates, comment logs, preferred-agent routing, and process visibility.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -145,7 +145,7 @@
       "logo": "img/plugins/calculated-fields/logo.png",
       "featuredImage": "img/plugins/calculated-fields/CalculatedFields.png",
       "company": "Upsert, LLC",
-      "shortDescription": "Keeps SugarLogic calculated fields current in near real time without slowing the CRM.",
+      "shortDescription": "SugarAI add-on that keeps SugarLogic calculated fields current in near real time without slowing the CRM.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -181,7 +181,7 @@
       "logo": "img/plugins/calendar/logo.png",
       "featuredImage": "img/plugins/calendar/recording.gif",
       "company": "Upsert, LLC",
-      "shortDescription": "Shows shared calendars and shift schedules for native Sugar activities and custom event modules.",
+      "shortDescription": "SugarAI add-on that shows shared calendars and shift schedules for native activities and custom event modules.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -251,7 +251,7 @@
       "logo": "img/plugins/engage/logo.png",
       "featuredImage": "img/plugins/engage/phone-number-info.png",
       "company": "Upsert, LLC",
-      "shortDescription": "Connects SugarAI to CTI systems that support browser screen pop, with automatic call logging and caller insights.",
+      "shortDescription": "SugarAI add-on that connects to CTI systems that support browser screen pop, with automatic call logging and caller insights.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -286,7 +286,7 @@
       "logo": "img/plugins/engage-dialpad/logo.png",
       "featuredImage": "img/plugins/engage-dialpad/dialpad_inbound_call_matching.png",
       "company": "Upsert, LLC",
-      "shortDescription": "Embeds Dialpad calling in SugarAI with automatic call logging, caller insights, and in-app call history.",
+      "shortDescription": "SugarAI add-on that embeds Dialpad calling with automatic call logging, caller insights, and in-app call history.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -321,7 +321,7 @@
       "logo": "img/plugins/engage-ringcentral/logo.png",
       "featuredImage": "img/plugins/engage-ringcentral/RingCentral_Inbound_Caller_Matches.png",
       "company": "Upsert, LLC",
-      "shortDescription": "Embeds RingCentral calling in SugarAI with automatic call logging, caller insights, and Call Sheets.",
+      "shortDescription": "SugarAI add-on that embeds RingCentral calling with automatic call logging, caller insights, and Call Sheets.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -356,7 +356,7 @@
       "logo": "img/plugins/engage-whatsapp/logo.png",
       "featuredImage": "img/plugins/engage-whatsapp/whatsapp_message_center_home.png",
       "company": "Upsert, LLC",
-      "shortDescription": "Brings WhatsApp Business messaging into SugarAI with Message Center, conversation logging, templates, and optional voice calling.",
+      "shortDescription": "SugarAI add-on that brings WhatsApp Business messaging into Message Center with conversation logging, templates, and optional voice calling.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -391,7 +391,7 @@
       "logo": "img/plugins/engage-zoom/logo.png",
       "featuredImage": "img/plugins/engage-zoom/zoom_phone_home_dashboard.png",
       "company": "Upsert, LLC",
-      "shortDescription": "Embeds Zoom Phone in SugarAI with dial-from-record, SMS, automatic call logging, AI summaries, and outbound call lists.",
+      "shortDescription": "SugarAI add-on that embeds Zoom Phone for dial-from-record, SMS, automatic call logging, AI summaries, and outbound call lists.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -461,7 +461,7 @@
       "logo": "img/plugins/focused-views/logo.png",
       "featuredImage": "img/plugins/focused-views/recording.gif",
       "company": "Upsert, LLC",
-      "shortDescription": "Lets admins assign specific subpanels and dashlets to record view tabs for users, teams, or roles.",
+      "shortDescription": "SugarAI add-on that lets admins assign specific subpanels and dashlets to record view tabs for users, teams, or roles.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -495,7 +495,7 @@
       "logo": "img/plugins/ip-restriction-manager/logo.png",
       "featuredImage": "img/plugins/ip-restriction-manager/recording.gif",
       "company": "Upsert, LLC",
-      "shortDescription": "Lets admins limit Sugar access by IP address and platform for users, teams, or roles. Open source.",
+      "shortDescription": "SugarAI add-on that lets admins limit access by IP address and platform for users, teams, or roles. Open source.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -534,7 +534,7 @@
       "logo": "img/plugins/last-modified-by/logo.png",
       "featuredImage": "img/plugins/last-modified-by/recording.gif",
       "company": "Upsert, LLC",
-      "shortDescription": "Shows who last changed an audited field, and when, directly under the field without opening the Audit Log.",
+      "shortDescription": "SugarAI add-on that shows who last changed an audited field, and when, directly under the field without opening the Audit Log.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -568,7 +568,7 @@
       "logo": "img/plugins/launchpad/logo.png",
       "featuredImage": "img/plugins/launchpad/recording.gif",
       "company": "Upsert, LLC",
-      "shortDescription": "Lets admins add always-available navigation links that can be scoped by team or role and localized.",
+      "shortDescription": "SugarAI add-on that lets admins add always-available navigation links that can be scoped by team or role and localized.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -636,7 +636,7 @@
       "logo": "img/plugins/lockout/logo.png",
       "featuredImage": "img/plugins/lockout/recording.gif",
       "company": "Upsert, LLC",
-      "shortDescription": "Restricts admin changes outside designated maintenance windows to protect production stability.",
+      "shortDescription": "SugarAI add-on that restricts admin changes outside designated maintenance windows to protect production stability.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -705,7 +705,7 @@
       "logo": "img/plugins/markdown-field/logo.png",
       "featuredImage": "img/plugins/markdown-field/recording.gif",
       "company": "Upsert, LLC",
-      "shortDescription": "Adds a Studio field type that stores and renders Markdown for structured text such as agendas, checklists, and guides.",
+      "shortDescription": "SugarAI add-on that adds a Studio field type for Markdown, including agendas, checklists, and guides.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -740,7 +740,7 @@
       "logo": "img/plugins/masked-textfield/logo.png",
       "featuredImage": "img/plugins/masked-textfield/recording.gif",
       "company": "Upsert, LLC",
-      "shortDescription": "Adds a Studio field type that hides sensitive values until an authorized user reveals or copies them.",
+      "shortDescription": "SugarAI add-on that adds a Studio field type that hides sensitive values until an authorized user reveals or copies them.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -774,7 +774,7 @@
       "logo": "img/plugins/engage-microsoft-teams/logo.png",
       "featuredImage": "img/plugins/engage-microsoft-teams/menu-send-in-sugar.png",
       "company": "Upsert, LLC",
-      "shortDescription": "Sends Microsoft Teams messages from SugarAI records, with optional Teams Phone for logged calls and caller insights.",
+      "shortDescription": "SugarAI add-on that sends Microsoft Teams messages from records, with optional Teams Phone for logged calls and caller insights.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -844,7 +844,7 @@
       "logo": "img/plugins/notifications/logo.png",
       "featuredImage": "img/plugins/notifications/recording.gif",
       "company": "Upsert, LLC",
-      "shortDescription": "Sends targeted alerts, updates, and file attachments in Sugar through email, popup, or the notification center.",
+      "shortDescription": "SugarAI add-on that sends targeted alerts, updates, and file attachments through email, popup, or the notification center.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -879,7 +879,7 @@
       "logo": "img/plugins/preference-enforcer/logo.png",
       "featuredImage": "img/plugins/preference-enforcer/PreferenceEnforcerPreview.png",
       "company": "Upsert, LLC",
-      "shortDescription": "Lets admins assign and enforce profile options, layouts, and themes for users, teams, or roles.",
+      "shortDescription": "SugarAI add-on that lets admins assign and enforce profile options, layouts, and themes for users, teams, or roles.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -1058,7 +1058,7 @@
       "logo": "img/plugins/themes/logo.png",
       "featuredImage": "img/plugins/themes/Recording.png",
       "company": "Upsert, LLC",
-      "shortDescription": "Applies brand colors and environment watermarks so sandboxes and production are easy to tell apart.",
+      "shortDescription": "SugarAI add-on that applies brand colors and environment watermarks so sandboxes and production are easy to tell apart.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -1088,7 +1088,7 @@
       "logo": "img/plugins/timesheets/logo.png",
       "featuredImage": "img/plugins/timesheets/detail.png",
       "company": "Upsert, LLC",
-      "shortDescription": "Tracks billable and non-billable time against any Sugar record, with validation, approvals, and reporting.",
+      "shortDescription": "SugarAI add-on that tracks billable and non-billable time against any record, with validation, approvals, and reporting.",
       "tech": [
         "PHP",
         "JavaScript",
@@ -1676,7 +1676,7 @@
     },
     {
       "id": "skill-7",
-      "category": "Protocols & Standards",
+      "category": "Protocols and standards",
       "icon": "fas fa-shield-alt",
       "items": [
         {
@@ -1722,7 +1722,7 @@
     },
     {
       "id": "skill-8",
-      "category": "Development Tooling",
+      "category": "Development tooling",
       "icon": "fas fa-wrench",
       "items": [
         {
@@ -1789,7 +1789,7 @@
     },
     {
       "id": "skill-9",
-      "category": "Version Control",
+      "category": "Version control",
       "icon": "fas fa-code-branch",
       "items": [
         {

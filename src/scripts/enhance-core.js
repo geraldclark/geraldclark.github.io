@@ -632,7 +632,7 @@ export function initCloseTab(doc = document) {
   const openModal = (sectionId, tabName) => {
     tabToClose = sectionId;
     if (closeTabMessage) {
-      closeTabMessage.textContent = `Are you sure you want to close "${tabName}"? This action cannot be undone.`;
+      closeTabMessage.textContent = `Are you sure that you want to close "${tabName}"? You cannot undo this action.`;
     }
     closeTabModal.classList.add('active');
     doc.body.style.overflow = 'hidden';

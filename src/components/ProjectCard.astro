@@ -1,5 +1,11 @@
 ---
-import { projectPath, projectSummary, projectYear, projectLogoPath } from '../lib/portfolio.js';
+import {
+  projectPath,
+  projectCardSummary,
+  projectYear,
+  projectLogoPath,
+  formatProjectStatus,
+} from '../lib/portfolio.js';
 
 interface Props {
   project: {
@@ -20,7 +26,7 @@ interface Props {
 
 const { project } = Astro.props;
 const year = projectYear(project);
-const summary = projectSummary(project);
+const summary = projectCardSummary(project);
 const status = project.status || 'online';
 const logo = projectLogoPath(project);
 ---
@@ -28,7 +34,11 @@ const logo = projectLogoPath(project);
 <article class="project-card">
   <a class="project-card-link" href={projectPath(project)}>
     <div class="project-header">
-      <span class={`project-status ${status}`} title={status.toUpperCase()}></span>
+      <span
+        class={`project-status ${status}`}
+        title={formatProjectStatus(status)}
+        aria-label={`Status: ${formatProjectStatus(status)}`}
+      ></span>
       {
         logo ? (
           <img class="project-card-logo" src={logo} alt="" width="32" height="32" loading="lazy" />

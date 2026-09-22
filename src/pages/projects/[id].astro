@@ -11,6 +11,7 @@ import {
   projectLogoPath,
   projectImageIsLogo,
   projectYear,
+  formatProjectStatus,
 } from '../../lib/portfolio.js';
 import { projectSchema, breadcrumbSchema } from '../../lib/schema.js';
 
@@ -85,7 +86,7 @@ const yearPhrase = (() => {
 const facts = [
   { label: 'Type', value: kind },
   project.company ? { label: 'Organization', value: project.company } : null,
-  status ? { label: 'Status', value: status } : null,
+  status ? { label: 'Status', value: formatProjectStatus(status) } : null,
 ].filter(Boolean);
 
 const primaryLinks = (project.urls || []).map((link, index) => ({
@@ -130,7 +131,7 @@ const jsonLd = [
               {logo && <img class="logs-detail-logo" src={logo} alt="" width="48" height="48" />}
               <h1>{project.name}</h1>
             </div>
-            <span class={`logs-detail-status ${status}`}>{status}</span>
+            <span class={`logs-detail-status ${status}`}>{formatProjectStatus(status)}</span>
           </div>
           <p class="project-meta">{[kind, project.company, yearPhrase].filter(Boolean).join(' · ')}</p>
         </header>
@@ -160,7 +161,7 @@ const jsonLd = [
                 class="project-image-lightbox-trigger"
                 data-project-image-lightbox
                 data-full-src={image}
-                aria-label={`View larger preview of ${project.name}`}
+                aria-label={`Show larger preview of ${project.name}`}
               >
                 <img src={image} alt={`Screenshot or logo for ${project.name}`} loading="lazy" />
               </button>
@@ -342,8 +343,6 @@ const jsonLd = [
     font-size: 0.95rem;
     color: var(--accent-orange);
     font-family: 'JetBrains Mono', monospace;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
   }
 
   .project-description-full {
@@ -371,7 +370,4 @@ const jsonLd = [
     color: var(--text-primary);
   }
 
-  .project-facts .fact-status {
-    text-transform: capitalize;
-  }
 </style>

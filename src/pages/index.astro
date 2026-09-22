@@ -77,23 +77,23 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
 
       <section class="stats-grid" aria-label="Portfolio stats">
         <div class="stat-card">
-          <div class="stat-label">PROJECTS</div>
+          <div class="stat-label">Projects</div>
           <div class="stat-value">{projects.length}</div>
-          <div class="stat-footer">Plugins, platforms & writing</div>
+          <div class="stat-footer">Plugins, platforms and writing</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">LIVE</div>
+          <div class="stat-label">Live</div>
           <div class="stat-value">{onlineCount}</div>
           <div class="stat-footer">Projects maintained</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">EXPERIENCE</div>
+          <div class="stat-label">Experience</div>
           <div
             class="stat-value"
             id="crm-experience-value"
             data-crm-experience-since={experience?.since}
           >
-            {experience ? `${experience.span}+` : '—'}
+            {experience ? `${experience.span}+` : 'N/A'}
           </div>
           {
             experience && (
@@ -104,7 +104,7 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
           }
         </div>
         <div class="stat-card">
-          <div class="stat-label">LOCATION</div>
+          <div class="stat-label">Location</div>
           <div class="stat-value stat-value-location">{locationCity}</div>
           {locationRegion && <div class="stat-footer">{locationRegion}</div>}
         </div>
@@ -112,9 +112,10 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
 
       <section id="about" class="content-section">
         <div class="section-header">
-          <h2 class="section-title">ABOUT.JS</h2>
+          <h2 class="section-title">About.js</h2>
           <div class="section-line"></div>
         </div>
+        <p class="section-intro">The short version.</p>
         <div class="content-card">
           <AboutCodeBlock about={about} />
         </div>
@@ -122,11 +123,12 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
 
       <section id="projects" class="content-section">
         <div class="section-header">
-          <h2 class="section-title">PROJECTS.LOG</h2>
+          <h2 class="section-title">Projects.log</h2>
           <div class="section-line"></div>
         </div>
         <p class="section-intro">
-          Recent work below. <a href="/projects/">Browse all {projects.length} projects</a>.
+          What I've been building lately.{' '}
+          <a href="/projects/">All {projects.length} projects</a>
         </p>
         <div class="projects-grid home-projects-grid" data-home-projects-grid>
           {projects.map((project) => <ProjectCard project={project} />)}
@@ -144,9 +146,10 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
 
       <section id="skills" class="content-section">
         <div class="section-header">
-          <h2 class="section-title">SKILLS.YML</h2>
+          <h2 class="section-title">Skills.yml</h2>
           <div class="section-line"></div>
         </div>
+        <p class="section-intro">What I reach for day to day.</p>
         <div class="skills-container">
           {
             skills.map((skill) => (
@@ -168,9 +171,10 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
 
       <section id="distinctions" class="content-section">
         <div class="section-header">
-          <h2 class="section-title">DISTINCTIONS.CRT</h2>
+          <h2 class="section-title">Distinctions.crt</h2>
           <div class="section-line"></div>
         </div>
+        <p class="section-intro">Certs and milestones worth mentioning.</p>
         <div class="content-card">
           <div class="distinctions-container">
             {
@@ -191,9 +195,10 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
 
       <section id="contact" class="content-section">
         <div class="section-header">
-          <h2 class="section-title"># CONTACT.MD</h2>
+          <h2 class="section-title"># Contact.md</h2>
           <div class="section-line"></div>
         </div>
+        <p class="section-intro">Let's connect!</p>
         <div class="content-card">
           <div class="contact-grid">
             {
@@ -221,17 +226,6 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
 </Base>
 
 <style>
-  .section-intro {
-    margin: 0 0 1.25rem;
-    color: var(--text-secondary);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
-  }
-
-  .section-intro a {
-    color: var(--accent-orange);
-  }
-
   .skill-category {
     background: var(--card-bg);
     border: 1px solid var(--border-color);

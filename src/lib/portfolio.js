@@ -34,6 +34,15 @@ export function projectYear(project) {
   return project.end_year != null ? project.end_year : project.start_year;
 }
 
+/** Sentence-case label for project status (color dot plus text for accessibility). */
+export function formatProjectStatus(status) {
+  const key = (status || 'online').toLowerCase();
+  if (key === 'online') return 'Online';
+  if (key === 'completed') return 'Completed';
+  if (key === 'deprecated' || key === 'offline') return 'Deprecated';
+  return key.charAt(0).toUpperCase() + key.slice(1);
+}
+
 /** @param {Project} project */
 export function projectPath(project) {
   return `/projects/${project.id}/`;
@@ -89,9 +98,30 @@ export function getProjectById(id) {
   return (portfolio.projects || []).find((project) => project.id === id) || null;
 }
 
+const HOST_PRODUCT_PATTERN =
+  /\b(SugarAI|SugarCRM|SugarBPM|SugarLogic|SugarIdentity)\b/i;
+
 /** @param {Project} project */
 export function projectSummary(project) {
   return project.shortDescription || project.description || '';
+}
+
+/**
+ * Card blurb: state the host product (usually SugarAI) for Upsert commercial plugins.
+ * @param {Project} project
+ */
+export function projectCardSummary(project) {
+  const base = projectSummary(project).trim();
+  if (!base) return base;
+
+  const isUpsertPlugin =
+    project.company === 'Upsert, LLC' && (project.id || '').startsWith('plugin-');
+  if (!isUpsertPlugin) return base;
+
+  if (HOST_PRODUCT_PATTERN.test(base)) return base;
+
+  const rest = base.charAt(0).toLowerCase() + base.slice(1);
+  return `SugarAI add-on that ${rest}`;
 }
 
 /** @param {string|null|undefined} src */

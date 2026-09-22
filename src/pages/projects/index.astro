@@ -33,7 +33,7 @@ const jsonLd = [
         <div class="projects-index">
           <header class="projects-index-header desktop-only-empty">
             <h1>All projects</h1>
-            <p>{projects.length} projects</p>
+            <p class="section-intro">The full archive.</p>
           </header>
           <div class="projects-grid projects-index-grid">
             {projects.map((project) => <ProjectCard project={project} />)}
@@ -58,7 +58,8 @@ const jsonLd = [
   .projects-index-header p {
     margin: 0;
     font-size: 0.9rem;
-    opacity: 0.8;
+    color: var(--text-secondary);
+    font-family: 'JetBrains Mono', monospace;
   }
 
   .projects-index-grid {
