@@ -1049,6 +1049,10 @@ body {
 .code-property { color: var(--accent-orange-light); }
 .code-string { color: var(--orange-300); }
 
+#about .code-string {
+    color: var(--accent-green);
+}
+
 /* Projects Grid */
 .projects-grid {
     display: grid;

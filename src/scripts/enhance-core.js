@@ -148,6 +148,49 @@ export function initHomeProjectsGrid() {
   });
 }
 
+/** @param {string} foldTarget @param {Document} doc */
+export function toggleCodeFold(foldTarget, doc = document) {
+  const indicator = doc.querySelector(`.fold-indicator[data-fold-target="${foldTarget}"]`);
+  if (!indicator) return;
+  indicator.classList.toggle('collapsed');
+  updateCodeFoldVisibility(doc);
+}
+
+/** @param {Document} doc */
+export function updateCodeFoldVisibility(doc = document) {
+  doc.querySelectorAll('.code-foldable').forEach((line) => {
+    const foldIds = (line.getAttribute('data-fold-id') || '')
+      .split(' ')
+      .filter((id) => id.trim());
+    const lineFoldIndicator = line.querySelector('.fold-indicator[data-fold-target]');
+    const lineFoldTarget = lineFoldIndicator?.getAttribute('data-fold-target');
+
+    let shouldShow = true;
+    foldIds.forEach((id) => {
+      const indicator = doc.querySelector(`.fold-indicator[data-fold-target="${id}"]`);
+      if (indicator?.classList.contains('collapsed') && lineFoldTarget !== id) {
+        shouldShow = false;
+      }
+    });
+
+    line.classList.toggle('folded', !shouldShow);
+  });
+}
+
+/** @param {Document} doc */
+export function initCodeFolds(doc = document) {
+  doc.querySelectorAll('.fold-indicator.foldable').forEach((indicator) => {
+    if (indicator.dataset.listenerAdded === 'true') return;
+    indicator.dataset.listenerAdded = 'true';
+    indicator.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const foldTarget = indicator.getAttribute('data-fold-target');
+      if (foldTarget) toggleCodeFold(foldTarget, doc);
+    });
+  });
+}
+
 /**
  * @param {HTMLElement} container
  * @param {number} x
@@ -562,5 +605,6 @@ export function bootEnhance() {
   initMobileMenu();
   initProjectSearch();
   initHomeProjectsGrid();
+  initCodeFolds();
   initNavTabs();
 }

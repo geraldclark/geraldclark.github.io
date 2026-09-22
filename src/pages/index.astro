@@ -4,6 +4,7 @@ import StatusBar from '../components/StatusBar.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import CloseTabModal from '../components/CloseTabModal.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import AboutCodeBlock from '../components/AboutCodeBlock.astro';
 import {
   getPortfolio,
   getProjects,
@@ -92,18 +93,7 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
           <div class="section-line"></div>
         </div>
         <div class="content-card">
-          <div class="code-block">
-            <div class="code-editor">
-              <pre class="about-pre"><code>{`// About ${about.name}
-const person = {
-  name: "${about.name}",
-  roles: ${JSON.stringify(about.roles || [], null, 2).replace(/\n/g, '\n  ')},
-  location: "${about.location}",
-  skills: ${JSON.stringify(about.skills || [], null, 2).replace(/\n/g, '\n  ')},
-  passion: "${about.passion}"
-};`}</code></pre>
-            </div>
-          </div>
+          <AboutCodeBlock about={about} />
         </div>
       </section>
 
@@ -217,17 +207,6 @@ const person = {
 
   .section-intro a {
     color: var(--accent-orange);
-  }
-
-  .about-pre {
-    margin: 0;
-    padding: 1.25rem;
-    overflow-x: auto;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: var(--text-primary);
-    white-space: pre;
   }
 
   .skill-category {

@@ -1,0 +1,45 @@
+---
+import { buildAboutCodeLines } from '../lib/about-code.js';
+
+interface Props {
+  about: {
+    name: string;
+    roles?: string[];
+    location?: string;
+    skills?: string[];
+    passion?: string;
+  };
+}
+
+const { about } = Astro.props;
+const lines = buildAboutCodeLines(about);
+---
+
+<div class="code-block">
+  <div class="code-editor">
+    <div class="code-lines">
+      {
+        lines.map((line) => (
+          <div
+            class:list={[
+              'code-line',
+              line.indent > 0 && `code-indent-${line.indent}`,
+              line.foldId && 'code-foldable',
+            ]}
+            data-fold-id={line.foldId ?? undefined}
+          >
+            <span class="line-number">{line.num}</span>
+            <span
+              class:list={[
+                'fold-indicator',
+                line.isFoldable && line.foldTarget && 'foldable',
+              ]}
+              data-fold-target={line.foldTarget ?? undefined}
+            />
+            <span class="code-content" set:html={line.html} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
