@@ -57,7 +57,7 @@
     --status-bg: #0f1729;
     --nav-bg: #1a2332;
     --nav-bg-hover: #1e293b;
-    --nav-bg-active: #0a0f1a;
+    --nav-bg-active: var(--bg-dashboard);
 }
 
 [data-theme="light"] {
@@ -66,14 +66,18 @@
     --text-secondary: #4b5563;
     --text-muted: #6b7280;
     
-    --border-color: #cbd5e1;
+    --border-color: #e4e4e7;
     --card-bg: #ffffff;
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8fafc;
+    --bg-primary: #fafafa;
+    --bg-secondary: #f4f4f5;
+    --bg-dashboard: #fafafa;
     
-    /* Status bar and headers use lighter navy */
-    --status-bg: #f1f5f9;
-    --terminal-header-bg: #e2e8f0;
+    /* Status bar and headers */
+    --status-bg: #ffffff;
+    --nav-bg: #e4e4e7;
+    --nav-bg-hover: #d4d4d8;
+    --nav-bg-active: var(--bg-dashboard);
+    --terminal-header-bg: #f4f4f5;
 }
 
 body {
@@ -309,18 +313,18 @@ body {
 
 
 [data-theme="light"] .nav-link {
-    color: #616161;
-    background: #ececec;
-    border-right-color: #d3d3d3;
+    color: #52525b;
+    background: var(--nav-bg);
+    border-right-color: #d4d4d8;
 }
 
 [data-theme="light"] .nav-link:hover {
-    background: #e8e8e8;
+    background: var(--nav-bg-hover);
     color: var(--accent-orange);
 }
 
 [data-theme="light"] .nav-link.active {
-    background: #ffffff;
+    background: var(--nav-bg-active);
     color: var(--accent-orange);
     border-bottom: none;
     margin-bottom: 0;
@@ -335,7 +339,7 @@ body {
     left: 0;
     right: 0;
     height: 2px;
-    background: #ffffff;
+    background: var(--nav-bg-active);
     z-index: 101;
 }
 
@@ -462,10 +466,6 @@ body {
     margin: 0 auto;
     width: 100%;
     background: var(--bg-dashboard);
-}
-
-[data-theme="light"] .dashboard {
-    background: var(--bg-primary);
 }
 
 /* Hero Section */
@@ -982,11 +982,12 @@ body {
 }
 
 [data-theme="light"] .stat-card {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: none;
 }
 
 [data-theme="light"] .stat-card:hover {
-    box-shadow: 0 8px 24px rgba(249, 115, 22, 0.15);
+    box-shadow: none;
+    border-color: #d4d4d8;
 }
 
 .stat-card::before {
@@ -1112,7 +1113,8 @@ body {
 }
 
 [data-theme="light"] .content-card {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: none;
+    border: 1px solid var(--border-color);
 }
 
 .content-card--accent {
@@ -1129,9 +1131,8 @@ body {
 }
 
 [data-theme="light"] .content-card--accent:hover {
-    box-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.05),
-        0 0 0 1px color-mix(in srgb, var(--accent-orange) 15%, transparent);
+    border-color: #d4d4d8;
+    box-shadow: none;
 }
 
 /* Accent surfaces (icons, chips, card hover) */
@@ -1182,6 +1183,26 @@ body {
     border-color: color-mix(in srgb, var(--accent-orange) 55%, var(--border-color));
     box-shadow: 0 6px 20px color-mix(in srgb, var(--accent-orange) 18%, transparent);
     transform: translateY(-2px);
+}
+
+[data-theme="light"] .surface-card-interactive:hover {
+    border-color: #d4d4d8;
+    box-shadow: none;
+    transform: none;
+}
+
+[data-theme="light"] .accent-icon-badge,
+[data-theme="light"] .accent-icon-badge--green,
+[data-theme="light"] .accent-icon-badge:has(.fa-medal) {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    box-shadow: none;
+}
+
+[data-theme="light"] .contact-grid-static .contact-icon {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    box-shadow: none;
 }
 
 .accent-chip {
@@ -1504,11 +1525,13 @@ body {
 }
 
 [data-theme="light"] .project-card {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: none;
 }
 
 [data-theme="light"] .project-card:hover {
-    box-shadow: 0 8px 24px rgba(249, 115, 22, 0.15);
+    box-shadow: none;
+    border-color: #d4d4d8;
+    transform: none;
 }
 
 .project-card:hover {
@@ -1767,7 +1790,7 @@ body {
 }
 
 [data-theme="light"] .skill-category {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: none;
 }
 
 .category-title {
@@ -1887,8 +1910,8 @@ body {
 }
 
 [data-theme="light"] .contact-item {
-    background: var(--bg-secondary);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    background: var(--card-bg);
+    box-shadow: none;
 }
 
 [data-theme="light"] .contact-item[href^="mailto:"]:hover {
@@ -2329,8 +2352,8 @@ body {
 }
 
 [data-theme="light"] .dashboard-footer {
-    background: var(--status-bg);
-    border-top: 2px solid var(--border-color);
+    background: #ffffff;
+    border-top: 1px solid var(--border-color);
 }
 
 .footer-content {
@@ -3656,7 +3679,7 @@ body {
 }
 
 .nav-link.active {
-  border-bottom: 2px solid var(--accent-orange);
+  border-bottom: 2px solid var(--nav-bg-active);
 }
 
 .logs-project-item[hidden] {
