@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import portfolio from '../data/portfolio.json';
+export { portfolioExperienceYears } from './experience-years.js';
 
 // Prefer cwd so Vite/Astro bundling does not break import.meta.url resolution.
 const publicDir = path.resolve(process.cwd(), 'public');

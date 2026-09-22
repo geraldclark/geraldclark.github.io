@@ -5,6 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   activeNavSectionForScroll,
   initCloseTab,
+  initCrmExperienceStat,
   initMobileMenu,
   initProjectImageLightbox,
   initProjectSearch,
@@ -134,6 +135,17 @@ describe('initMobileMenu', () => {
     document.getElementById('mobile-menu-toggle').click();
     overlay.querySelector('a').click();
     expect(overlay.classList.contains('active')).toBe(false);
+  });
+});
+
+describe('initCrmExperienceStat', () => {
+  it('recomputes span from data-crm-experience-since on load', () => {
+    document.body.innerHTML = `
+      <div class="stat-value" id="crm-experience-value" data-crm-experience-since="2008">—</div>
+      <div class="stat-footer" id="crm-experience-footer"></div>
+    `;
+    initCrmExperienceStat(document, new Date('2026-06-01'));
+    expect(document.getElementById('crm-experience-value').textContent).toBe('18+');
   });
 });
 

@@ -9,6 +9,7 @@ import {
   getPortfolio,
   getProjects,
   HOME_PROJECTS_DESKTOP_INITIAL,
+  portfolioExperienceYears,
 } from '../lib/portfolio.js';
 import {
   personSchema,
@@ -25,7 +26,13 @@ const contact = portfolio.contact || [];
 const distinctions = portfolio.distinctions || [];
 
 const onlineCount = projects.filter((p) => p.status === 'online').length;
-const companies = new Set(projects.map((p) => p.company).filter(Boolean)).size;
+const experience = portfolioExperienceYears(about, projects);
+
+const locationParts = (about.location || '').split(',').map((part) => part.trim());
+const locationCity = locationParts[0] || about.location || '';
+const locationRegionRaw = locationParts[1] || '';
+const locationRegion =
+  locationRegionRaw === 'PA' ? 'Pennsylvania' : locationRegionRaw || 'Pennsylvania';
 
 const description =
   'Portfolio of Gerald Clark, CTO and Co-Founder at Upsert. SugarAI plugins, architecture, and consulting work from Pittsburgh, PA.';
@@ -72,18 +79,34 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
         <div class="stat-card">
           <div class="stat-label">PROJECTS</div>
           <div class="stat-value">{projects.length}</div>
+          <div class="stat-footer">Plugins, platforms & writing</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">ONLINE</div>
+          <div class="stat-label">LIVE</div>
           <div class="stat-value">{onlineCount}</div>
+          <div class="stat-footer">Projects maintained</div>
         </div>
         <div class="stat-card">
-          <div class="stat-label">COMPANIES</div>
-          <div class="stat-value">{companies}</div>
+          <div class="stat-label">EXPERIENCE</div>
+          <div
+            class="stat-value"
+            id="crm-experience-value"
+            data-crm-experience-since={experience?.since}
+          >
+            {experience ? `${experience.span}+` : '—'}
+          </div>
+          {
+            experience && (
+              <div class="stat-footer" id="crm-experience-footer" data-crm-experience-footer>
+                Years experience
+              </div>
+            )
+          }
         </div>
         <div class="stat-card">
           <div class="stat-label">LOCATION</div>
-          <div class="stat-value stat-value-text">{about.location}</div>
+          <div class="stat-value stat-value-location">{locationCity}</div>
+          {locationRegion && <div class="stat-footer">{locationRegion}</div>}
         </div>
       </section>
 
@@ -267,7 +290,4 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
     font-size: 0.9rem;
   }
 
-  .stat-value-text {
-    font-size: 1rem !important;
-  }
 </style>

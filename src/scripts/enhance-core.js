@@ -3,6 +3,8 @@
  * Browser entry: enhance.js imports and calls bootEnhance().
  */
 
+import { experienceYearsFromSince } from '../lib/experience-years.js';
+
 const NAV_ORDER_KEY = 'nav-order';
 const SCROLL_OFFSET = 96;
 const DESKTOP_MIN_WIDTH = 768;
@@ -206,6 +208,18 @@ export function projectItemMatches(term, name, company) {
 }
 
 /** @param {Document} doc */
+/** @param {Document} doc @param {Date} [now] */
+export function initCrmExperienceStat(doc = document, now = new Date()) {
+  const valueEl = doc.getElementById('crm-experience-value');
+  if (!valueEl) return;
+
+  const since = Number(valueEl.getAttribute('data-crm-experience-since'));
+  const computed = experienceYearsFromSince(since, now);
+  if (!computed) return;
+
+  valueEl.textContent = `${computed.span}+`;
+}
+
 export function initProjectImageLightbox(doc = document) {
   const triggers = doc.querySelectorAll('[data-project-image-lightbox]');
   const overlay = doc.getElementById('project-image-lightbox');
@@ -708,6 +722,7 @@ export function bootEnhance() {
   initMobileMenu();
   initProjectSearch();
   initProjectImageLightbox();
+  initCrmExperienceStat();
   initHomeProjectsGrid();
   initCodeFolds();
   initNavTabs();

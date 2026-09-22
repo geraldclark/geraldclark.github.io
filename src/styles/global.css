@@ -568,7 +568,7 @@ body {
     min-height: 200px;
     padding: 8px;
     transition: background-color 0.2s ease, min-height 0.3s ease;
-    align-items: start;
+    align-items: stretch;
 }
 
 .stats-grid.all-minimized {
@@ -590,6 +590,8 @@ body {
     position: relative;
     overflow: hidden;
     cursor: grab;
+    display: flex;
+    flex-direction: column;
 }
 
 .card-controls {
@@ -876,11 +878,24 @@ body {
     color: var(--accent-orange);
     font-family: 'JetBrains Mono', monospace;
     margin-bottom: 8px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    line-height: 1.1;
+    min-height: 53px;
+}
+
+.stat-value-location {
+    font-size: clamp(1.35rem, 2.2vw + 0.85rem, 2rem);
+    line-height: 1.2;
 }
 
 .stat-footer {
     font-size: 12px;
+    line-height: 1.4;
     color: var(--text-muted);
+    margin-top: auto;
+    flex-shrink: 0;
 }
 
 /* Content Sections */
