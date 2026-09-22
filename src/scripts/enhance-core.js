@@ -3,7 +3,7 @@
  * Browser entry: enhance.js imports and calls bootEnhance().
  */
 
-export const NAV_ORDER_KEY = 'nav-order';
+const NAV_ORDER_KEY = 'nav-order';
 const SCROLL_OFFSET = 96;
 const DESKTOP_MIN_WIDTH = 768;
 
@@ -370,44 +370,6 @@ export function reorderContentSections(doc = document) {
   return true;
 }
 
-/** @param {Document} doc */
-export function saveNavOrder(doc = document) {
-  const navTabs = doc.querySelector('.status-nav-tabs');
-  if (!navTabs) return;
-  const order = Array.from(navTabs.querySelectorAll('.nav-link')).map((link) =>
-    link.getAttribute('data-section')
-  );
-  localStorage.setItem(NAV_ORDER_KEY, JSON.stringify(order));
-}
-
-/** @param {Document} doc */
-export function restoreNavOrder(doc = document) {
-  const savedOrder = localStorage.getItem(NAV_ORDER_KEY);
-  if (!savedOrder) return;
-
-  try {
-    const order = JSON.parse(savedOrder);
-    if (!Array.isArray(order)) return;
-
-    const navTabs = doc.querySelector('.status-nav-tabs');
-    if (!navTabs) return;
-
-    const navLinks = Array.from(navTabs.querySelectorAll('.nav-link'));
-    const linkMap = new Map(
-      navLinks.map((link) => [link.getAttribute('data-section'), link])
-    );
-
-    order.forEach((sectionId) => {
-      const link = linkMap.get(sectionId);
-      if (link) navTabs.appendChild(link);
-    });
-
-    reorderContentSections(doc);
-  } catch {
-    /* ignore corrupt saved order */
-  }
-}
-
 /**
  * @param {string} sectionId
  * @param {Document} doc
@@ -559,7 +521,6 @@ function initNavDragAndDrop(doc) {
       dropIndicator.style.display = 'none';
 
       reorderContentSections(doc);
-      saveNavOrder(doc);
       syncMobileMenuNav(doc);
 
       if (draggedElement) {
@@ -685,7 +646,7 @@ export function initCloseTab(doc = document) {
 export function initNavTabs(doc = document) {
   if (!doc.querySelector('.dashboard')) return;
 
-  restoreNavOrder(doc);
+  localStorage.removeItem(NAV_ORDER_KEY);
   syncMobileMenuNav(doc);
   initNavLinkClicks(doc);
   initCloseTab(doc);

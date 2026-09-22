@@ -3,7 +3,6 @@
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
-  NAV_ORDER_KEY,
   activeNavSectionForScroll,
   initCloseTab,
   initMobileMenu,
@@ -12,8 +11,6 @@ import {
   orderedDashboardSections,
   projectItemMatches,
   reorderContentSections,
-  restoreNavOrder,
-  saveNavOrder,
   sectionsForNavTab,
   setActiveNavSection,
   updateClock,
@@ -238,46 +235,6 @@ describe('nav section ordering', () => {
       (el) => el.id || el.className
     );
     expect(ids).toEqual(['hero-section', 'stats-grid', 'skills', 'about']);
-  });
-
-  it('persists and restores nav tab order', () => {
-    document.body.innerHTML = `
-      <nav class="status-nav-tabs">
-        <a class="nav-link" data-section="home"></a>
-        <a class="nav-link" data-section="about"></a>
-        <a class="nav-link" data-section="skills"></a>
-      </nav>
-      <main class="dashboard">
-        <section class="hero-section"></section>
-        <section class="stats-grid"></section>
-        <section id="about"></section>
-        <section id="skills"></section>
-      </main>
-    `;
-    const navTabs = document.querySelector('.status-nav-tabs');
-    const skillsLink = navTabs.querySelector('[data-section="skills"]');
-    navTabs.appendChild(skillsLink);
-    saveNavOrder();
-
-    document.body.innerHTML = `
-      <nav class="status-nav-tabs">
-        <a class="nav-link" data-section="home"></a>
-        <a class="nav-link" data-section="about"></a>
-        <a class="nav-link" data-section="skills"></a>
-      </nav>
-      <main class="dashboard">
-        <section class="hero-section"></section>
-        <section class="stats-grid"></section>
-        <section id="about"></section>
-        <section id="skills"></section>
-      </main>
-    `;
-    restoreNavOrder();
-    const order = [...document.querySelectorAll('.nav-link')].map((l) =>
-      l.getAttribute('data-section')
-    );
-    expect(order).toEqual(['home', 'about', 'skills']);
-    expect(localStorage.getItem(NAV_ORDER_KEY)).toBeTruthy();
   });
 
   it('orderedDashboardSections keeps stats immediately after hero', () => {
