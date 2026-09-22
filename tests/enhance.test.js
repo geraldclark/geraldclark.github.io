@@ -4,6 +4,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   activeNavSectionForScroll,
+  activeNavSectionFromViewport,
   initCloseTab,
   initCrmExperienceStat,
   initMobileMenu,
@@ -224,6 +225,73 @@ describe('nav scroll spy', () => {
     expect(activeNavSectionForScroll(regions, 0, 96)).toBe('home');
     expect(activeNavSectionForScroll(regions, 900, 96)).toBe('about');
     expect(activeNavSectionForScroll(regions, 2000, 96)).toBe('projects');
+  });
+
+  it('uses viewport position so the section at the header line wins', () => {
+    document.body.innerHTML = `
+      <header class="status-bar" style="height:110px"></header>
+      <nav class="status-nav-tabs">
+        <a class="nav-link" data-section="home"></a>
+        <a class="nav-link" data-section="projects"></a>
+        <a class="nav-link" data-section="skills"></a>
+      </nav>
+      <main class="dashboard">
+        <section class="hero-section" style="height:400px"></section>
+        <section id="projects" style="height:800px"></section>
+        <section id="skills" style="height:400px"></section>
+      </main>
+    `;
+
+    const projects = document.getElementById('projects');
+    const skills = document.getElementById('skills');
+    Object.defineProperty(projects, 'getBoundingClientRect', {
+      configurable: true,
+      value: () => ({ top: -200, left: 0, right: 0, bottom: 0, width: 0, height: 800 }),
+    });
+    Object.defineProperty(skills, 'getBoundingClientRect', {
+      configurable: true,
+      value: () => ({ top: 100, left: 0, right: 0, bottom: 0, width: 0, height: 400 }),
+    });
+
+    expect(activeNavSectionFromViewport(document, window, 110)).toBe('skills');
+  });
+
+  it('prefers the lower section when scroll stops slightly below the header line', () => {
+    document.body.innerHTML = `
+      <nav class="status-nav-tabs">
+        <a class="nav-link" data-section="projects"></a>
+        <a class="nav-link" data-section="skills"></a>
+      </nav>
+      <main class="dashboard">
+        <section id="projects" style="height:800px"></section>
+        <section id="skills" style="height:400px"></section>
+      </main>
+    `;
+
+    Object.defineProperty(window, 'pageYOffset', { configurable: true, value: 1200 });
+    const projects = document.getElementById('projects');
+    const skills = document.getElementById('skills');
+    Object.defineProperty(projects, 'getBoundingClientRect', {
+      configurable: true,
+      value: () => ({ top: -600, left: 0, right: 0, bottom: 0, width: 0, height: 800 }),
+    });
+    Object.defineProperty(skills, 'getBoundingClientRect', {
+      configurable: true,
+      value: () => ({ top: 145, left: 0, right: 0, bottom: 0, width: 0, height: 400 }),
+    });
+
+    expect(activeNavSectionFromViewport(document, window, 110)).toBe('skills');
+  });
+
+  it('sorts regions by top before choosing active section', () => {
+    const regions = [
+      { sectionId: 'skills', top: 3200 },
+      { sectionId: 'about', top: 800 },
+      { sectionId: 'distinctions', top: 4100 },
+      { sectionId: 'projects', top: 1600 },
+    ];
+    expect(activeNavSectionForScroll(regions, 3300, 110)).toBe('skills');
+    expect(activeNavSectionForScroll(regions, 4200, 110)).toBe('distinctions');
   });
 
   it('sets active class on matching nav links', () => {

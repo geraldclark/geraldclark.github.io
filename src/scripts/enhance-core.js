@@ -7,10 +7,26 @@ import { experienceYearsFromSince } from '../lib/experience-years.js';
 import { initHeroTerminal } from './hero-terminal-ui.js';
 
 const NAV_ORDER_KEY = 'nav-order';
-const SCROLL_OFFSET = 96;
+/** Matches `.dashboard { padding-top: 110px }` when status bar is not measured. */
+export const DEFAULT_NAV_SCROLL_OFFSET = 110;
 const DESKTOP_MIN_WIDTH = 768;
 
-export const navScrollState = { skipActiveUpdate: false };
+export const navScrollState = {
+  skipActiveUpdate: false,
+  pauseTimer: 0,
+  /** @type {string | null} */
+  pinnedSectionId: null,
+};
+
+/** @param {Document} doc */
+export function getNavScrollOffset(doc = document) {
+  const bar = doc.querySelector('.status-bar');
+  if (bar instanceof HTMLElement) {
+    const height = bar.getBoundingClientRect().height;
+    if (height > 0) return Math.ceil(height) + 8;
+  }
+  return DEFAULT_NAV_SCROLL_OFFSET;
+}
 
 /** @param {Document} doc @param {Window} win */
 export function getNavScrollRegions(doc = document, win = window) {
@@ -50,14 +66,91 @@ export function getNavScrollRegions(doc = document, win = window) {
  * @param {number} scrollY
  * @param {number} [offset]
  */
-export function activeNavSectionForScroll(regions, scrollY, offset = SCROLL_OFFSET) {
+export function activeNavSectionForScroll(
+  regions,
+  scrollY,
+  offset = DEFAULT_NAV_SCROLL_OFFSET
+) {
   if (regions.length === 0) return null;
+  const sorted = [...regions].sort((a, b) => a.top - b.top);
   const probe = scrollY + offset;
-  let active = regions[0].sectionId;
-  regions.forEach((region) => {
-    if (probe >= region.top) active = region.sectionId;
+  let active = sorted[0].sectionId;
+  sorted.forEach((region) => {
+    if (probe >= region.top - 2) active = region.sectionId;
   });
   return active;
+}
+
+/** @param {string} sectionId @param {Document} doc @returns {HTMLElement[]} */
+export function getSectionBlocks(sectionId, doc = document) {
+  if (sectionId === 'home') {
+    return [doc.querySelector('.hero-section'), doc.querySelector('.stats-grid')].filter(
+      (el) => el instanceof HTMLElement && el.style.display !== 'none'
+    );
+  }
+  const section = doc.getElementById(sectionId);
+  return section instanceof HTMLElement && section.style.display !== 'none' ? [section] : [];
+}
+
+/** @param {string} sectionId @param {Document} doc */
+export function getSectionViewportTop(sectionId, doc = document) {
+  const blocks = getSectionBlocks(sectionId, doc);
+  if (blocks.length === 0) return null;
+  return Math.min(...blocks.map((el) => el.getBoundingClientRect().top));
+}
+
+/**
+ * Which nav section is active based on what has crossed the fixed header line.
+ *
+ * @param {Document} doc
+ * @param {Window} win
+ * @param {number} [offset]
+ */
+export function activeNavSectionFromViewport(
+  doc = document,
+  win = window,
+  offset = DEFAULT_NAV_SCROLL_OFFSET
+) {
+  const navLinks = Array.from(doc.querySelectorAll('.status-nav-tabs .nav-link')).filter(
+    (link) => link.style.display !== 'none'
+  );
+  /** Slack so smooth-scroll landing (section top slightly below the bar) still selects the right tab. */
+  const probe = offset + 40;
+
+  /** @type {{ sectionId: string, docTop: number, viewportTop: number }[]} */
+  const candidates = [];
+
+  navLinks.forEach((link) => {
+    const sectionId = link.getAttribute('data-section');
+    if (!sectionId) return;
+    const blocks = getSectionBlocks(sectionId, doc);
+    if (blocks.length === 0) return;
+    const viewportTop = Math.min(...blocks.map((el) => el.getBoundingClientRect().top));
+    const docTop = Math.min(
+      ...blocks.map((el) => el.getBoundingClientRect().top + win.pageYOffset)
+    );
+    candidates.push({ sectionId, docTop, viewportTop });
+  });
+
+  if (candidates.length === 0) return null;
+
+  const reached = candidates.filter((c) => c.viewportTop <= probe);
+  if (reached.length > 0) {
+    reached.sort((a, b) => b.docTop - a.docTop);
+    return reached[0].sectionId;
+  }
+
+  if (win.pageYOffset < offset * 0.5) {
+    return candidates.find((c) => c.sectionId === 'home')?.sectionId ?? candidates[0].sectionId;
+  }
+
+  candidates.sort((a, b) => a.docTop - b.docTop);
+  for (let i = candidates.length - 1; i >= 0; i -= 1) {
+    if (candidates[i].docTop <= win.pageYOffset + probe) {
+      return candidates[i].sectionId;
+    }
+  }
+  return candidates[0].sectionId;
 }
 
 /** @param {string} sectionId @param {Document} doc */
@@ -70,19 +163,63 @@ export function setActiveNavSection(sectionId, doc = document) {
   });
 }
 
-/** @param {number} [ms] */
-export function pauseNavScrollUpdates(ms = 1000) {
-  navScrollState.skipActiveUpdate = true;
-  setTimeout(() => {
-    navScrollState.skipActiveUpdate = false;
-    updateActiveNav();
-  }, ms);
+/**
+ * Keep the requested tab active until its section reaches the header probe (or timeout).
+ *
+ * @param {string | null} sectionId
+ * @param {Document} doc
+ * @param {Window} win
+ * @param {number} [maxMs]
+ */
+export function pinNavSection(
+  sectionId,
+  doc = document,
+  win = window,
+  maxMs = 4000
+) {
+  if (!sectionId) return;
+
+  navScrollState.pinnedSectionId = sectionId;
+  navScrollState.skipActiveUpdate = false;
+  setActiveNavSection(sectionId, doc);
+
+  if (navScrollState.pauseTimer) {
+    win.clearTimeout(navScrollState.pauseTimer);
+  }
+  navScrollState.pauseTimer = win.setTimeout(() => {
+    navScrollState.pinnedSectionId = null;
+    navScrollState.pauseTimer = 0;
+    updateActiveNav(doc, win);
+  }, maxMs);
+}
+
+/** @deprecated Use pinNavSection */
+export function pauseNavScrollUpdates(ms = 4000, pinnedSectionId = null, doc = document) {
+  pinNavSection(pinnedSectionId, doc, window, ms);
 }
 
 /** @param {Document} doc @param {Window} win */
 export function updateActiveNav(doc = document, win = window) {
-  const regions = getNavScrollRegions(doc, win);
-  const sectionId = activeNavSectionForScroll(regions, win.pageYOffset);
+  const offset = getNavScrollOffset(doc);
+
+  if (navScrollState.pinnedSectionId) {
+    const pinned = navScrollState.pinnedSectionId;
+    const detected = activeNavSectionFromViewport(doc, win, offset);
+    if (detected === pinned) {
+      navScrollState.pinnedSectionId = null;
+      if (navScrollState.pauseTimer) {
+        win.clearTimeout(navScrollState.pauseTimer);
+        navScrollState.pauseTimer = 0;
+      }
+    } else {
+      setActiveNavSection(pinned, doc);
+      return;
+    }
+  }
+
+  if (navScrollState.skipActiveUpdate) return;
+
+  const sectionId = activeNavSectionFromViewport(doc, win, offset);
   if (sectionId) setActiveNavSection(sectionId, doc);
 }
 
@@ -194,7 +331,30 @@ export function initMobileMenu() {
   });
   overlay.addEventListener('click', (event) => {
     const link = event.target.closest('a');
-    if (link && overlay.contains(link)) close();
+    if (!link || !overlay.contains(link)) return;
+
+    if (link.classList.contains('mobile-menu-item')) {
+      const href = link.getAttribute('href') || '';
+      const hashMatch = href.match(/^\/#(.+)$/);
+      const sectionId = link.getAttribute('data-section') || hashMatch?.[1] || '';
+
+      if (hashMatch && document.getElementById(hashMatch[1])) {
+        event.preventDefault();
+        setActiveNavSection(hashMatch[1], document);
+        scrollToNavSection(hashMatch[1], document);
+        pinNavSection(hashMatch[1], document);
+      } else if (href === '/' || href === '') {
+        event.preventDefault();
+        setActiveNavSection('home', document);
+        scrollToNavSection('home', document);
+        pinNavSection('home', document);
+      } else if (sectionId) {
+        setActiveNavSection(sectionId, document);
+        pinNavSection(sectionId, document);
+      }
+    }
+
+    close();
   });
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && overlay.classList.contains('active')) close();
@@ -434,23 +594,19 @@ export function reorderContentSections(doc = document) {
  * @param {Window} win
  */
 export function scrollToNavSection(sectionId, doc = document, win = window) {
-  if (sectionId === 'home') {
-    const heroSection = doc.querySelector('.hero-section');
-    if (heroSection) {
-      const targetPosition =
-        heroSection.getBoundingClientRect().top + win.pageYOffset - SCROLL_OFFSET;
-      win.scrollTo({ top: targetPosition, behavior: 'smooth' });
-    } else {
+  const offset = getNavScrollOffset(doc);
+  const blocks = getSectionBlocks(sectionId, doc);
+  const target = blocks[0];
+
+  if (!target) {
+    if (sectionId === 'home') {
       win.scrollTo({ top: 0, behavior: 'smooth' });
     }
     return;
   }
 
-  const target = doc.getElementById(sectionId);
-  if (target) {
-    const targetPosition = target.getBoundingClientRect().top + win.pageYOffset - SCROLL_OFFSET;
-    win.scrollTo({ top: targetPosition, behavior: 'smooth' });
-  }
+  const targetPosition = target.getBoundingClientRect().top + win.pageYOffset - offset;
+  win.scrollTo({ top: Math.max(0, targetPosition), behavior: 'smooth' });
 }
 
 /** @param {Document} doc */
@@ -478,13 +634,14 @@ function initNavLinkClicks(doc) {
       if (isHomeHash || sectionId === 'home') {
         setActiveNavSection('home', doc);
         scrollToNavSection('home', doc);
-        pauseNavScrollUpdates();
+        pinNavSection('home', doc);
         return;
       }
       if (inPageHash) {
-        setActiveNavSection(hashMatch[1], doc);
-        scrollToNavSection(hashMatch[1], doc);
-        pauseNavScrollUpdates();
+        const targetId = sectionId || hashMatch[1];
+        setActiveNavSection(targetId, doc);
+        scrollToNavSection(targetId, doc);
+        pinNavSection(targetId, doc);
       }
     });
   });
@@ -590,7 +747,7 @@ function initNavDragAndDrop(doc) {
         const sectionId = draggedElement.getAttribute('data-section');
         if (sectionId) {
           scrollToNavSection(sectionId, doc);
-          pauseNavScrollUpdates();
+          pinNavSection(sectionId, doc);
         }
 
         draggedElement.wasDragging = true;
@@ -731,7 +888,7 @@ export function bootEnhance() {
     scrollToSection: (sectionId) => {
       setActiveNavSection(sectionId, document);
       scrollToNavSection(sectionId, document);
-      pauseNavScrollUpdates();
+      pinNavSection(sectionId, document);
     },
   });
 }
