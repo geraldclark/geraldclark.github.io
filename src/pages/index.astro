@@ -62,18 +62,33 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
       </section>
 
       <section class="stats-grid" aria-label="Portfolio stats">
-        <div class="stat-card">
-          <div class="stat-label">Projects</div>
+        <div class="stat-card surface-card-interactive">
+          <div class="stat-card-heading">
+            <span class="accent-icon-badge accent-icon-badge--sm" aria-hidden="true">
+              <i class="fas fa-folder-open"></i>
+            </span>
+            <div class="stat-label">Projects</div>
+          </div>
           <div class="stat-value">{projects.length}</div>
           <div class="stat-footer">Plugins, platforms and writing</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-label">Live</div>
+        <div class="stat-card surface-card-interactive">
+          <div class="stat-card-heading">
+            <span class="accent-icon-badge accent-icon-badge--sm accent-icon-badge--green" aria-hidden="true">
+              <i class="fas fa-signal"></i>
+            </span>
+            <div class="stat-label">Live</div>
+          </div>
           <div class="stat-value">{onlineCount}</div>
           <div class="stat-footer">Projects maintained</div>
         </div>
-        <div class="stat-card">
-          <div class="stat-label">Experience</div>
+        <div class="stat-card surface-card-interactive">
+          <div class="stat-card-heading">
+            <span class="accent-icon-badge accent-icon-badge--sm" aria-hidden="true">
+              <i class="fas fa-hourglass-half"></i>
+            </span>
+            <div class="stat-label">Experience</div>
+          </div>
           <div
             class="stat-value"
             id="crm-experience-value"
@@ -89,8 +104,13 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
             )
           }
         </div>
-        <div class="stat-card">
-          <div class="stat-label">Location</div>
+        <div class="stat-card surface-card-interactive">
+          <div class="stat-card-heading">
+            <span class="accent-icon-badge accent-icon-badge--sm" aria-hidden="true">
+              <i class="fas fa-location-dot"></i>
+            </span>
+            <div class="stat-label">Location</div>
+          </div>
           <div class="stat-value stat-value-location">{locationCity}</div>
           {locationRegion && <div class="stat-footer">{locationRegion}</div>}
         </div>
@@ -102,7 +122,7 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
           <div class="section-line"></div>
         </div>
         <p class="section-intro">The short version.</p>
-        <div class="content-card">
+        <div class="content-card content-card--accent">
           <AboutCodeBlock about={about} />
         </div>
       </section>
@@ -139,14 +159,23 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
         <div class="skills-container">
           {
             skills.map((skill) => (
-              <article class="skill-category">
+              <article class="skill-category surface-card-interactive">
                 <h3 class="skill-category-title">
-                  {skill.icon && <i class={skill.icon} aria-hidden="true"></i>}
+                  {
+                    skill.icon && (
+                      <span class="accent-icon-badge accent-icon-badge--sm">
+                        <i class={skill.icon} aria-hidden="true"></i>
+                      </span>
+                    )
+                  }
                   {skill.category}
                 </h3>
-                <ul class="skill-list">
+                <ul class="skill-list skill-list--yaml">
                   {(skill.items || []).map((item) => (
-                    <li class="skill-item">{item.name}</li>
+                    <li class="skill-item">
+                      <span class="skill-item-marker" aria-hidden="true">-</span>
+                      <span class="skill-item-name">{item.name}</span>
+                    </li>
                   ))}
                 </ul>
               </article>
@@ -161,17 +190,25 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
           <div class="section-line"></div>
         </div>
         <p class="section-intro">Certs and milestones worth mentioning.</p>
-        <div class="content-card">
+        <div class="content-card content-card--accent">
           <div class="distinctions-container">
             {
               distinctions.map((item) => (
-                <article class="distinction-card">
-                  {item.icon && <i class={item.icon} aria-hidden="true"></i>}
-                  <h3>{item.name}</h3>
-                  <p>
-                    {item.issuer}
-                    {item.year ? ` · ${item.year}` : ''}
-                  </p>
+                <article class="distinction-card surface-card-interactive">
+                  {
+                    item.icon && (
+                      <span class="accent-icon-badge">
+                        <i class={item.icon} aria-hidden="true"></i>
+                      </span>
+                    )
+                  }
+                  <div class="distinction-card-body">
+                    <h3 class="distinction-card-title">{item.name}</h3>
+                    <p class="distinction-card-meta">
+                      <span class="distinction-card-issuer">{item.issuer}</span>
+                      {item.year && <span class="accent-meta-pill">{item.year}</span>}
+                    </p>
+                  </div>
                 </article>
               ))
             }
@@ -185,12 +222,12 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
           <div class="section-line"></div>
         </div>
         <p class="section-intro">Let's connect!</p>
-        <div class="content-card">
+        <div class="content-card content-card--accent">
           <div class="contact-grid contact-grid-static">
             {
               contact.map((item) => (
                 <a
-                  class="contact-item"
+                  class="contact-item surface-card-interactive"
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -216,50 +253,3 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
     <CloseTabModal />
   </div>
 </Base>
-
-<style>
-  .skill-category {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 1rem 1.25rem;
-  }
-
-  .skill-category-title {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    margin-bottom: 0.75rem;
-    font-size: 1rem;
-    color: var(--accent-orange);
-  }
-
-  .skill-list {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .skill-item {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    padding: 0.25rem 0.6rem;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-  }
-
-  .distinction-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 1rem;
-    color: inherit;
-    text-decoration: none;
-  }
-
-</style>
