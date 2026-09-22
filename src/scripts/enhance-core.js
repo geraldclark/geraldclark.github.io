@@ -4,6 +4,7 @@
  */
 
 import { experienceYearsFromSince } from '../lib/experience-years.js';
+import { initHeroTerminal } from './hero-terminal-ui.js';
 
 const NAV_ORDER_KEY = 'nav-order';
 const SCROLL_OFFSET = 96;
@@ -726,4 +727,11 @@ export function bootEnhance() {
   initHomeProjectsGrid();
   initCodeFolds();
   initNavTabs();
+  initHeroTerminal(document, window, {
+    scrollToSection: (sectionId) => {
+      setActiveNavSection(sectionId, document);
+      scrollToNavSection(sectionId, document);
+      pauseNavScrollUpdates();
+    },
+  });
 }

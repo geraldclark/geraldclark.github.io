@@ -1,0 +1,129 @@
+---
+interface AboutProp {
+  name: string;
+  roles?: string[];
+  location?: string;
+  passion?: string;
+  skills?: string[];
+}
+
+interface ProjectProp {
+  id: string;
+  name: string;
+}
+
+interface SkillCategory {
+  category: string;
+  items?: { name: string }[];
+}
+
+interface Distinction {
+  name: string;
+  issuer?: string;
+  year?: number | string;
+}
+
+interface ContactItem {
+  label: string;
+  value?: string;
+}
+
+interface Props {
+  about: AboutProp;
+  projects: ProjectProp[];
+  skills: SkillCategory[];
+  distinctions: Distinction[];
+  contact: ContactItem[];
+}
+
+const { about, projects, skills, distinctions, contact } = Astro.props;
+
+const terminalData = JSON.stringify({
+  about,
+  projects: projects.map((p) => ({ id: p.id, name: p.name })),
+  skills,
+  distinctions,
+  contact,
+});
+
+const heroRoles = about.roles?.slice(0, 2).join(' / ') ?? '';
+---
+
+<div class="terminal-window">
+  <div class="terminal-header">
+    <span class="terminal-dot red"></span>
+    <span class="terminal-dot yellow"></span>
+    <span class="terminal-dot green"></span>
+    <span class="terminal-title">gerald@portfolio:~$</span>
+  </div>
+  <div
+    class="terminal-body"
+    data-hero-terminal
+    role="region"
+    aria-label="Playful portfolio terminal"
+  >
+    <div class="hero-terminal-static">
+      <div class="terminal-line">
+        <span class="prompt">$</span>
+        <span class="command">whoami</span>
+      </div>
+      <div class="terminal-output">
+        <h1 class="hero-name">{about.name}</h1>
+        {heroRoles && <p class="hero-title">{heroRoles}</p>}
+      </div>
+    </div>
+
+    <div class="terminal-transcript" aria-live="polite"></div>
+
+    <div class="terminal-line terminal-input-line" data-hero-terminal-input-row hidden>
+      <span class="prompt">$</span>
+      <span class="terminal-input-grow">
+        <label class="visually-hidden" for="hero-terminal-input">Terminal command</label>
+        <span class="terminal-input-shell">
+          <span class="terminal-input-mirror command" aria-hidden="true">
+            <span data-hero-terminal-mirror-typed></span><span
+              class="terminal-fake-caret"
+              data-hero-terminal-cursor
+              aria-hidden="true"></span><span
+              class="terminal-mirror-suffix"
+              data-hero-terminal-suffix></span>
+          </span>
+          <input
+            id="hero-terminal-input"
+            type="text"
+            class="command terminal-input"
+            data-hero-terminal-input
+            autocomplete="off"
+            spellcheck="false"
+            autocapitalize="off"
+            enterkeyhint="go"
+            aria-autocomplete="inline"
+          />
+        </span>
+      </span>
+    </div>
+
+    <noscript>
+      <div class="terminal-line">
+        <span class="prompt">$</span>
+        <span class="command blinking">_</span>
+      </div>
+    </noscript>
+  </div>
+</div>
+
+<script type="application/json" id="hero-terminal-data" set:html={terminalData}></script>
+
+<style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

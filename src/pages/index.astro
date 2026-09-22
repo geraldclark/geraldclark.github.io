@@ -5,6 +5,7 @@ import SiteFooter from '../components/SiteFooter.astro';
 import CloseTabModal from '../components/CloseTabModal.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import AboutCodeBlock from '../components/AboutCodeBlock.astro';
+import HeroTerminal from '../components/HeroTerminal.astro';
 import {
   getPortfolio,
   getProjects,
@@ -51,28 +52,13 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
 
     <main class="dashboard">
       <section class="hero-section" id="top">
-        <div class="terminal-window">
-          <div class="terminal-header">
-            <span class="terminal-dot red"></span>
-            <span class="terminal-dot yellow"></span>
-            <span class="terminal-dot green"></span>
-            <span class="terminal-title">gerald@portfolio:~$</span>
-          </div>
-          <div class="terminal-body">
-            <div class="terminal-line">
-              <span class="prompt">$</span>
-              <span class="command">whoami</span>
-            </div>
-            <div class="terminal-output">
-              <h1 class="hero-name">{about.name}</h1>
-              <p class="hero-title">{about.roles?.slice(0, 2).join(' / ')}</p>
-            </div>
-            <div class="terminal-line">
-              <span class="prompt">$</span>
-              <span class="command blinking">_</span>
-            </div>
-          </div>
-        </div>
+        <HeroTerminal
+          about={about}
+          projects={projects}
+          skills={skills}
+          distinctions={distinctions}
+          contact={contact}
+        />
       </section>
 
       <section class="stats-grid" aria-label="Portfolio stats">

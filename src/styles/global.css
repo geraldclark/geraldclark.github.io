@@ -516,6 +516,158 @@ body {
     font-family: 'JetBrains Mono', monospace;
 }
 
+.terminal-body[data-hero-terminal] {
+    cursor: text;
+}
+
+.terminal-transcript:empty {
+    display: none;
+}
+
+.terminal-transcript:not(:empty) {
+    max-height: min(32vh, 260px);
+    overflow-y: auto;
+    margin: 8px 0 16px;
+    padding-right: 4px;
+}
+
+.terminal-cmd-echo {
+    margin-bottom: 8px;
+}
+
+.terminal-out-line {
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.terminal-out-error {
+    color: var(--accent-orange);
+}
+
+.terminal-out-help {
+    margin-bottom: 2px;
+    line-height: 1.55;
+}
+
+.terminal-out-help-title {
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.terminal-out-help:empty {
+    display: block;
+    height: 0.45em;
+    margin-bottom: 0.35em;
+}
+
+.terminal-hint-line {
+    color: var(--text-muted, var(--text-secondary));
+    font-size: 0.9em;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    opacity: 0.85;
+}
+
+.terminal-completion-hint {
+    font-size: 0.85em;
+    opacity: 0.9;
+    margin-bottom: 8px;
+}
+
+.terminal-input-line {
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+.terminal-input-grow {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: nowrap;
+    gap: 0;
+}
+
+.terminal-input-shell {
+    position: relative;
+    display: inline-grid;
+    flex: 0 1 auto;
+    min-width: 4ch;
+    max-width: 100%;
+    vertical-align: baseline;
+}
+
+.terminal-input-mirror,
+.terminal-input-line .terminal-input-shell .terminal-input {
+    grid-area: 1 / 1;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    white-space: pre;
+    word-break: normal;
+    overflow: hidden;
+    min-width: 4ch;
+    max-width: 100%;
+}
+
+.terminal-input-mirror {
+    pointer-events: none;
+    z-index: 0;
+    color: var(--text-primary);
+    display: inline-flex;
+    align-items: center;
+    line-height: 1.5;
+}
+
+.terminal-mirror-suffix {
+    color: var(--text-muted, var(--text-secondary));
+    opacity: 0.45;
+}
+
+.terminal-input-line .terminal-input-shell .terminal-input {
+    width: 100%;
+    z-index: 1;
+    line-height: 1.5;
+    background: transparent;
+    color: transparent;
+    caret-color: var(--text-primary);
+    outline: none;
+}
+
+.terminal-input-line .terminal-input-shell .terminal-input:focus {
+    outline: none;
+}
+
+.terminal-input-line .terminal-input-shell .terminal-input::selection {
+    background: color-mix(in srgb, var(--accent-orange) 35%, transparent);
+}
+
+.terminal-fake-caret {
+    flex: 0 0 2px;
+    width: 2px;
+    align-self: stretch;
+    min-height: 1.5em;
+    margin-left: -1px;
+    background: var(--text-primary);
+    animation: blink 1s infinite;
+}
+
+.terminal-input-line:not(:focus-within) .terminal-fake-caret {
+    display: inline-block;
+}
+
+.terminal-input-line:focus-within .terminal-fake-caret {
+    display: none;
+}
+
 .terminal-line {
     margin-bottom: 8px;
     display: flex;
@@ -2235,6 +2387,14 @@ body {
     /* Terminal adjustments */
     .terminal-body {
         padding: 20px 16px;
+    }
+
+    .terminal-transcript {
+        max-height: min(36vh, 240px);
+    }
+
+    .terminal-input {
+        font-size: 14px;
     }
 
     .terminal-title {
