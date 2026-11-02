@@ -61,18 +61,34 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
         />
       </section>
 
-      <section class="stats-row" aria-label="Portfolio stats">
-        <div class="stat">
+      <section class="stats-grid" aria-label="Portfolio stats">
+        <div class="stat-card surface-card-interactive">
+          <div class="stat-card-heading">
+            <span class="accent-icon-badge accent-icon-badge--sm" aria-hidden="true">
+              <i class="fas fa-folder-open"></i>
+            </span>
+            <div class="stat-label">Projects</div>
+          </div>
           <div class="stat-value">{projects.length}</div>
-          <div class="stat-label">Projects</div>
           <div class="stat-footer">Plugins, platforms and writing</div>
         </div>
-        <div class="stat">
+        <div class="stat-card surface-card-interactive">
+          <div class="stat-card-heading">
+            <span class="accent-icon-badge accent-icon-badge--sm accent-icon-badge--green" aria-hidden="true">
+              <i class="fas fa-signal"></i>
+            </span>
+            <div class="stat-label">Live</div>
+          </div>
           <div class="stat-value">{onlineCount}</div>
-          <div class="stat-label">Live</div>
           <div class="stat-footer">Projects maintained</div>
         </div>
-        <div class="stat">
+        <div class="stat-card surface-card-interactive">
+          <div class="stat-card-heading">
+            <span class="accent-icon-badge accent-icon-badge--sm" aria-hidden="true">
+              <i class="fas fa-hourglass-half"></i>
+            </span>
+            <div class="stat-label">Experience</div>
+          </div>
           <div
             class="stat-value"
             id="crm-experience-value"
@@ -80,7 +96,6 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
           >
             {experience ? `${experience.span}+` : 'N/A'}
           </div>
-          <div class="stat-label">Experience</div>
           {
             experience && (
               <div class="stat-footer" id="crm-experience-footer" data-crm-experience-footer>
@@ -89,9 +104,14 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
             )
           }
         </div>
-        <div class="stat">
+        <div class="stat-card surface-card-interactive">
+          <div class="stat-card-heading">
+            <span class="accent-icon-badge accent-icon-badge--sm" aria-hidden="true">
+              <i class="fas fa-location-dot"></i>
+            </span>
+            <div class="stat-label">Location</div>
+          </div>
           <div class="stat-value stat-value-location">{locationCity}</div>
-          <div class="stat-label">Location</div>
           {locationRegion && <div class="stat-footer">{locationRegion}</div>}
         </div>
       </section>
@@ -99,6 +119,7 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
       <section id="about" class="content-section">
         <div class="section-header">
           <h2 class="section-title">About.js</h2>
+          <div class="section-line"></div>
         </div>
         <p class="section-intro">CTO and co-founder at Upsert, building SugarAI plugins from Pittsburgh since 2008.</p>
         <div class="content-card content-card--accent">
@@ -109,6 +130,7 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
       <section id="projects" class="content-section">
         <div class="section-header">
           <h2 class="section-title">Projects.log</h2>
+          <div class="section-line"></div>
         </div>
         <p class="section-intro">
           SugarAI plugins, open-source add-ons, and writing.{' '}
@@ -131,6 +153,7 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
       <section id="skills" class="content-section">
         <div class="section-header">
           <h2 class="section-title">Skills.yml</h2>
+          <div class="section-line"></div>
         </div>
         <p class="section-intro">Languages, platforms, and the tools around a SugarAI practice.</p>
         <div class="skills-container">
@@ -164,6 +187,7 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
       <section id="distinctions" class="content-section">
         <div class="section-header">
           <h2 class="section-title">Distinctions.crt</h2>
+          <div class="section-line"></div>
         </div>
         <p class="section-intro">SugarCRM and SalesLogix certifications, Sugar Support MVP, and Eagle Scout.</p>
         <div class="content-card content-card--accent">
@@ -195,6 +219,7 @@ const jsonLd = [personSchema(), websiteSchema(), projectListSchema(projects)];
       <section id="contact" class="content-section">
         <div class="section-header">
           <h2 class="section-title"># Contact.md</h2>
+          <div class="section-line"></div>
         </div>
         <p class="section-intro">GitHub and LinkedIn.</p>
         <div class="content-card content-card--accent">
